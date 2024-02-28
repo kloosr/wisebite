@@ -1,9 +1,12 @@
-package service;
+package wisebite.wisebite.service;
 
-import model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.AdminRepository;
+import wisebite.wisebite.model.Admin;
+import wisebite.wisebite.model.Client;
+import wisebite.wisebite.model.Coach;
+import wisebite.wisebite.model.Dietitian;
+import wisebite.wisebite.repository.AdminRepository;
 
 @Service
 public class AdminService {
@@ -24,6 +27,9 @@ public class AdminService {
         return coach.getUsername();
     }
     public String registerAdmin(Admin admin) {
+        // TODO PASSWORD HASH
+        adminRepository.createUser(admin);
+        adminRepository.createAdmin(admin);
         return admin.getUsername();
     }
 }

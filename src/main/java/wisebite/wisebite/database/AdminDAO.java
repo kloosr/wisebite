@@ -1,6 +1,6 @@
-package database;
+package wisebite.wisebite.database;
 
-import model.Admin;
+import wisebite.wisebite.model.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -27,6 +27,11 @@ public class AdminDAO {
         } else {
             return resultList.getFirst();
         }
+    }
+
+    public void storeAdmin(Admin admin) {
+        String sql = "Insert into admin values (?);";
+        jdbcTemplate.update(sql, admin.getUsername());
     }
 
     private class AdminRowMapper implements RowMapper<Admin> {

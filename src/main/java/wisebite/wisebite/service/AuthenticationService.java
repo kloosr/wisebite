@@ -1,6 +1,4 @@
-package service;
-
-import org.springframework.security.crypto.bcrypt.BCrypt;
+package wisebite.wisebite.service;
 
 public class AuthenticationService {
 

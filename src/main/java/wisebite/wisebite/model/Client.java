@@ -1,6 +1,4 @@
-package model;
-
-import org.springframework.scheduling.config.Task;
+package wisebite.wisebite.model;
 
 import java.time.LocalDate;
 
