@@ -1,18 +1,18 @@
 package wisebite.wisebite.service;
 
+import wisebite.wisebite.database.UserDAO;
 import wisebite.wisebite.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import wisebite.wisebite.repository.JdbcUserDAO;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 public class AuthenticationService {
-    private final JdbcUserDAO jdbcUserDAO;
+    private final UserDAO userDAO;
     @Autowired
-    public AuthenticationService (JdbcUserDAO jdbcUserDAO) {this.jdbcUserDAO = jdbcUserDAO;}
+    public AuthenticationService (UserDAO userDAO) {this.userDAO = userDAO;}
     public Optional<User> findByUsername (String username) {
-        return jdbcUserDAO.findByUsername(username);
+        return userDAO.findByUsername(username);
     }
 }
