@@ -1,4 +1,4 @@
-package model;
+package wisebite.wisebite.model;
 
 public class Exercise {
     private String name;

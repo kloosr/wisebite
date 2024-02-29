@@ -1,12 +1,12 @@
-package model;
+package wisebite.wisebite.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Coach extends User {
     List<Client> allClients = new ArrayList<>();
-    public Coach(String username, String password, String firstName, String lastName) {
-        super(username, password, firstName, lastName);
+    public Coach(String username, String password, String firstName, String infix, String lastName) {
+        super(username, password, firstName, infix, lastName);
     }
     public void updateDiet(/*Diet*/){
         //TODO
