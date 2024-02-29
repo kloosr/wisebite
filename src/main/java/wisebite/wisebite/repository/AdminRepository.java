@@ -2,7 +2,6 @@ package wisebite.wisebite.repository;
 
 import wisebite.wisebite.database.*;
 import wisebite.wisebite.model.Admin;
-import wisebite.wisebite.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -29,3 +28,4 @@ public class AdminRepository {
         userDAO.storeUser(admin);
     }
 }
+ 
