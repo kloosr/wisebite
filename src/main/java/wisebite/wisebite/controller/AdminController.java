@@ -2,23 +2,27 @@ package wisebite.wisebite.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import wisebite.wisebite.dto.ClientDTO;
 import wisebite.wisebite.model.*;
 import wisebite.wisebite.service.AdminService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/user")
 public class AdminController {
+
     private final AdminService adminService;
 
     @Autowired
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }
+
     @PostMapping("/new/client")
-    private ResponseEntity<String> registerClient(@RequestBody Client client, UriComponentsBuilder ucb) {
+    private ResponseEntity<String> registerClient(@Valid @RequestBody ClientDTO clientDTO, UriComponentsBuilder ucb) {
+        Client client = clientDTO.convertToClient();
         if (usernameExists(client)) {
             return ResponseEntity.status(409).body("Username already exists.");
         } else {
