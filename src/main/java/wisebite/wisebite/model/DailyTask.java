@@ -3,14 +3,14 @@ package wisebite.wisebite.model;
 public class DailyTask {
     private final int id;
     Plan plan;
-    Diet diet;
+    Meal meal;
     Workout workout;
     private boolean dailyGoal;
 
-    public DailyTask(Plan plan, Diet diet, Workout workout, boolean dailyGoal){
+    public DailyTask(Plan plan, Meal meal, Workout workout, boolean dailyGoal){
         this.id = 0;
         this.plan = plan;
-        this.diet = diet;
+        this.meal = meal;
         this.workout = workout;
         this.dailyGoal = dailyGoal;
     }
