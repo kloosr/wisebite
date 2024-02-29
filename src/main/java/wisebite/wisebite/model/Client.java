@@ -10,6 +10,7 @@ public class Client extends User{
         super(username, password, firstName, infix, lastName);
         this.weight = weight;
         this.height = height;
+        this.setUserType(UserTypeEnum.CLIENT);
     }
 
     public double calculateBMI(double weight, int height){

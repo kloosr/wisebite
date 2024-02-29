@@ -21,22 +21,22 @@ public class AdminController {
     }
     @PostMapping("/new/client")
     private ResponseEntity<Void> registerClient(@RequestBody Client client, UriComponentsBuilder ucb) {
-        String username = adminService.registerClient(client);
+        String username = adminService.registerUser(client);
         return ResponseEntity.created(ucb.path("/user/{username}").buildAndExpand(username).toUri()).build();
     }
     @PostMapping("/new/dietitian")
     private ResponseEntity<Void> registerDietitian(@RequestBody Dietitian dietitian, UriComponentsBuilder ucb) {
-        String username = adminService.registerDietitian(dietitian);
+        String username = adminService.registerUser(dietitian);
         return ResponseEntity.created(ucb.path("/user/{username}").buildAndExpand(username).toUri()).build();
     }
     @PostMapping("/new/coach")
     private ResponseEntity<Void> registerCoach(@RequestBody Coach coach, UriComponentsBuilder ucb) {
-        String username = adminService.registerCoach(coach);
+        String username = adminService.registerUser(coach);
         return ResponseEntity.created(ucb.path("/user/{username}").buildAndExpand(username).toUri()).build();
     }
     @PostMapping("/new/admin")
     public ResponseEntity<Void> registerUser(@RequestBody Admin admin, UriComponentsBuilder ucb) {
-        String username = adminService.registerAdmin(admin);
+        String username = adminService.registerUser(admin);
         return ResponseEntity.created(ucb.path("/user/{username}").buildAndExpand(username).toUri()).build();
     }
 }

@@ -21,10 +21,11 @@ public class AdminRepository {
         this.coachDAO = coachDAO;
         this.adminDAO = adminDAO;
     }
-    public void createUser(User user) {
-        userDAO.storeUser(user);
+    public boolean usernameExists(String username) {
+        return userDAO.findByUsername(username).isPresent();
     }
     public void createAdmin(Admin admin) {
         adminDAO.storeAdmin(admin);
+        userDAO.storeUser(admin);
     }
 }

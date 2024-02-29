@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserDAO {
@@ -19,14 +20,14 @@ public class UserDAO {
     public UserDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-    public User findByUsername(String username) {
+    public Optional<User> findByUsername(String username) {
         String sql = "Select * from User where username = ?;";
         List<User> resultList =
                 jdbcTemplate.query(sql, new UserRowMapper(), username);
         if (resultList.isEmpty()) {
-            return null;
+            return Optional.empty();
         } else {
-            return resultList.getFirst();
+            return Optional.of(resultList.getFirst());
         }
     }
     public void storeUser(User user) {
