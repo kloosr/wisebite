@@ -43,4 +43,7 @@ public class AdminRepository {
                 break;
         }
     }
+    public void deleteUser(User user) {
+        userDAO.deleteUser(user);
+    }
 }

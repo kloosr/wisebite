@@ -20,6 +20,9 @@ public class AdminService {
         adminRepository.createUser(user);
         return user.getUsername();
     }
+    public void deleteUser(User user) {
+        adminRepository.deleteUser(user);
+    }
     public boolean usernameExists(User user) {
         return adminRepository.usernameExists(user.getUsername());
     }
