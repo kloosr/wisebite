@@ -6,8 +6,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import wisebite.wisebite.model.Client;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -30,8 +30,17 @@ public class ClientDAO {
     }
 
     public void storeClient(Client client) {
-        String sql = "Insert into client(username, weight, height, start_date) values (?, ?, ?, ?);";
-        jdbcTemplate.update(sql, client.getUsername());
+        jdbcTemplate.update(connection -> buildInsertUserStatement(client, connection ));
+    }
+    private PreparedStatement buildInsertUserStatement(
+            Client client, Connection connection) throws SQLException {
+        PreparedStatement ps = connection.prepareStatement(
+                "Insert into client(username, weight, height, start_date) values (?, ?, ?, ?);");
+        ps.setString(1, client.getUsername());
+        ps.setDouble(2, client.getWeight());
+        ps.setInt(3, client.getHeight());
+        ps.setDate(4, Date.valueOf(LocalDate.now()));
+        return ps;
     }
 
     private class ClientRowMapper implements RowMapper<Client> {

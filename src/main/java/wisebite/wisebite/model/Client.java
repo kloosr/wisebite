@@ -1,6 +1,5 @@
 package wisebite.wisebite.model;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 public class Client extends User{
@@ -39,5 +38,17 @@ public class Client extends User{
     public void addReceipe (){
         //TODO
         //optioneel
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public Date getStartDate() {
+        return startDate;
     }
 }

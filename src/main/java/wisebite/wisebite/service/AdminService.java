@@ -28,6 +28,5 @@ public class AdminService {
     }
     public void hashPassword(User user) {
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
-        System.out.println(user.getPassword());
     }
 }
