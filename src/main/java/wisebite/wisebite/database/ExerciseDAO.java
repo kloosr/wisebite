@@ -29,6 +29,12 @@ public class ExerciseDAO {
             return Optional.of(resultList.get(0));
         }
     }
+    public List<Exercise> getAllByWorkout (int id) {
+        String sql = "SELECT e.name, e.type, e.reps, e.weight_amount, e.duration FROM exercise e LEFT JOIN exerciseworkout ew " +
+                "ON e.name = ew.exercise WHERE workout = ?";
+        List<Exercise> exerciseList = jdbcTemplate.query(sql, new ExerciseRowMapper(), id);
+        return exerciseList;
+    }
 
     private class ExerciseRowMapper implements RowMapper<Exercise> {
 
@@ -37,7 +43,7 @@ public class ExerciseDAO {
             return new Exercise(rs.getString("name"),
                     rs.getString("type"),
                     rs.getInt("reps"),
-                    rs.getInt("weight"),
+                    rs.getInt("weight_amount"),
                     rs.getInt("duration"));
         }
     }

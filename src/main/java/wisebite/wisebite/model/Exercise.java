@@ -14,5 +14,25 @@ public class Exercise {
         this.weightAmount = weightAmount;
         this.duration = duration;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getReps() {
+        return reps;
+    }
+
+    public int getWeightAmount() {
+        return weightAmount;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
 }
 
