@@ -6,6 +6,7 @@ public class User {
     private String firstName;
     private String infix;
     private String lastName;
+    private UserTypeEnum userType;
 
     public User(String username, String password, String firstName, String infix, String lastName){
         this.username = username;
@@ -41,5 +42,12 @@ public class User {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public UserTypeEnum getUserType() {
+        return userType;
+    }
+    public void setUserType(UserTypeEnum userType) {
+        this.userType = userType;
     }
 }
