@@ -1,5 +1,8 @@
 package wisebite.wisebite.model;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 public class User {
     private String username;
     private String password;
@@ -49,5 +52,8 @@ public class User {
     }
     public void setUserType(UserTypeEnum userType) {
         this.userType = userType;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -1,15 +1,17 @@
 package wisebite.wisebite.model;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Client extends User{
     private double weight;
     private int height;
-    private LocalDate startDate;
-    public Client (String username, String password, String firstName, String infix, String lastName, double weight, int height){
+    private Date startDate;
+    public Client (String username, String password, String firstName, String infix, String lastName, double weight, int height, Date startDate){
         super(username, password, firstName, infix, lastName);
         this.weight = weight;
         this.height = height;
+        this.startDate = startDate;
         this.setUserType(UserTypeEnum.CLIENT);
     }
 

@@ -1,5 +1,6 @@
 package wisebite.wisebite.service;
 
+import org.mindrot.jbcrypt.BCrypt;
 import wisebite.wisebite.database.UserDAO;
 import wisebite.wisebite.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,4 +16,5 @@ public class AuthenticationService {
     public Optional<User> findByUsername (String username) {
         return userDAO.findByUsername(username);
     }
+
 }

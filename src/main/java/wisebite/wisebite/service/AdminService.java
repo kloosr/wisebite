@@ -1,5 +1,6 @@
 package wisebite.wisebite.service;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wisebite.wisebite.model.*;
@@ -15,21 +16,15 @@ public class AdminService {
     }
 
     public String registerUser(User user) {
-        if (adminRepository.usernameExists(user.getUsername())) {
-            // TODO RETURN ERROR?
-        } else {
-            // TODO PASSWORD HASH
-            UserTypeEnum userType = user.getUserType();
-            switch (userType) {
-                case ADMIN: adminRepository.createAdmin((Admin)user);
-                case CLIENT:
-                case DIETITIAN:
-                case COACH:
-                default: break;
-
-            }
-
-        }
+        hashPassword(user);
+        adminRepository.createUser(user);
         return user.getUsername();
+    }
+    public boolean usernameExists(User user) {
+        return adminRepository.usernameExists(user.getUsername());
+    }
+    public void hashPassword(User user) {
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+        System.out.println(user.getPassword());
     }
 }
