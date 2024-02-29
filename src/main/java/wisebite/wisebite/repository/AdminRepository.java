@@ -28,4 +28,3 @@ public class AdminRepository {
         userDAO.storeUser(admin);
     }
 }
- 
