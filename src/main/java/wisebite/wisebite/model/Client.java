@@ -13,10 +13,6 @@ public class Client extends User{
         this.setUserType(UserTypeEnum.CLIENT);
     }
 
-    public Client(String username, String password, String firstname, String infix, String lastname) {
-        super(username,password, firstname, infix,lastname);
-        this.setUserType(UserTypeEnum.CLIENT);
-    }
 
     public double calculateBMI(double weight, int height){
         //TODO

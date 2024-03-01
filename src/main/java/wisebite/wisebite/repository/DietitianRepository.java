@@ -1,20 +1,22 @@
 package wisebite.wisebite.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import wisebite.wisebite.database.*;
+import org.springframework.stereotype.Repository;
+import wisebite.wisebite.database.ClientDAO;
+import wisebite.wisebite.model.Client;
 
+import java.util.List;
+
+@Repository
 public class DietitianRepository {
-    /*private final UserDAO userDAO;
-    private final ClientDAO clientDAO;
-    private final DietitianDAO dietitianDAO;
-    private final CoachDAO coachDAO;
-    private final AdminDAO adminDAO;
-    @Autowired
-    public DietitianRepository(UserDAO userDAO, ClientDAO clientDAO, DietitianDAO dietitianDAO, CoachDAO coachDAO, AdminDAO adminDAO){
-        this.userDAO = userDAO;
-        this.clientDAO = clientDAO;
-        this.dietitianDAO = dietitianDAO;
-        this.coachDAO = coachDAO;
-        this.adminDAO = adminDAO;
-    } */
+        private ClientDAO clientDAO;
+        public DietitianRepository(ClientDAO clientDAO) {
+            this.clientDAO = clientDAO;
+        }
+        public List<Client> findAllClientsByDietitian(String dietitianUsername) {
+            return clientDAO.findClientByDietitian(dietitianUsername);
+        }
+
+        public Client getSingleClient(String username) {
+            return clientDAO.findClientByUsername(username);
+        }
 }
