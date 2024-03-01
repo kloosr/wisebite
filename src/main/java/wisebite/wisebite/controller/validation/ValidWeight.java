@@ -25,9 +25,9 @@ class WeightValidator implements
     }
 
     @Override
-    public boolean isValid(Double itemCount,
+    public boolean isValid(Double weight,
                            ConstraintValidatorContext cxt) {
-        return (itemCount > 40 && itemCount < 200);
+        return (weight > 40 && weight < 200);
     }
 
 }

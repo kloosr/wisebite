@@ -27,6 +27,7 @@ public class AdminService {
         return adminRepository.usernameExists(user.getUsername());
     }
     public void hashPassword(User user) {
-        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+        user.setSalt(BCrypt.gensalt());
+        user.setPassword(BCrypt.hashpw(user.getPassword(), user.getSalt()));
     }
 }

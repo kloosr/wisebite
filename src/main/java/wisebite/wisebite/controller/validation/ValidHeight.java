@@ -25,9 +25,9 @@ class HeightValidator implements
     }
 
     @Override
-    public boolean isValid(Integer itemCount,
+    public boolean isValid(Integer height,
                            ConstraintValidatorContext cxt) {
-        return (itemCount > 100 && itemCount < 250);
+        return (height > 100 && height < 250);
     }
 
 }
