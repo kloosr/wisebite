@@ -22,7 +22,7 @@ public class DietitianDAO {
                 "LEFT JOIN client c ON u.username = c.username " +
                 "WHERE c.dietitian_username = ?";
 
-        return jdbcTemplate.query(sql, new ClientDAO.ClientRowMapper(), dietitianUsername);
+        return jdbcTemplate.query(sql, new ClientDAO.clientWrapmapper, dietitianUsername);
     }
 
     public List<User> findCoachesByDietitianUsername(String dietitianUsername) {
