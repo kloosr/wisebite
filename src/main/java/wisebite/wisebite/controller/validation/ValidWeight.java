@@ -1,4 +1,4 @@
-package wisebite.wisebite.dto;
+package wisebite.wisebite.controller.validation;
 
 import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;
@@ -11,23 +11,23 @@ import java.lang.annotation.Target;
 
 @Target( { ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = HeightValidator.class)
-public @interface ValidHeight {
-    String message() default "Height should be between 100 and 250.";
+@Constraint(validatedBy = WeightValidator.class)
+public @interface ValidWeight {
+    String message() default "Weight should be between 40 and 200.";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
-class HeightValidator implements
-        ConstraintValidator<ValidHeight, Integer> {
+class WeightValidator implements
+        ConstraintValidator<ValidWeight, Double> {
 
     @Override
-    public void initialize(ValidHeight validWeight) {
+    public void initialize(ValidWeight validWeight) {
     }
 
     @Override
-    public boolean isValid(Integer itemCount,
+    public boolean isValid(Double itemCount,
                            ConstraintValidatorContext cxt) {
-        return (itemCount > 100 && itemCount < 250);
+        return (itemCount > 40 && itemCount < 200);
     }
 
 }
