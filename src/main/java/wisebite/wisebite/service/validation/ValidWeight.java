@@ -1,15 +1,12 @@
-package wisebite.wisebite.controller.validation;
+package wisebite.wisebite.service.validation;
 
-import javax.validation.Constraint;
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-import javax.validation.Payload;
+import jakarta.validation.*;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target( { ElementType.METHOD, ElementType.FIELD })
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = WeightValidator.class)
 public @interface ValidWeight {
@@ -18,16 +15,22 @@ public @interface ValidWeight {
     Class<? extends Payload>[] payload() default {};
 }
 class WeightValidator implements
-        ConstraintValidator<ValidWeight, Double> {
-
-    @Override
-    public void initialize(ValidWeight validWeight) {
+        ConstraintValidator<ValidWeight, Integer> {
+    private final Integer MIN_WEIGHT = 40;
+    private final Integer MAX_WEIGHT = 300;
+    private String message() {
+        return String.format("Height should be between %d and %d.", MIN_WEIGHT, MAX_WEIGHT);
     }
 
     @Override
-    public boolean isValid(Double weight,
+    public void initialize(ValidWeight validWeight) {
+        ConstraintValidator.super.initialize(validWeight);
+    }
+
+    @Override
+    public boolean isValid(Integer weight,
                            ConstraintValidatorContext cxt) {
-        return (weight > 40 && weight < 200);
+        return (weight > MIN_WEIGHT && weight < MAX_WEIGHT);
     }
 
 }

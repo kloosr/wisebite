@@ -2,12 +2,17 @@ package wisebite.wisebite.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import wisebite.wisebite.dto.AdminDTO;
 import wisebite.wisebite.dto.ClientDTO;
+import wisebite.wisebite.dto.CoachDTO;
+import wisebite.wisebite.dto.DietitianDTO;
 import wisebite.wisebite.model.*;
 import wisebite.wisebite.service.AdminService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping("/user")
@@ -21,6 +26,7 @@ public class AdminController {
     }
 
     @PostMapping("/new/client")
+    @Validated
     private ResponseEntity<String> registerClient(@Valid @RequestBody ClientDTO clientDTO, UriComponentsBuilder ucb) {
         Client client = clientDTO.convertToClient();
         if (usernameExists(client)) {
@@ -31,7 +37,8 @@ public class AdminController {
         }
     }
     @PostMapping("/new/dietitian")
-    private ResponseEntity<String> registerDietitian(@RequestBody Dietitian dietitian, UriComponentsBuilder ucb) {
+    private ResponseEntity<String> registerDietitian(@RequestBody DietitianDTO dietitianDTO, UriComponentsBuilder ucb) {
+        Dietitian dietitian = dietitianDTO.convertToDietitian();
         if (usernameExists(dietitian)) {
             return ResponseEntity.status(409).body("Username already exists.");
         } else {
@@ -40,7 +47,8 @@ public class AdminController {
         }
     }
     @PostMapping("/new/coach")
-    private ResponseEntity<String> registerCoach(@RequestBody Coach coach, UriComponentsBuilder ucb) {
+    private ResponseEntity<String> registerCoach(@RequestBody CoachDTO coachDTO, UriComponentsBuilder ucb) {
+        Coach coach = coachDTO.convertToCoach();
         if (usernameExists(coach)) {
             return ResponseEntity.status(409).body("Username already exists.");
         } else {
@@ -49,7 +57,8 @@ public class AdminController {
         }
     }
     @PostMapping("/new/admin")
-    public ResponseEntity<String> registerUser(@RequestBody Admin admin, UriComponentsBuilder ucb) {
+    public ResponseEntity<String> registerUser(@RequestBody AdminDTO adminDTO, UriComponentsBuilder ucb) {
+        Admin admin = adminDTO.convertToAdmin();
         if (usernameExists(admin)) {
             return ResponseEntity.status(409).body("Username already exists.");
         } else {

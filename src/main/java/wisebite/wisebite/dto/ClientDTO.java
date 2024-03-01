@@ -1,7 +1,7 @@
 package wisebite.wisebite.dto;
 
-import wisebite.wisebite.controller.validation.ValidHeight;
-import wisebite.wisebite.controller.validation.ValidWeight;
+import wisebite.wisebite.service.validation.ValidHeight;
+import wisebite.wisebite.service.validation.ValidWeight;
 import wisebite.wisebite.model.Client;
 import jakarta.validation.constraints.*;
 import java.sql.Date;
@@ -14,9 +14,9 @@ public class ClientDTO extends UserDTO {
 
     @NotNull
     @ValidWeight
-    private Double weight;
+    private Integer weight;
 
-    public ClientDTO(String username, String password, String firstName, String infix, String lastName, int height, double weight) {
+    public ClientDTO(String username, String password, String firstName, String infix, String lastName, Integer height, Integer weight) {
         super(username, password, firstName, infix, lastName);
         this.height = height;
         this.weight = weight;

@@ -1,4 +1,4 @@
-package wisebite.wisebite.controller.validation;
+package wisebite.wisebite.service.validation;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
