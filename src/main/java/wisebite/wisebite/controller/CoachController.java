@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import wisebite.wisebite.model.Diet;
 import wisebite.wisebite.model.Workout;
 import wisebite.wisebite.service.PlanningService;
 
@@ -18,12 +19,22 @@ public class CoachController {
     public CoachController(PlanningService planningService) {this.planningService = planningService;}
     @GetMapping("/workout/{id}")
     private ResponseEntity<Workout> getById(@PathVariable int id) {
-        Workout workout = planningService.getById(id);
+        Workout workout = planningService.getWorkoutById(id);
         if (workout == null) {
+            // TODO figure out how to sent error message
             return ResponseEntity.notFound().build();
         } else {
             return ResponseEntity.ok(workout);
         }
-//        return workout.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+    @GetMapping("/diet/{id}")
+    private ResponseEntity<Diet> getDietById(@PathVariable int id) {
+        Diet diet = planningService.getDietById(id);
+        if (diet == null) {
+            // TODO figure out how to sent error message
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(diet);
+        }
     }
 }
