@@ -9,16 +9,14 @@ public class User {
     private String firstName;
     private String infix;
     private String lastName;
-    private String salt;
     private UserTypeEnum userType;
 
-    public User(String username, String password, String salt, String firstName, String infix, String lastName){
+    public User(String username, String password, String firstName, String infix, String lastName){
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.infix = infix;
         this.lastName = lastName;
-        this.salt = salt;
     }
 
     public void planAppointment(){
@@ -57,13 +55,5 @@ public class User {
     }
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 }
