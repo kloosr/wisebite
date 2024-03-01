@@ -4,7 +4,7 @@ public class Exercise {
     private String name;
     private String type;
     private int  reps;
-    private int weightAmount;
+    private final int weightAmount;
     private int duration;
 
     public Exercise(String name, String type, int reps, int weightAmount, int duration){
@@ -13,6 +13,26 @@ public class Exercise {
         this.reps = reps;
         this.weightAmount = weightAmount;
         this.duration = duration;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getReps() {
+        return reps;
+    }
+
+    public int getWeightAmount() {
+        return weightAmount;
+    }
+
+    public int getDuration() {
+        return duration;
     }
 }
 
