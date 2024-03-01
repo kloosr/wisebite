@@ -28,7 +28,11 @@ import java.util.List;
     @GetMapping("/overview/{username}")
     public ResponseEntity<List<Client>> getDietitianOverview(String dietitianUsername) {
         List<Client> clients = userManagementService.getClientsForDietitian(dietitianUsername);
-        return new ResponseEntity<>(clients, HttpStatus.OK);
+        if (clients != null) {
+            return new ResponseEntity<>(clients, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
     @GetMapping("/client/{username}")
     public ResponseEntity<Client> getClientByUsername(@PathVariable String username) {
