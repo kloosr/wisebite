@@ -55,6 +55,7 @@ public class UserDAO {
         public User mapRow(ResultSet resultSet, int rowNumber) throws SQLException {
             return new User(resultSet.getString("username"),
                     resultSet.getString("password"),
+                    resultSet.getString("salt"),
                     resultSet.getString("firstname"),
                     resultSet.getString("infix"),
                     resultSet.getString("lastname"));

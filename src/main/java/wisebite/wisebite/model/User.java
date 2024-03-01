@@ -12,12 +12,13 @@ public class User {
     private String salt;
     private UserTypeEnum userType;
 
-    public User(String username, String password, String firstName, String infix, String lastName){
+    public User(String username, String password, String salt, String firstName, String infix, String lastName){
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.infix = infix;
         this.lastName = lastName;
+        this.salt = salt;
     }
 
     public void planAppointment(){

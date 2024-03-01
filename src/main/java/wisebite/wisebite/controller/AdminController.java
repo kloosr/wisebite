@@ -37,7 +37,7 @@ public class AdminController {
         }
     }
     @PostMapping("/new/dietitian")
-    private ResponseEntity<String> registerDietitian(@RequestBody DietitianDTO dietitianDTO, UriComponentsBuilder ucb) {
+    private ResponseEntity<String> registerDietitian(@Valid @RequestBody DietitianDTO dietitianDTO, UriComponentsBuilder ucb) {
         Dietitian dietitian = dietitianDTO.convertToDietitian();
         if (usernameExists(dietitian)) {
             return ResponseEntity.status(409).body("Username already exists.");
@@ -47,7 +47,7 @@ public class AdminController {
         }
     }
     @PostMapping("/new/coach")
-    private ResponseEntity<String> registerCoach(@RequestBody CoachDTO coachDTO, UriComponentsBuilder ucb) {
+    private ResponseEntity<String> registerCoach(@Valid @RequestBody CoachDTO coachDTO, UriComponentsBuilder ucb) {
         Coach coach = coachDTO.convertToCoach();
         if (usernameExists(coach)) {
             return ResponseEntity.status(409).body("Username already exists.");
@@ -57,7 +57,7 @@ public class AdminController {
         }
     }
     @PostMapping("/new/admin")
-    public ResponseEntity<String> registerUser(@RequestBody AdminDTO adminDTO, UriComponentsBuilder ucb) {
+    public ResponseEntity<String> registerUser(@Valid @RequestBody AdminDTO adminDTO, UriComponentsBuilder ucb) {
         Admin admin = adminDTO.convertToAdmin();
         if (usernameExists(admin)) {
             return ResponseEntity.status(409).body("Username already exists.");

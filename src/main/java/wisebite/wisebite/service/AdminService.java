@@ -9,6 +9,7 @@ import wisebite.wisebite.repository.AdminRepository;
 @Service
 public class AdminService {
     private final AdminRepository adminRepository;
+    private final String PEPPER = "51ee225ad94608e5508ac1e49d47ac9a";
 
     @Autowired
     public AdminService(AdminRepository adminRepository) {
@@ -28,6 +29,6 @@ public class AdminService {
     }
     public void hashPassword(User user) {
         user.setSalt(BCrypt.gensalt());
-        user.setPassword(BCrypt.hashpw(user.getPassword(), user.getSalt()));
+        user.setPassword(BCrypt.hashpw(user.getPassword(), PEPPER + user.getSalt()));
     }
 }
