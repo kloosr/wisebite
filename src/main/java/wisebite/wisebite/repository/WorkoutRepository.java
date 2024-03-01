@@ -21,9 +21,11 @@ public class WorkoutRepository {
         Workout workout = new Workout();
         if (workoutDAO.getWorkoutById(id).isPresent()) {
             workout = workoutDAO.getWorkoutById(id).get();
+            List<Exercise> exerciseList = exerciseDAO.getAllByWorkout(id);
+            workout.setExerciseList(exerciseList);
+        } else {
+            return null;
         }
-        List<Exercise> exerciseList = exerciseDAO.getAllByWorkout(id);
-        workout.setExerciseList(exerciseList);
         return workout;
     }
 }

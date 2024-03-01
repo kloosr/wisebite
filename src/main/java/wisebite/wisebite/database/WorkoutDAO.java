@@ -14,6 +14,7 @@ import java.util.*;
 
 @Repository
 public class WorkoutDAO {
+    private final String NAME = "name";
     JdbcTemplate jdbcTemplate;
     DataSource dataSource;
     @Autowired
@@ -39,7 +40,7 @@ public class WorkoutDAO {
     }
     private Map<String, Object> mapInsertParameters(Workout workout) {
         Map<String, Object> insertParameters = new HashMap<>();
-        insertParameters.put("name", workout.getName());
+        insertParameters.put(NAME, workout.getName());
         insertParameters.put("duration", workout.getDuration());
         insertParameters.put("burned_calories", workout.getBurnedCalories());
         return insertParameters;
@@ -48,7 +49,7 @@ public class WorkoutDAO {
         @Override
         public Workout mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new Workout(rs.getInt("id"),
-                    rs.getString("name"),
+                    rs.getString(NAME),
                     rs.getInt("duration"),
                     rs.getInt("burned_calories"));
         }

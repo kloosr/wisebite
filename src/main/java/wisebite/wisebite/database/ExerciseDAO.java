@@ -13,6 +13,11 @@ import java.util.Optional;
 
 @Repository
 public class ExerciseDAO {
+    private final String NAME = "name";
+    private final String TYPE = "type";
+    private final String REPS = "reps";
+    private final String WEIGHT = "weight_amount";
+    private final String DURATION = "duration";
     JdbcTemplate jdbcTemplate;
     @Autowired
     public ExerciseDAO(JdbcTemplate jdbcTemplate) {this.jdbcTemplate = jdbcTemplate;}
@@ -40,11 +45,11 @@ public class ExerciseDAO {
 
         @Override
         public Exercise mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Exercise(rs.getString("name"),
-                    rs.getString("type"),
-                    rs.getInt("reps"),
-                    rs.getInt("weight_amount"),
-                    rs.getInt("duration"));
+            return new Exercise(rs.getString(NAME),
+                    rs.getString(TYPE),
+                    rs.getInt(REPS),
+                    rs.getInt(WEIGHT),
+                    rs.getInt(DURATION));
         }
     }
 }
