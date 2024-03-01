@@ -11,16 +11,7 @@ import java.util.Optional;
 
 @Service
 public class UserManagementService {
-    private UserDAO userDAO;
 
-    public Optional<Client> getClientByUsername(String username) {
-       return  ClientDAO.getClientByUsername(username);
-    }
-
-    public boolean isClientAssignedToDoctor(String username, String doctorUsername) {
-
-        return false;
-    }
 }
 
 
