@@ -3,6 +3,7 @@ package wisebite.wisebite.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wisebite.wisebite.model.Client;
+import wisebite.wisebite.repository.ClientRepository;
 import wisebite.wisebite.repository.DietitianRepository;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Service
 public class UserManagementService {
     private DietitianRepository dietitianRepository;
+    private ClientRepository clientRepository;
     @Autowired
     public UserManagementService(DietitianRepository dietitianRepository) {
         this.dietitianRepository = dietitianRepository;
@@ -21,5 +23,10 @@ public class UserManagementService {
     public Client findClientByUsername(String username) {
         return dietitianRepository.getSingleClient(username);
     }
+
+    public boolean isClientOnDietitianList(String username, String dietitianUsername){
+        return clientRepository.isClientOnDietitianList(username, dietitianUsername);
+    }
 }
+
 
