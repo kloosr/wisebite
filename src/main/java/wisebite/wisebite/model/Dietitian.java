@@ -10,6 +10,7 @@ public class Dietitian extends User {
 
     public Dietitian (String username, String password, String firstName, String infix, String lastName){
         super(username, password, firstName, infix, lastName);
+        this.setUserType(UserTypeEnum.DIETITIAN);
     }
 
     public void getAllClients(){
