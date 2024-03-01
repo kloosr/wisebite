@@ -46,7 +46,7 @@ import java.util.List;
         if (client == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        if (!userManagementService.isClientOnDietitianList(username, username)) {
+        if (!userManagementService.isClientOnDietitianList(username)) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(client, HttpStatus.OK);

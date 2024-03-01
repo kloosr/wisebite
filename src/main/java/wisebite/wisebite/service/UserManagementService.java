@@ -24,8 +24,8 @@ public class UserManagementService {
         return dietitianRepository.getSingleClient(username);
     }
 
-    public boolean isClientOnDietitianList(String username, String dietitianUsername){
-        return clientRepository.isClientOnDietitianList(username, dietitianUsername);
+    public boolean isClientOnDietitianList(String username){
+        return clientRepository.isClientOnDietitianList(username);
     }
 }
 
