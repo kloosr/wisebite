@@ -20,4 +20,40 @@ public class DailyTask {
         //TODO
         return true;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public Plan getPlan() {
+        return plan;
+    }
+
+    public void setPlan(Plan plan) {
+        this.plan = plan;
+    }
+
+    public Diet getDiet() {
+        return diet;
+    }
+
+    public void setDiet(Diet diet) {
+        this.diet = diet;
+    }
+
+    public Workout getWorkout() {
+        return workout;
+    }
+
+    public void setWorkout(Workout workout) {
+        this.workout = workout;
+    }
+
+    public boolean isDailyGoal() {
+        return dailyGoal;
+    }
+
+    public void setDailyGoal(boolean dailyGoal) {
+        this.dailyGoal = dailyGoal;
+    }
 }
