@@ -2,6 +2,7 @@ package wisebite.wisebite.dto;
 
 import java.util.Date;
 //This class is used to transfer data between processes.
+//DailyTaskDTO is a simple POJO (Plain Old Java Object) used for data transfer.
 public class DailyTaskDTO {
     private int id;
     private Date date;
@@ -11,6 +12,10 @@ public class DailyTaskDTO {
         this.id = id;
         this.date = date;
         this.dailyGoal = dailyGoal;
+    }
+
+    public DailyTaskDTO() {
+
     }
 
     public int getId() {
