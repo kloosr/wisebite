@@ -15,7 +15,7 @@ public class DailyTaskDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public static List<DailyTask> findByClientAndDate(String clientUsername, Date date){
+    public List<DailyTask> findByClientAndDate(String clientUsername, Date date){
         String sql = "SELECT * FROM DailyTask WHERE client = ? AND date = ?";
         return jdbcTemplate.query(sql, new Object[]{clientUsername,date}, new DailyTaskRowMapper());
     }
