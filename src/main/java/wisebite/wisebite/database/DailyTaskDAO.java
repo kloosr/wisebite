@@ -33,9 +33,10 @@ public class DailyTaskDAO {
     }
 
     private class DailyTaskRowMapper implements RowMapper<DailyTask> {
-        ClientDAO clientDAO;
-        WorkoutDAO workoutDAO;
-        DietDAO dietDAO;
+        // TODO ask michel if this is the way
+        ClientDAO clientDAO = new ClientDAO(jdbcTemplate);
+        WorkoutDAO workoutDAO = new WorkoutDAO(jdbcTemplate, dataSource);
+        DietDAO dietDAO = new DietDAO(jdbcTemplate, dataSource);
         @Override
         public DailyTask mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new DailyTask(rs.getDate(DATE),

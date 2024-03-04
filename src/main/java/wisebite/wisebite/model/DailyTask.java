@@ -1,5 +1,7 @@
 package wisebite.wisebite.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class DailyTask {
@@ -7,6 +9,7 @@ public class DailyTask {
     // it should not be final, because it will be set by JPA (Java Persistence API) when the entity is persisted,
     // not by your application code when the object is created.
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date date;
     Diet diet;
     Workout workout;
