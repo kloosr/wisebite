@@ -67,7 +67,7 @@ public class AdminController {
         }
     }
     @PostMapping("/delete")
-    public ResponseEntity<String> deleteUser(@RequestBody User user) {
+    public ResponseEntity<String> deleteUser(@Valid @RequestBody User user) {
         if (usernameExists(user)) {
             adminService.deleteUser(user);
             return ResponseEntity.status(200).body("User successfully deleted.");

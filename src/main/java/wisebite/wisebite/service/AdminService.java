@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import wisebite.wisebite.model.*;
 import wisebite.wisebite.repository.AdminRepository;
 
+import java.util.Optional;
+
 @Service
 public class AdminService {
     private final AdminRepository adminRepository;
@@ -24,10 +26,20 @@ public class AdminService {
     public void deleteUser(User user) {
         adminRepository.deleteUser(user);
     }
-    public boolean usernameExists(User user) {
-        return adminRepository.usernameExists(user.getUsername());
+    public boolean usernameExists(String username) {
+        Optional<User> retrievedUser = adminRepository.getUserByUsername(username);
+        return retrievedUser.isPresent();
     }
     public void hashPassword(User user) {
         user.setPassword(BCrypt.hashpw(user.getPassword(), PEPPER + BCrypt.gensalt()));
+    }
+    public boolean checkPassword(User user, String password) {
+        Optional<User> retrievedUser = adminRepository.getUserByUsername(user.getUsername());
+        if (retrievedUser.isPresent()) {
+            String hash = retrievedUser.get().getPassword();
+            return BCrypt.checkpw(password, hash);
+        } else {
+            return false;
+        }
     }
 }
