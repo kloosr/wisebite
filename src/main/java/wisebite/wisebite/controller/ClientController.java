@@ -1,38 +1,33 @@
 package wisebite.wisebite.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import wisebite.wisebite.dto.DailyTaskDTO;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import wisebite.wisebite.model.DailyTask;
-import wisebite.wisebite.repository.DailyTaskRepository;
-
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import wisebite.wisebite.service.PlanningService;
 @RestController
-@RequestMapping("/client/diary")
+@RequestMapping
 public class ClientController {
+    private PlanningService planningService;
+
     @Autowired
-    private DailyTaskRepository dailyTaskRepository;
-    @GetMapping("{username}")
-    public ResponseEntity<List<DailyTaskDTO>> getDailyTasksByClientAndDate(
-            @PathVariable String username,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
-        List<DailyTask> tasks = dailyTaskRepository.findByClientAndDate(username, date);
-        List<DailyTaskDTO> dtos = tasks.stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-               return ResponseEntity.ok(dtos);
+    public ClientController(PlanningService planningService) {
+        this.planningService = planningService;
+    }
+    @GetMapping("/client/{username}/dailytasklist")
+    public ResponseEntity<DailyTask> findByClient(@PathVariable String clientUsername){
+        DailyTask dailyTask = planningService.findByClient(clientUsername);
+        if (dailyTask != null){
+            return new ResponseEntity<>(dailyTask, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    private DailyTaskDTO convertToDTO(DailyTask task) {
-        DailyTaskDTO dto = new DailyTaskDTO();
-        dto.setId(task.getId());
-        dto.setDate(task.getDate());
-        dto.setDailyGoal(task.isDailyGoal());
-        return dto;
-    }
 }
+
+

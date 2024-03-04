@@ -8,7 +8,14 @@ import wisebite.wisebite.model.DailyTask;
 import java.util.Date;
 import java.util.List;
 @Repository
-public interface DailyTaskRepository extends JpaRepository<DailyTask, Integer> {
-    List<DailyTask> findByClientAndDate (String clientUsername, Date date);
+public class DailyTaskRepository {
+    private DailyTaskDAO dailyTaskDAO;
+
+    public DailyTaskRepository(DailyTaskDAO dailyTaskDAO) {
+        this.dailyTaskDAO = dailyTaskDAO;
     }
+    public List<DailyTask> findByClient(String clientUsername){
+        return dailyTaskDAO.findByClient(clientUsername);
+    }
+}
 
