@@ -13,20 +13,8 @@ import java.util.List;
 @Repository
 public class CoachDAO {
     JdbcTemplate jdbcTemplate;
-    @Autowired
-    public CoachDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-    public Coach findByUsername(String username) {
-        String sql = "Select * from Coach where username = ?;";
-        List<Coach> resultList =
-                jdbcTemplate.query(sql, new CoachRowMapper(), username);
-        if (resultList.isEmpty()) {
-            return null;
-        } else {
-            return resultList.getFirst();
-        }
-    }
+
+
     public List<Coach> getAllCoaches(){
         String sql = "SELECT * FROM User JOIN Coach ON user.username = coach.username";
         return jdbcTemplate.query(sql, new CoachRowMapper());
@@ -36,7 +24,7 @@ public class CoachDAO {
         String sql = "Insert into coach(username) values (?);";
         jdbcTemplate.update(sql, coach.getUsername());
     }
-    JdbcTemplate jdbcTemplate;
+
     @Autowired
     public CoachDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -52,12 +40,7 @@ public class CoachDAO {
         }
     }
 
-    public void storeCoach(Coach coach) {
-        String sql = "Insert into coach(username) values (?);";
-        jdbcTemplate.update(sql, coach.getUsername());
-    }
-
-    private class CoachRowMapper implements RowMapper<Coach> {
+    private static class CoachRowMapper implements RowMapper<Coach> {
         @Override
         public Coach mapRow(ResultSet resultSet, int rowNumber)
                 throws SQLException {
@@ -70,15 +53,4 @@ public class CoachDAO {
     }
 }
 
-    private class CoachRowMapper implements RowMapper<Coach> {
-        @Override
-        public Coach mapRow(ResultSet resultSet, int rowNumber)
-                throws SQLException {
-            return new Coach(resultSet.getString("username"),
-                    resultSet.getString("password"),
-                    resultSet.getString("firstname"),
-                    resultSet.getString("infix"),
-                    resultSet.getString("lastname"));
-        }
-    }
-}
+

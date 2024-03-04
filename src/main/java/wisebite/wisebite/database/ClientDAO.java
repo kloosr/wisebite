@@ -17,12 +17,7 @@ public class ClientDAO {
     public ClientDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
-    JdbcTemplate jdbcTemplate;
-    @Autowired
-    public ClientDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+ul
     public Client findByUsername(String username) {
         String sql = "SELECT * FROM User LEFT JOIN Client ON User.username = Client.username WHERE User.username = ?;";
         List<Client> resultList =
