@@ -50,13 +50,13 @@ public class ClientDAO {
         return jdbcTemplate.query(sql, new ClientRowMapper());
     }
 
-    public List<Client> findClientByDietitian(String dietitianUsername) {
-        String sql = "SELECT u.username, u.firstname, u.infix, u.lastname FROM User u JOIN Client c ON u.username = c.username WHERE c.dietitian = ?";
+    public List<Client> findClientsByDietitian(String dietitianUsername) {
+        String sql = "SELECT u.username, u.password, u.firstname, u.infix, u.lastname, c.weight, c.height, c.start_date FROM User u JOIN Client c ON u.username = c.username WHERE c.dietitian = ?";
         return jdbcTemplate.query(sql, new ClientRowMapper(), dietitianUsername);
     }
 
     public Client findClientByUsername(String username) {
-        String sql = "SELECT u.username, u.firstname, u.infix, u.lastname FROM User u JOIN Client c ON u.username = c.username WHERE u.username = ?";
+        String sql = "SELECT u.username, u.password, u.firstname, u.infix, u.lastname, c.weight, c.height, c.start_date FROM User u JOIN Client c ON u.username = c.username WHERE u.username = ?";
         return jdbcTemplate.queryForObject(sql, new ClientRowMapper(), username);
     }
 
