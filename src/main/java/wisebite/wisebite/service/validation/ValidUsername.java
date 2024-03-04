@@ -20,6 +20,10 @@ public @interface ValidUsername {
 class UsernameValidator implements
         ConstraintValidator<ValidUsername, String> {
     private AdminService adminService;
+    @Autowired
+    UsernameValidator(AdminService adminService) {
+        this.adminService = adminService;
+    }
     @Override
     public void initialize(ValidUsername validUsername) {
         ConstraintValidator.super.initialize(validUsername);

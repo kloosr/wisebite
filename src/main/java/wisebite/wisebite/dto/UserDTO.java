@@ -2,9 +2,17 @@ package wisebite.wisebite.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Setter;
+import wisebite.wisebite.model.Admin;
+import wisebite.wisebite.model.User;
+import wisebite.wisebite.model.UserTypeEnum;
+import wisebite.wisebite.service.validation.ValidUsername;
 
 public class UserDTO {
     @NotEmpty
+    @Size(min = 5, message = "Username should have at least 5 characters.")
+    @ValidUsername
     private String username;
 
     @NotEmpty
@@ -18,6 +26,7 @@ public class UserDTO {
 
     @NotEmpty
     private String lastName;
+    private UserTypeEnum userType;
 
     public UserDTO(String username, String password, String firstName, String infix, String lastName) {
         this.username = username;
@@ -25,6 +34,10 @@ public class UserDTO {
         this.firstName = firstName;
         this.infix = infix;
         this.lastName = lastName;
+    }
+
+    public User convertDTO() {
+        return new User(this.username, this.password, this.firstName, this.infix, this.lastName);
     }
 
     public String getUsername() {
@@ -46,4 +59,12 @@ public class UserDTO {
     public String getLastName() {
         return lastName;
     }
+
+    public UserTypeEnum getUserType() {
+        return userType;
+    }
+    public void setUserType(UserTypeEnum userType) {
+        this.userType = userType;
+    }
+
 }

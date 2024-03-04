@@ -15,11 +15,11 @@ public @interface ValidWeight {
     Class<? extends Payload>[] payload() default {};
 }
 class WeightValidator implements
-        ConstraintValidator<ValidWeight, Integer> {
-    private final Integer MIN_WEIGHT = 40;
-    private final Integer MAX_WEIGHT = 300;
+        ConstraintValidator<ValidWeight, Double> {
+    private final Double MIN_WEIGHT = 40.0;
+    private final Double MAX_WEIGHT = 300.0;
     private String message() {
-        return String.format("Height should be between %d and %d.", MIN_WEIGHT, MAX_WEIGHT);
+        return String.format("Height should be between %f and %f.", MIN_WEIGHT, MAX_WEIGHT);
     }
 
     @Override
@@ -28,9 +28,13 @@ class WeightValidator implements
     }
 
     @Override
-    public boolean isValid(Integer weight,
+    public boolean isValid(Double weight,
                            ConstraintValidatorContext cxt) {
-        return (weight > MIN_WEIGHT && weight < MAX_WEIGHT);
+        if (weight != null) {
+            return (weight > MIN_WEIGHT && weight < MAX_WEIGHT);
+        } else {
+            return false;
+        }
     }
 
 }

@@ -29,7 +29,10 @@ class HeightValidator implements
     @Override
     public boolean isValid(Integer height,
                            ConstraintValidatorContext cxt) {
-        return (height > MIN_HEIGHT && height < MAX_HEIGHT);
+        if (height != null) {
+            return (height > MIN_HEIGHT && height < MAX_HEIGHT);
+        } else {
+            return false;
+        }
     }
-
 }
