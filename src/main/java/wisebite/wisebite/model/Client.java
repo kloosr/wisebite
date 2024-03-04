@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class Client extends User{
     private double weight;
     private int height;
-    private LocalDate startDate;
+    private Date startDate;
     public Client (String username, String password, String firstName, String infix, String lastName, double weight, int height, Date startDate){
         super(username, password, firstName, infix, lastName);
         this.weight = weight;
@@ -23,7 +23,7 @@ public class Client extends User{
         return height;
     }
 
-    public LocalDate getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
