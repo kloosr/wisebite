@@ -46,11 +46,11 @@ public class CoachDAO {
         @Override
         public Coach mapRow(ResultSet resultSet, int rowNumber)
                 throws SQLException {
-            return new Coach(resultSet.getString(USERNAME),
-                    resultSet.getString(PASSWORD),
-                    resultSet.getString(FIRSTNAME),
-                    resultSet.getString(INFIX),
-                    resultSet.getString(LASTNAME));
+            return new Coach(resultSet.getString("username"),
+                    resultSet.getString("password"),
+                    resultSet.getString("firstname"),
+                    resultSet.getString("infix"),
+                    resultSet.getString("lastname"));
         }
     }
 }

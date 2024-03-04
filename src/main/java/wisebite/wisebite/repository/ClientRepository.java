@@ -9,8 +9,10 @@ import wisebite.wisebite.model.User;
 @Repository
 public class ClientRepository {
         private ClientDAO clientDAO;
-        public ClientRepository(ClientDAO clientDAO) {
+        private DietitianDAO dietitianDAO;
+        public ClientRepository(ClientDAO clientDAO, DietitianDAO dietitianDAO) {
             this.clientDAO = clientDAO;
+            this.dietitianDAO = dietitianDAO;
         }
 
         public boolean isClientOnDietitianList(String username){
