@@ -18,27 +18,10 @@ public class ClientDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Client> getAllClients(){
-        String sql = "SELECT * FROM User JOIN Client ON user.username = client.username";
-        return jdbcTemplate.query(sql, new ClientRowMapper());
-    }
-    public List<Client> findClientByDietitian(String dietitianUsername) {
-        String sql = "SELECT u.username, u.firstname, u.infix, u.lastname FROM User u JOIN Client c ON u.username = c.username WHERE c.dietitian = ?";
-        return jdbcTemplate.query(sql, new ClientRowMapper(), dietitianUsername);
-    }
-    public Client findClientByUsername(String username) {
-        String sql = "SELECT u.username, u.firstname, u.infix, u.lastname FROM User u JOIN Client c ON u.username = c.username WHERE u.username = ?";
-        return jdbcTemplate.queryForObject(sql, new ClientRowMapper(), username);
-    }
-
-    public boolean isClientOnDietitianList(String username) {
-        String sql = "SELECT COUNT(*) " +
-                "FROM Client c " +
-                "INNER JOIN User u ON c.username = u.username " +
-                "JOIN Dietitian d ON c.dietitian = d.username " +
-                "WHERE c.username = ? AND d.username = ?";
-        int count = jdbcTemplate.queryForObject(sql, Integer.class, username);
-        return count > 0;
+    JdbcTemplate jdbcTemplate;
+    @Autowired
+    public ClientDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
     public Client findByUsername(String username) {
         String sql = "SELECT * FROM User LEFT JOIN Client ON User.username = Client.username WHERE User.username = ?;";
@@ -79,4 +62,38 @@ public class ClientDAO {
                     resultSet.getDate("start_date"));
         }
     }
+}
+    public List<Client> getAllClients(){
+        String sql = "SELECT * FROM User JOIN Client ON user.username = client.username";
+        return jdbcTemplate.query(sql, new ClientRowMapper());
+    }
+    public List<Client> findClientByDietitian(String dietitianUsername) {
+        String sql = "SELECT u.username, u.firstname, u.infix, u.lastname FROM User u JOIN Client c ON u.username = c.username WHERE c.dietitian = ?";
+        return jdbcTemplate.query(sql, new ClientRowMapper(), dietitianUsername);
+    }
+    public Client findClientByUsername(String username) {
+        String sql = "SELECT u.username, u.firstname, u.infix, u.lastname FROM User u JOIN Client c ON u.username = c.username WHERE u.username = ?";
+        return jdbcTemplate.queryForObject(sql, new ClientRowMapper(), username);
+    }
+
+    public boolean isClientOnDietitianList(String username) {
+        String sql = "SELECT COUNT(*) " +
+                "FROM Client c " +
+                "INNER JOIN User u ON c.username = u.username " +
+                "JOIN Dietitian d ON c.dietitian = d.username " +
+                "WHERE c.username = ? AND d.username = ?";
+        int count = jdbcTemplate.queryForObject(sql, Integer.class, username);
+        return count > 0;
+    }
+    public Client findByUsername(String username) {
+        String sql = "SELECT * FROM User LEFT JOIN Client ON User.username = Client.username WHERE User.username = ?;";
+        List<Client> resultList =
+                jdbcTemplate.query(sql, new ClientRowMapper(), username);
+        if (resultList.isEmpty()) {
+            return null;
+        } else {
+            return resultList.getFirst();
+        }
+    }
+
 }
