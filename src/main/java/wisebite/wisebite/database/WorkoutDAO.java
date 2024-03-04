@@ -29,13 +29,13 @@ public class WorkoutDAO {
         String sql = "SELECT * FROM wisebite.workout";
         return jdbcTemplate.query(sql, new WorkoutRowMapper());
     }
-    public Optional<Workout> getWorkoutById(int id){
+    public Workout getWorkoutById(int id){
         String sql = "SELECT * FROM wisebite.workout WHERE id = ?";
         List<Workout> workoutList = jdbcTemplate.query(sql, new WorkoutRowMapper(), id);
         if (workoutList.isEmpty()) {
-            return Optional.empty();
+            return null;
         } else {
-            return Optional.of(workoutList.get(0));
+            return workoutList.get(0);
         }
     }
     private Map<String, Object> mapInsertParameters(Workout workout) {
