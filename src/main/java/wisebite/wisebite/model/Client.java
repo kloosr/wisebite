@@ -11,7 +11,7 @@ public class Client extends User{
         super(username, password, firstName, infix, lastName);
         this.weight = weight;
         this.height = height;
-        this.startDate = startDate;
+        this.startDate = this.startDate;
         this.setUserType(UserTypeEnum.CLIENT);
     }
 

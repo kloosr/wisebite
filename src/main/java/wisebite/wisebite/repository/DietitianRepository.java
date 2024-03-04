@@ -22,12 +22,11 @@ public class DietitianRepository {
     }
 
     public List<Client> findAllClientsByDietitian(String dietitianUsername) {
-        return clientDAO.findClientByDietitian(dietitianUsername);
+        return clientDAO.findClientsByDietitian(dietitianUsername);
     }
 
     public Client getSingleClient(String username) {
         return clientDAO.findClientByUsername(username);
     }
 
-    public Coach getAllCoaches() {return (Coach) coachDAO.getAllCoaches();}
 }
