@@ -34,6 +34,10 @@ public class UserDAO {
         jdbcTemplate.update(connection ->
             buildInsertUserStatement(user, connection));
     }
+    public void deleteUser(User user) {
+        String sql = "DELETE FROM User WHERE username = ?;";
+        jdbcTemplate.update(sql, user.getUsername());
+    }
     private PreparedStatement buildInsertUserStatement(
             User user, Connection connection) throws SQLException {
         PreparedStatement ps = connection.prepareStatement(

@@ -1,5 +1,6 @@
 package wisebite.wisebite.controller;
 
+import wisebite.wisebite.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import wisebite.wisebite.service.AuthenticationService;
