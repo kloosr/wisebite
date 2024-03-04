@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wisebite.wisebite.model.DailyTask;
 import wisebite.wisebite.service.PlanningService;
+import wisebite.wisebite.service.UserManagementService;
 
 import java.util.List;
 

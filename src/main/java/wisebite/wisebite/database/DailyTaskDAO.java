@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import wisebite.wisebite.model.DailyTask;
+import wisebite.wisebite.repository.WorkoutRepository;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -33,9 +34,9 @@ public class DailyTaskDAO {
     }
 
     private class DailyTaskRowMapper implements RowMapper<DailyTask> {
-        ClientDAO clientDAO;
-        WorkoutDAO workoutDAO;
-        DietDAO dietDAO;
+        ClientDAO clientDAO = new ClientDAO(jdbcTemplate);
+        WorkoutDAO workoutDAO = new WorkoutDAO(jdbcTemplate, dataSource);
+        DietDAO dietDAO = new DietDAO(jdbcTemplate, dataSource);
         @Override
         public DailyTask mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new DailyTask(rs.getDate(DATE),
