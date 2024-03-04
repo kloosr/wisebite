@@ -25,7 +25,7 @@ public class DailyTaskDAO {
     }
 
     public List<DailyTask> findByClient(String clientUsername){
-        String sql = "SELECT * FROM dailytask WHERE client = ?";
+        String sql = "SELECT * FROM DailyTask WHERE client = ?";
         return jdbcTemplate.query(sql, new DailyTaskRowMapper(), clientUsername);
     }
 

@@ -23,7 +23,8 @@ public class PlanningService {
     public Workout getWorkoutById(int id) {
         return workoutRepository.createWorkout(id);
     }
-    public Diet getDietById(int id) {return dietRepository.createDietById(id);
+    public Diet getDietById(int id) {
+        return dietRepository.createDietById(id);
     }
 
     public DailyTask findByClient(String clientUsername){
