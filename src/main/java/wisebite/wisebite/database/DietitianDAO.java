@@ -27,10 +27,13 @@ public class DietitianDAO {
             return resultList.getFirst();
         }
     }
-
     public void storeDietitian(Dietitian dietitian) {
         String sql = "Insert into dietitian values (?);";
         jdbcTemplate.update(sql, dietitian.getUsername());
+    }
+    public void assignCoachToClient(String clientUsername, String coachUsername) {
+        String sql = "UPDATE Client SET coach = ? WHERE username = ?";
+        jdbcTemplate.update(sql, coachUsername, clientUsername);
     }
 
     private class DietitianRowMapper implements RowMapper<Dietitian> {
@@ -42,31 +45,6 @@ public class DietitianDAO {
                     resultSet.getString("firstname"),
                     resultSet.getString("infix"),
                     resultSet.getString("lastname"));
-        }
-    }
-        JdbcTemplate jdbcTemplate;
-
-        @Autowired
-        public DietitianDAO(JdbcTemplate jdbcTemplate){
-            this.jdbcTemplate = jdbcTemplate;
-        }
-
-        public void assignCoachToClient(String clientUsername, String coachUsername) {
-            String sql = "UPDATE Client SET coach = ? WHERE username = ?";
-            jdbcTemplate.update(sql, coachUsername, clientUsername);
-        }
-
-
-        private class DietitianRowMapper implements RowMapper<Dietitian> {
-            @Override
-            public Dietitian mapRow(ResultSet resultSet, int rowNumber)
-                    throws SQLException {
-                return new Dietitian(resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        resultSet.getString("firstname"),
-                        resultSet.getString("infix"),
-                        resultSet.getString("lastname"));
-            }
         }
 
     public void updateDietitian(){
