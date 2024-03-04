@@ -12,19 +12,12 @@ import java.util.List;
 
 @Repository
 public class CoachDAO {
+    private final String USERNAME = "username";
+    private final String PASSWORD = "password";
+    private final String FIRSTNAME = "firstname";
+    private final String INFIX = "infix";
+    private final String LASTNAME = "lastname";
     JdbcTemplate jdbcTemplate;
-
-
-    public List<Coach> getAllCoaches(){
-        String sql = "SELECT * FROM User JOIN Coach ON user.username = coach.username";
-        return jdbcTemplate.query(sql, new CoachRowMapper());
-    }
-
-    public void storeCoach(Coach coach) {
-        String sql = "Insert into coach(username) values (?);";
-        jdbcTemplate.update(sql, coach.getUsername());
-    }
-
     @Autowired
     public CoachDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -39,18 +32,25 @@ public class CoachDAO {
             return resultList.getFirst();
         }
     }
+    public List<Coach> getAllCoaches(){
+        String sql = "SELECT * FROM User JOIN Coach ON user.username = coach.username";
+        return jdbcTemplate.query(sql, new CoachRowMapper());
+    }
 
-    public static class CoachRowMapper implements RowMapper<Coach> {
+    public void storeCoach(Coach coach) {
+        String sql = "Insert into coach(username) values (?);";
+        jdbcTemplate.update(sql, coach.getUsername());
+    }
+
+    private class CoachRowMapper implements RowMapper<Coach> {
         @Override
         public Coach mapRow(ResultSet resultSet, int rowNumber)
                 throws SQLException {
-            return new Coach(resultSet.getString("username"),
-                    resultSet.getString("password"),
-                    resultSet.getString("firstname"),
-                    resultSet.getString("infix"),
-                    resultSet.getString("lastname"));
+            return new Coach(resultSet.getString(USERNAME),
+                    resultSet.getString(PASSWORD),
+                    resultSet.getString(FIRSTNAME),
+                    resultSet.getString(INFIX),
+                    resultSet.getString(LASTNAME));
         }
     }
 }
-
-
