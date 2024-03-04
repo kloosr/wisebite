@@ -15,10 +15,12 @@ import java.util.List;
 @RestController
 public class ClientController {
     private PlanningService planningService;
+    private UserManagementService userManagementService;
 
     @Autowired
-    public ClientController(PlanningService planningService) {
+    public ClientController(PlanningService planningService, UserManagementService userManagementService) {
         this.planningService = planningService;
+        this.userManagementService = userManagementService;
     }
     @GetMapping("/client/{username}/dailytasklist")
     public ResponseEntity<List<DailyTask>> findByClient(@PathVariable String username){
@@ -29,7 +31,10 @@ public class ClientController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+        @GetMapping("/clients/{username}/dietitian-list")
+    public boolean isClientOnDietitianList(@PathVariable String username) {
+        return userManagementService.isClientOnDietitianList(username);
+    }
 }
 
 
