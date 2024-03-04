@@ -7,7 +7,7 @@ public class Coach extends User {
 private String password;
 private String infix;
 
-    public Coach(String username,String password, String firstName, String infix, String lastName) {
+    public Coach(String username, String password, String firstName, String infix, String lastName) {
         super(username, password, firstName, infix, lastName);
         this.setUserType(UserTypeEnum.COACH);
     }
