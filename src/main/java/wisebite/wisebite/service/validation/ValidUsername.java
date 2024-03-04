@@ -31,7 +31,7 @@ class UsernameValidator implements
 
     @Override
     public boolean isValid(String username,
-                           ConstraintValidatorContext cxt) {
+                           ConstraintValidatorContext context) {
         return (!adminService.usernameExists(username));
     }
 

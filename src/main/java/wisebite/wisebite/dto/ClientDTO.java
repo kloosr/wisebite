@@ -9,10 +9,10 @@ import java.time.LocalDate;
 
 public class ClientDTO extends UserDTO {
     @ValidHeight
-    private Integer height;
+    private final Integer height;
 
     @ValidWeight
-    private Double weight;
+    private final Double weight;
 
     public ClientDTO(String username, String password, String firstName, String infix, String lastName, Integer height, Double weight) {
         super(username, password, firstName, infix, lastName);
