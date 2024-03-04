@@ -12,6 +12,11 @@ import java.util.List;
 
 @Repository
 public class CoachDAO {
+    private final String USERNAME = "username";
+    private final String PASSWORD = "password";
+    private final String FIRSTNAME = "firstname";
+    private final String INFIX = "infix";
+    private final String LASTNAME = "lastname";
     JdbcTemplate jdbcTemplate;
     @Autowired
     public CoachDAO(JdbcTemplate jdbcTemplate) {
@@ -36,49 +41,16 @@ public class CoachDAO {
         String sql = "Insert into coach(username) values (?);";
         jdbcTemplate.update(sql, coach.getUsername());
     }
-    JdbcTemplate jdbcTemplate;
-    @Autowired
-    public CoachDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-    public Coach findByUsername(String username) {
-        String sql = "Select * from Coach where username = ?;";
-        List<Coach> resultList =
-                jdbcTemplate.query(sql, new CoachRowMapper(), username);
-        if (resultList.isEmpty()) {
-            return null;
-        } else {
-            return resultList.getFirst();
-        }
-    }
-
-    public void storeCoach(Coach coach) {
-        String sql = "Insert into coach(username) values (?);";
-        jdbcTemplate.update(sql, coach.getUsername());
-    }
 
     private class CoachRowMapper implements RowMapper<Coach> {
         @Override
         public Coach mapRow(ResultSet resultSet, int rowNumber)
                 throws SQLException {
-            return new Coach(resultSet.getString("username"),
-                    resultSet.getString("password"),
-                    resultSet.getString("firstname"),
-                    resultSet.getString("infix"),
-                    resultSet.getString("lastname"));
-        }
-    }
-}
-
-    private class CoachRowMapper implements RowMapper<Coach> {
-        @Override
-        public Coach mapRow(ResultSet resultSet, int rowNumber)
-                throws SQLException {
-            return new Coach(resultSet.getString("username"),
-                    resultSet.getString("password"),
-                    resultSet.getString("firstname"),
-                    resultSet.getString("infix"),
-                    resultSet.getString("lastname"));
+            return new Coach(resultSet.getString(USERNAME),
+                    resultSet.getString(PASSWORD),
+                    resultSet.getString(FIRSTNAME),
+                    resultSet.getString(INFIX),
+                    resultSet.getString(LASTNAME));
         }
     }
 }
