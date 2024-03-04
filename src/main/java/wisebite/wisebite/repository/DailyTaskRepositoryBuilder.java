@@ -9,8 +9,4 @@ public class DailyTaskRepositoryBuilder {
         this.dailyTaskDAO = dailyTaskDAO;
         return this;
     }
-
-    public DailyTaskRepository createDailyTaskRepository() {
-        return new DailyTaskRepository(dailyTaskDAO);
-    }
 }
