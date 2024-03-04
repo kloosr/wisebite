@@ -1,17 +1,30 @@
 package wisebite.wisebite.model;
 
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 
 public class Client extends User{
     private double weight;
     private int height;
-    private Date startDate;
-    public Client (String username, String password, String firstName, String infix, String lastName, double weight, int height, Date startDate){
+    private LocalDate startDate;
+    public Client (String username, String password, String firstName, String infix, String lastName, double weight, int height){
         super(username, password, firstName, infix, lastName);
         this.weight = weight;
         this.height = height;
         this.startDate = startDate;
         this.setUserType(UserTypeEnum.CLIENT);
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
     public double calculateBMI(double weight, int height){
@@ -38,17 +51,5 @@ public class Client extends User{
     public void addReceipe (){
         //TODO
         //optioneel
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public Date getStartDate() {
-        return startDate;
     }
 }
