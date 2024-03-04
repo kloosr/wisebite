@@ -9,6 +9,8 @@ import wisebite.wisebite.repository.DailyTaskRepository;
 import wisebite.wisebite.repository.DietRepository;
 import wisebite.wisebite.repository.WorkoutRepository;
 
+import java.util.List;
+
 @Service
 public class PlanningService {
     private final WorkoutRepository workoutRepository;
@@ -27,7 +29,7 @@ public class PlanningService {
         return dietRepository.createDietById(id);
     }
 
-    public DailyTask findByClient(String clientUsername){
-        return (DailyTask) dailyTaskRepository.findByClient(clientUsername);
+    public List<DailyTask> findByClient(String clientUsername){
+        return dailyTaskRepository.findByClient(clientUsername);
     }
 }

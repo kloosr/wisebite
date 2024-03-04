@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wisebite.wisebite.model.DailyTask;
 import wisebite.wisebite.service.PlanningService;
+
+import java.util.List;
+
 @RestController
-@RequestMapping
 public class ClientController {
     private PlanningService planningService;
 
@@ -19,9 +21,9 @@ public class ClientController {
         this.planningService = planningService;
     }
     @GetMapping("/client/{username}/dailytasklist")
-    public ResponseEntity<DailyTask> findByClient(@PathVariable String clientUsername){
-        DailyTask dailyTask = planningService.findByClient(clientUsername);
-        if (dailyTask != null){
+    public ResponseEntity<List<DailyTask>> findByClient(@PathVariable String username){
+        List<DailyTask> dailyTask = planningService.findByClient(username);
+        if (!dailyTask.isEmpty()){
             return new ResponseEntity<>(dailyTask, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -1,14 +1,16 @@
 package wisebite.wisebite.database;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 import wisebite.wisebite.model.DailyTask;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
+@Repository
 public class DailyTaskDAO {
     private final String DATE = "date";
     private final String DAILY_GOAL = "daily_goal";
@@ -19,6 +21,7 @@ public class DailyTaskDAO {
     JdbcTemplate jdbcTemplate;
     DataSource dataSource;
 
+    @Autowired
     public DailyTaskDAO(JdbcTemplate jdbcTemplate, DataSource dataSource) {
         this.jdbcTemplate = jdbcTemplate;
         this.dataSource = dataSource;
