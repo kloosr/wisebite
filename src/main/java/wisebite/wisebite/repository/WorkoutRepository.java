@@ -1,5 +1,6 @@
 package wisebite.wisebite.repository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import wisebite.wisebite.database.ExerciseDAO;
 import wisebite.wisebite.database.WorkoutDAO;
@@ -13,6 +14,7 @@ import java.util.Optional;
 public class WorkoutRepository {
     private final WorkoutDAO workoutDAO;
     private final ExerciseDAO exerciseDAO;
+    @Autowired
     public WorkoutRepository(WorkoutDAO workoutDAO, ExerciseDAO exerciseDAO){
         this.workoutDAO = workoutDAO;
         this.exerciseDAO = exerciseDAO;
