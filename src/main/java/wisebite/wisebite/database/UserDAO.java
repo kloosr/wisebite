@@ -1,6 +1,5 @@
 package wisebite.wisebite.database;
 
-import wisebite.wisebite.model.Client;
 import wisebite.wisebite.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,7 +20,7 @@ public class UserDAO {
     public UserDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-    public Client findByUsername(String username) {
+    public Optional<Object> findByUsername(String username) {
         String sql = "Select * from User where username = ?;";
         List<User> resultList =
                 jdbcTemplate.query(sql, new UserRowMapper(), username);
