@@ -40,7 +40,7 @@ public class CoachDAO {
         }
     }
 
-    private static class CoachRowMapper implements RowMapper<Coach> {
+    public static class CoachRowMapper implements RowMapper<Coach> {
         @Override
         public Coach mapRow(ResultSet resultSet, int rowNumber)
                 throws SQLException {

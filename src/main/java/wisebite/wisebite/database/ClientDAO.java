@@ -13,7 +13,6 @@ import java.util.List;
 @Repository
 public class ClientDAO {
     JdbcTemplate jdbcTemplate;
-
     @Autowired
     public ClientDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
