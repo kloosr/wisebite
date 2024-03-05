@@ -1,30 +1,30 @@
-package wisebite.wisebite.model;
+package wisebite.wisebite.dto;
 
-import java.time.LocalDate;
-import java.util.Date;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
-public class User {
+public class UserDTO {
+    @NotEmpty
     private String username;
-    private String password;
-    private String firstName;
-    private String infix;
-    private String lastName;
-    private UserTypeEnum userType;
 
-    public User(String username, String password, String firstName, String infix, String lastName){
+    @NotEmpty
+    @Size(min = 8, message = "Password should have at least 8 characters.")
+    private String password;
+
+    @NotEmpty
+    private String firstName;
+
+    private String infix;
+
+    @NotEmpty
+    private String lastName;
+
+    public UserDTO(String username, String password, String firstName, String infix, String lastName) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.infix = infix;
         this.lastName = lastName;
-    }
-
-    public void planAppointment(){
-        //TODO
-    }
-
-    public void sendMessage(){
-        //TODO
     }
 
     public String getUsername() {
@@ -45,15 +45,5 @@ public class User {
 
     public String getLastName() {
         return lastName;
-    }
-
-    public UserTypeEnum getUserType() {
-        return userType;
-    }
-    public void setUserType(UserTypeEnum userType) {
-        this.userType = userType;
-    }
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

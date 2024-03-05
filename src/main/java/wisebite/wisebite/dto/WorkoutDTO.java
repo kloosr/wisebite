@@ -1,4 +1,4 @@
-package wisebite.wisebite.model;
+package wisebite.wisebite.dto;
 
 public class WorkoutDTO {
     private String name;
