@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import wisebite.wisebite.model.DailyTask;
 import wisebite.wisebite.repository.DietRepository;
 import wisebite.wisebite.repository.WorkoutRepository;
-import wisebite.wisebite.repository.WorkoutRepository;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -53,7 +52,7 @@ public class DailyTaskDAO {
         public DailyTask mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new DailyTask(rs.getDate(DATE),
                     rs.getInt(DAILY_GOAL),
-                    clientDAO.findByUsername(rs.getString(CLIENT)),
+                    clientDAO.getSingleClient(rs.getString(CLIENT)),
                     workoutRepository.createWorkout(rs.getInt(WORKOUT_ID)),
                     dietRepository.createDietById(rs.getInt(DIET_ID)));
         }

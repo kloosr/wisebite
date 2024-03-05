@@ -1,14 +1,11 @@
 package wisebite.wisebite.controller;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wisebite.wisebite.model.Client;
 import wisebite.wisebite.model.Coach;
-import wisebite.wisebite.model.Dietitian;
-import wisebite.wisebite.model.User;
 import wisebite.wisebite.service.UserManagementService;
 
 import java.util.List;
@@ -23,27 +20,27 @@ import java.util.List;
         this.userManagementService = userManagementService;
     }
 
-    @GetMapping("/overview/{username}")
-    public ResponseEntity<List<Client>> getDietitianOverview(String dietitianUsername) {
-        List<Client> clients = userManagementService.getClientsForDietitian(dietitianUsername);
+    @GetMapping("dietitan/overview/{username}")
+    public ResponseEntity<List<Client>> getAllClientsOfDietitian(String dietitianUsername) {
+        List<Client> clients = userManagementService.getAllClientsOfDietitian(dietitianUsername);
         if (clients != null) {
             return new ResponseEntity<>(clients, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @GetMapping("/client/{username}")
-    public ResponseEntity<Client> getClientByUsername(@PathVariable String username) {
-        Client client = userManagementService.findClientByUsername(username);
+    @GetMapping("/overview/client/{username}")
+    public ResponseEntity<Client> getSingleClient(@PathVariable String username) {
+        Client client = userManagementService.getSingleClient(username);
         if (client != null) {
             return new ResponseEntity<>(client, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @GetMapping("/client")
+    @GetMapping("dietitian/overview/client")
     public ResponseEntity<Client> getClientInformation(@RequestParam("username") String username) {
-        Client client = userManagementService.findClientByUsername(username);
+        Client client = userManagementService.getSingleClient(username);
         if (client == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -52,13 +49,13 @@ import java.util.List;
         }
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
-    @GetMapping("/coaches")
+    @GetMapping("dietitian/overview/coaches")
     public List<Coach> getAllCoaches() {
         return userManagementService.getAllCoaches();
     }
     @GetMapping("/sorted-by-bmi")
     public ResponseEntity<List<Client>> getClientsSortedByBmiAndDietitian(String dietitianUsername) {
-        List<Client> clients = userManagementService.getClientsForDietitian(dietitianUsername);
+        List<Client> clients = userManagementService.getAllClientsOfDietitian(dietitianUsername);
         return (ResponseEntity<List<Client>>) userManagementService.sortClientsByBMI(clients);
     }
 }

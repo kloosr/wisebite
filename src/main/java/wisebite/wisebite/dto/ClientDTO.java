@@ -20,12 +20,12 @@ public class ClientDTO extends UserDTO {
         this.weight = weight;
         this.setUserType(UserTypeEnum.CLIENT);
     }
-    @Override
+   /* @Override
     public Client convertDTO() {
         Date currentDate = Date.valueOf(LocalDate.now());
         return new Client(
         );
-    }
+    } */
 
     public int getHeight() {
         return height;

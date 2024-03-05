@@ -41,7 +41,7 @@ public class ClientController {
 
     @GetMapping("/{username}/bmi")
     public double getClientBMI(@PathVariable String username) {
-        Client client = userManagementService.findClientByUsername(username);
+        Client client = userManagementService.getSingleClient(username);
         return userManagementService.calculateClientBMI(client);
     }
 

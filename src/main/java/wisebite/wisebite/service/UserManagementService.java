@@ -26,15 +26,18 @@ public class UserManagementService {
         this.coachRepository = coachRepository;
     }
 
-    public List<Client> getClientsForDietitian(String dietitianUsername) {
+    public List<Client> getAllClientsOfDietitian(String dietitianUsername) {
         return dietitianRepository.findAllClientsByDietitian(dietitianUsername);
     }
 
     public List<Coach> getAllCoaches() {
         return coachRepository.getAllCoaches();
     }
+    public List<Client> findAllByCoach(String coachUsername){
+        return clientRepository.getAllClients(coachUsername);
+    }
 
-    public Client findClientByUsername(String username) {
+    public Client getSingleClient(String username) {
         return dietitianRepository.getSingleClient(username);
     }
 
