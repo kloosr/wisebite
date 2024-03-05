@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import wisebite.wisebite.model.Diet;
+import wisebite.wisebite.model.Plan;
 import wisebite.wisebite.model.Workout;
 import wisebite.wisebite.service.PlanningService;
 
@@ -35,6 +36,15 @@ public class CoachController {
             return ResponseEntity.notFound().build();
         } else {
             return ResponseEntity.ok(diet);
+        }
+    }
+    @GetMapping("/plan/{username}")
+    private ResponseEntity<Plan> getPlanByClient(@PathVariable String username) {
+        Plan plan = planningService.getPlanByClient(username);
+        if (plan == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(plan);
         }
     }
 }

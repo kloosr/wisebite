@@ -43,7 +43,7 @@ public class RecipeDAO {
     // getAllByDiet method that creates a List of every Recipe corresponding to a given recipe Id
     public List<Recipe> getAllByDiet (int id) {
         String sql = "SELECT r.name, r.description, r.calorie_amount, r.instructions FROM recipe r" +
-                " LEFT JOIN meal m ON r.name = m.recipe WHERE diet = ?";
+                " LEFT JOIN meal m ON r.name = m.recipe WHERE id = ?";
         return jdbcTemplate.query(sql, new RecipeRowMapper(), id);
     }
 
