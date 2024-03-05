@@ -22,9 +22,6 @@ public class AdminRepository {
         this.coachDAO = coachDAO;
         this.adminDAO = adminDAO;
     }
-    public boolean usernameExists(String username) {
-        return userDAO.findByUsername(username).isPresent();
-    }
     public Optional<User> getUserByUsername(String username) {
         return userDAO.findByUsername(username);
     }
@@ -48,6 +45,7 @@ public class AdminRepository {
                 break;
         }
     }
+    // Database cascade takes care of other tables
     public void deleteUser(String username) {
         userDAO.deleteUser(username);
     }

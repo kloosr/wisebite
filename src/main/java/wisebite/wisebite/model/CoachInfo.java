@@ -6,7 +6,7 @@ public class CoachInfo extends UserInfo {
         this.setUserType(UserTypeEnum.COACH);
     }
     @Override
-    public Coach convertDTO() {
+    public Coach convertToUser() {
         return new Coach(this.getUsername(), this.getPassword(), this.getFirstName(),
                 this.getInfix(), this.getLastName());
     }

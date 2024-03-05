@@ -20,7 +20,7 @@ public class ClientInfo extends UserInfo {
         this.setUserType(UserTypeEnum.CLIENT);
     }
     @Override
-    public Client convertDTO() {
+    public Client convertToUser() {
         Date currentDate = Date.valueOf(LocalDate.now());
         return new Client(this.getUsername(), this.getPassword(), this.getFirstName(),
                 this.getInfix(), this.getLastName(), this.getWeight(), this.getHeight(),

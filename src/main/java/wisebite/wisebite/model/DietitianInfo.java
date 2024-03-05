@@ -6,7 +6,7 @@ public class DietitianInfo extends UserInfo {
         this.setUserType(UserTypeEnum.DIETITIAN);
     }
     @Override
-    public Dietitian convertDTO() {
+    public Dietitian convertToUser() {
         return new Dietitian(this.getUsername(), this.getPassword(), this.getFirstName(),
                 this.getInfix(), this.getLastName());
     }

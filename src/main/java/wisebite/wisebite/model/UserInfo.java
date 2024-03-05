@@ -2,8 +2,6 @@ package wisebite.wisebite.model;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import wisebite.wisebite.model.User;
-import wisebite.wisebite.model.UserTypeEnum;
 import wisebite.wisebite.service.validation.ValidPassword;
 import wisebite.wisebite.service.validation.ValidUsername;
 
@@ -15,6 +13,7 @@ public class UserInfo {
     @Size(min = 8, message = "Password should have at least 8 characters.")
     @ValidPassword
     private String password;
+    private String hash;
 
     @NotEmpty
     private final String firstName;
@@ -33,8 +32,8 @@ public class UserInfo {
         this.lastName = lastName;
     }
 
-    public User convertDTO() {
-        return new User(this.username, this.password, this.firstName, this.infix, this.lastName);
+    public User convertToUser() {
+        return new User(this.username, this.hash, this.firstName, this.infix, this.lastName);
     }
 
     public String getUsername() {
@@ -62,4 +61,7 @@ public class UserInfo {
         this.userType = userType;
     }
 
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
 }
