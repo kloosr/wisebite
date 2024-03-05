@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UsernameValidator.class)
+@Constraint(validatedBy = PasswordValidator.class)
 public @interface ValidPassword {
     String message() default "Password may not contain blank spaces.";
     Class<?>[] groups() default {};

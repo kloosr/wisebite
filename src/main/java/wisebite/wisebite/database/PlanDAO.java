@@ -4,13 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import wisebite.wisebite.model.Client;
 import wisebite.wisebite.model.Plan;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -31,7 +29,7 @@ public class PlanDAO {
         String sql = "SELECT * FROM wisebite.plan WHERE client = ?";
         List<Plan> planList = jdbcTemplate.query(sql, new PlanRowMapper(), username);
         if (!planList.isEmpty()) {
-            return planList.get(0);
+            return planList.getFirst();
         } else {
             return null;
         }
@@ -44,7 +42,7 @@ public class PlanDAO {
         public Plan mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new Plan(rs.getInt(WEIGHT_LOSS_GOAL),
                     rs.getInt(GOAL), rs.getInt(DURATION),
-                    clientDAO.findClientByUsername(rs.getString(CLIENT)));
+                    clientDAO.findByUsername(rs.getString(CLIENT)));
         }
     }
 }
