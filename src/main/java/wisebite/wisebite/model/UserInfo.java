@@ -1,4 +1,4 @@
-package wisebite.wisebite.dto;
+package wisebite.wisebite.model;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -7,7 +7,7 @@ import wisebite.wisebite.model.UserTypeEnum;
 import wisebite.wisebite.service.validation.ValidPassword;
 import wisebite.wisebite.service.validation.ValidUsername;
 
-public class UserDTO {
+public class UserInfo {
     @Size(min = 5, message = "Username should have at least 5 characters.")
     @ValidUsername
     private String username;
@@ -25,7 +25,7 @@ public class UserDTO {
     private final String lastName;
     private UserTypeEnum userType;
 
-    public UserDTO(String username, String password, String firstName, String infix, String lastName) {
+    public UserInfo(String username, String password, String firstName, String infix, String lastName) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;

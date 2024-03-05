@@ -1,10 +1,7 @@
-package wisebite.wisebite.dto;
+package wisebite.wisebite.model;
 
-import wisebite.wisebite.model.Admin;
-import wisebite.wisebite.model.UserTypeEnum;
-
-public class AdminDTO extends UserDTO{
-    public AdminDTO (String username, String password, String firstName, String infix, String lastName) {
+public class AdminInfo extends UserInfo {
+    public AdminInfo(String username, String password, String firstName, String infix, String lastName) {
         super(username, password, firstName, infix, lastName);
         this.setUserType(UserTypeEnum.ADMIN);
     }

@@ -1,10 +1,7 @@
-package wisebite.wisebite.dto;
+package wisebite.wisebite.model;
 
-import wisebite.wisebite.model.Coach;
-import wisebite.wisebite.model.UserTypeEnum;
-
-public class CoachDTO extends UserDTO {
-    public CoachDTO (String username, String password, String firstName, String infix, String lastName) {
+public class CoachInfo extends UserInfo {
+    public CoachInfo(String username, String password, String firstName, String infix, String lastName) {
         super(username, password, firstName, infix, lastName);
         this.setUserType(UserTypeEnum.COACH);
     }

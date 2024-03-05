@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import wisebite.wisebite.dto.UserDTO;
+import wisebite.wisebite.model.UserInfo;
 import wisebite.wisebite.model.*;
 import wisebite.wisebite.repository.AdminRepository;
 
@@ -20,15 +20,15 @@ public class AdminService {
         this.adminRepository = adminRepository;
     }
 
-    public String registerUser(UserDTO userDTO) {
-        User user = convertToUser(userDTO);
+    public String registerUser(UserInfo userInfo) {
+        User user = convertToUser(userInfo);
         hashPassword(user);
         adminRepository.createUser(user);
         return user.getUsername();
     }
-    public ResponseEntity<String> deleteUser(UserDTO userDTO) {
-        if (adminRepository.getUserByUsername(userDTO.getUsername()).isPresent()) {
-            adminRepository.deleteUser(userDTO.getUsername());
+    public ResponseEntity<String> deleteUser(UserInfo userInfo) {
+        if (adminRepository.getUserByUsername(userInfo.getUsername()).isPresent()) {
+            adminRepository.deleteUser(userInfo.getUsername());
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("User successfully deleted.");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User does not exist.");
@@ -50,7 +50,7 @@ public class AdminService {
             return false;
         }
     }
-    private User convertToUser(UserDTO userDTO) {
-        return userDTO.convertDTO();
+    private User convertToUser(UserInfo userInfo) {
+        return userInfo.convertDTO();
     }
 }
