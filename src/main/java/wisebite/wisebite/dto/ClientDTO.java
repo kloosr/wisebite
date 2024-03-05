@@ -23,8 +23,7 @@ public class ClientDTO extends UserDTO {
     @Override
     public Client convertDTO() {
         Date currentDate = Date.valueOf(LocalDate.now());
-        return new Client(
-        );
+        return null;
     }
 
     public int getHeight() {

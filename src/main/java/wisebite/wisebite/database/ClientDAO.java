@@ -92,8 +92,4 @@ public class ClientDAO {
         return jdbcTemplate.query(sql, new ClientRowMapper(), coachUsername);
     }
 
-    public Client findClientByUsername(String username) {
-        String sql = "SELECT u.username, u.firstname, u.infix, u.lastname FROM User u JOIN Client c ON u.username = c.username WHERE u.username = ?";
-        return jdbcTemplate.queryForObject(sql, new ClientRowMapper(), username);
-    }
 }

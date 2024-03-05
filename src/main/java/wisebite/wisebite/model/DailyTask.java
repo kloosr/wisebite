@@ -16,7 +16,7 @@ public class DailyTask {
     private int dailyGoal;
     private Client client;
 
-    public DailyTask(Date date, int dailyGoal, Client client, Workout workout, Diet diet) {
+    public DailyTask(Date date, int dailyGoal, Diet diet, Workout workout, Client client ) {
         this.date = date;
         this.dailyGoal = dailyGoal;
         this.diet = diet;
@@ -24,7 +24,7 @@ public class DailyTask {
         this.client = client;
     }
     public DailyTask(Date date, int dailyGoal, Workout workout, Diet diet) {
-        this(date, dailyGoal, null, workout, diet);
+        this(date, dailyGoal, diet, workout, null);
     }
 
     public DailyTask() {

@@ -53,6 +53,17 @@ public class WorkoutDAO {
         }
     }
 
+    public int getIdByDateAndClient (Date date, String username) {
+        String sql = "SELECT w.id, w.name, w.duration, w.burned_calories FROM workout w LEFT JOIN dailytask dt ON w.id = dt.workout_id WHERE date = ? AND client = ?";
+        List<Workout> workoutList = jdbcTemplate.query(sql, new WorkoutRowMapper(), date, username);
+        if (workoutList.isEmpty()) {
+            return 0;
+            // else, return the only workout in the list (its always 1 workout because they have unique id's)
+        } else {
+            return workoutList.get(0).getId();
+        }
+    }
+
     // map a workout object so it can be inserted into the database
     private Map<String, Object> mapInsertParameters(Workout workout) {
         Map<String, Object> insertParameters = new HashMap<>();

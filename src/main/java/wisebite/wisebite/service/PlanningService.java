@@ -2,6 +2,7 @@ package wisebite.wisebite.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import wisebite.wisebite.dto.DailyTaskDTO;
 import wisebite.wisebite.model.DailyTask;
 import wisebite.wisebite.model.Diet;
 import wisebite.wisebite.model.Plan;
