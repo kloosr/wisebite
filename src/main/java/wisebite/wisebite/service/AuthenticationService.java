@@ -20,17 +20,12 @@ public class AuthenticationService {
     }
 
     // Creates a hash from the password
-    public void createHash(UserInfo userInfo) {
-        userInfo.setHash(BCrypt.hashpw(userInfo.getPassword() + PEPPER, BCrypt.gensalt()));
+    public String createHash(UserInfo userInfo) {
+        String hash = BCrypt.hashpw(String.format(userInfo.getPassword() + PEPPER), BCrypt.gensalt());
+        userInfo.setHash(hash);
+        return hash;
     }
-    public boolean checkPassword(User user, String input) {
-        Optional<User> retrievedUser = findByUsername(user.getUsername());
-        if (retrievedUser.isPresent()) {
-            String hash = retrievedUser.get().getPassword();
-            return BCrypt.checkpw(input + PEPPER, hash);
-        } else {
-            return false;
+    public boolean checkPassword(String input, String hash) {
+            return BCrypt.checkpw(String.format(input + PEPPER), hash);
         }
-    }
-
 }
