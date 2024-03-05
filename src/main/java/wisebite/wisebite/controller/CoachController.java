@@ -16,12 +16,10 @@ import java.util.List;
 @RequestMapping("/coach")
 public class CoachController {
  private UserManagementService userManagementService;
-    private final ClientService clientService;
-    private final CoachDAO coachDAO;
+ private final CoachDAO coachDAO;
 
     @Autowired
-    public CoachController(ClientService clientService, CoachDAO coachDAO, UserManagementService userManagementService) {
-        this.clientService = clientService;
+    public CoachController(CoachDAO coachDAO, UserManagementService userManagementService) {
         this.coachDAO = coachDAO;
         this.userManagementService = userManagementService;
     }

@@ -37,25 +37,4 @@ private String infix;
     public void sendMessage(){
         //TODO
     }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getCoachUsername() {
-        return username;
-    }
-
-public void setFirstName(String firstName) {
-        this.firstName = firstName;
-}
-    public String getCoachFirstName() {
-        return firstName;
-    }
-public void setLastName(String lastName){
-        this.lastName = lastName;
-}
-    public String getCoachLastName() {
-        return lastName;
-    }
 }
