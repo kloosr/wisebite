@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import wisebite.wisebite.model.DailyTask;
+import wisebite.wisebite.repository.WorkoutRepository;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
