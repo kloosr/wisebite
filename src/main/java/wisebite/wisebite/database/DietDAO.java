@@ -32,13 +32,13 @@ public class DietDAO {
         return jdbcTemplate.query(sql, new DietRowMapper());
     }
     // gets a single diet from the database based on id
-    public Optional<Diet> getById (int id) {
+    public Diet getById (int id) {
         String sql = "SELECT * FROM diet WHERE id = ?";
         List<Diet> tempDietList = jdbcTemplate.query(sql, new DietRowMapper(), id);
         if (tempDietList.isEmpty()) {
-            return Optional.empty();
+            return null;
         } else {
-            return Optional.of(tempDietList.get(0));
+            return tempDietList.get(0);
         }
     }
     private class DietRowMapper implements RowMapper<Diet> {

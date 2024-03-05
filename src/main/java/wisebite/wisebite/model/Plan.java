@@ -13,6 +13,12 @@ public class Plan {
         this.weightLossGoal = weightLossGoal;
     }
 
+    public Plan() {
+        this.goalCompleted = false;// A new plan is not completed by default
+        this.duration = 0;// Default to zero if the duration is not yet known
+        // Client and Coach would be null by default if not set
+    }
+
     public boolean endPlan(){
         //TODO
         return true;
