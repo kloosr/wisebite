@@ -1,10 +1,12 @@
 package wisebite.wisebite.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Coach extends User {
-    List<Client> allClients = new ArrayList<>();
+    private String username;
+    private String firstName;
+    private String lastName;
+private String password;
+private String infix;
+
     public Coach(String username, String password, String firstName, String infix, String lastName) {
         super(username, password, firstName, infix, lastName);
         this.setUserType(UserTypeEnum.COACH);
@@ -35,5 +37,4 @@ public class Coach extends User {
     public void sendMessage(){
         //TODO
     }
-
 }
