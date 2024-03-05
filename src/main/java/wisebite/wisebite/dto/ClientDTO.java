@@ -1,31 +1,30 @@
 package wisebite.wisebite.dto;
 
+import wisebite.wisebite.model.UserTypeEnum;
 import wisebite.wisebite.service.validation.ValidHeight;
 import wisebite.wisebite.service.validation.ValidWeight;
 import wisebite.wisebite.model.Client;
-import jakarta.validation.constraints.*;
 import java.sql.Date;
 import java.time.LocalDate;
 
 public class ClientDTO extends UserDTO {
-    @NotNull
     @ValidHeight
-    private Integer height;
+    private final Integer height;
 
-    @NotNull
     @ValidWeight
-    private Integer weight;
+    private final Double weight;
 
-    public ClientDTO(String username, String password, String firstName, String infix, String lastName, Integer height, Integer weight) {
+    public ClientDTO(String username, String password, String firstName, String infix, String lastName, Integer height, Double weight) {
         super(username, password, firstName, infix, lastName);
         this.height = height;
         this.weight = weight;
+        this.setUserType(UserTypeEnum.CLIENT);
     }
-    public Client convertToClient() {
+    @Override
+    public Client convertDTO() {
         Date currentDate = Date.valueOf(LocalDate.now());
-        return new Client(this.getUsername(), this.getPassword(), this.getFirstName(),
-                this.getInfix(), this.getLastName(), this.getWeight(), this.getHeight(),
-                currentDate);
+        return new Client(
+        );
     }
 
     public int getHeight() {

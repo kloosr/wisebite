@@ -1,12 +1,14 @@
 package wisebite.wisebite.model;
 
 public class Exercise {
+    // class attributes
     private String name;
     private String type;
     private int  reps;
-    private final int weightAmount;
+    private int weightAmount;
     private int duration;
 
+    // constructor
     public Exercise(String name, String type, int reps, int weightAmount, int duration){
         this.name = name;
         this.type = type;
@@ -15,6 +17,7 @@ public class Exercise {
         this.duration = duration;
     }
 
+    // getters
     public String getName() {
         return name;
     }

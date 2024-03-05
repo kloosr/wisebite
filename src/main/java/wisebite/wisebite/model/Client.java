@@ -1,19 +1,24 @@
 package wisebite.wisebite.model;
 
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.sql.Date;
 import java.time.LocalDate;
 
 public class Client extends User{
-    @Setter
     private double weight;
-    @Setter
     private int height;
-    @Setter
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date startDate;
     public Client (String username, String password, String firstName, String infix, String lastName, double weight, int height, Date startDate){
         super(username, password, firstName, infix, lastName);
+        this.weight = weight;
+        this.height = height;
+        this.startDate = startDate;
+        this.setUserType(UserTypeEnum.CLIENT);
+    }
+    public Client(String username, String firstName, String infix, String lastName, double weight, int height, Date startDate) {
+        super(username, "", firstName, infix, lastName);
         this.weight = weight;
         this.height = height;
         this.startDate = startDate;
@@ -32,4 +37,29 @@ public class Client extends User{
         return startDate;
     }
 
+    public double calculateBMI(double weight, int height){
+        //TODO
+        return 0;
+    }
+
+    public void planAppointment(){
+        //TODO
+    }
+
+    public void sendMessage() {
+        //TODO
+    }
+
+    public void completeTask(/*Task*/){
+        //TODO
+    }
+
+    public void setWeight(){
+        //TODO
+    }
+
+    public void addReceipe (){
+        //TODO
+        //optioneel
+    }
 }

@@ -10,17 +10,14 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = WeightValidator.class)
 public @interface ValidWeight {
-    String message() default "Weight should be between 40 and 200.";
+    String message() default "Invalid weight.";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
 class WeightValidator implements
-        ConstraintValidator<ValidWeight, Integer> {
-    private final Integer MIN_WEIGHT = 40;
-    private final Integer MAX_WEIGHT = 300;
-    private String message() {
-        return String.format("Height should be between %d and %d.", MIN_WEIGHT, MAX_WEIGHT);
-    }
+        ConstraintValidator<ValidWeight, Double> {
+    private final Double MIN_WEIGHT = 40.0;
+    private final Double MAX_WEIGHT = 300.0;
 
     @Override
     public void initialize(ValidWeight validWeight) {
@@ -28,9 +25,16 @@ class WeightValidator implements
     }
 
     @Override
-    public boolean isValid(Integer weight,
-                           ConstraintValidatorContext cxt) {
-        return (weight > MIN_WEIGHT && weight < MAX_WEIGHT);
+    public boolean isValid(Double weight,
+                           ConstraintValidatorContext context) {
+        if (weight != null) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate(String.format("Weight should be between %.2f and %.2f.", MIN_WEIGHT, MAX_WEIGHT))
+                    .addConstraintViolation();
+            return (weight > MIN_WEIGHT && weight < MAX_WEIGHT);
+        } else {
+            return false;
+        }
     }
 
 }
