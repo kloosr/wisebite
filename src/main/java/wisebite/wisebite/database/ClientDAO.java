@@ -85,9 +85,4 @@ public class ClientDAO {
         return jdbcTemplate.query(sql, new ClientRowMapper());
     }
 
-    public List<Client> findClientByDietitian(String dietitianUsername) {
-        String sql = "SELECT u.username, u.firstname, u.infix, u.lastname FROM User u JOIN Client c ON u.username = c.username WHERE c.dietitian = ?";
-        return jdbcTemplate.query(sql, new ClientRowMapper(), dietitianUsername);
-    }
-
 }
