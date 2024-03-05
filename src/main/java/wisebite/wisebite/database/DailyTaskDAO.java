@@ -34,6 +34,7 @@ public class DailyTaskDAO {
     }
 
     private class DailyTaskRowMapper implements RowMapper<DailyTask> {
+        // TODO ask michel if this is the way
         ClientDAO clientDAO = new ClientDAO(jdbcTemplate);
         WorkoutDAO workoutDAO = new WorkoutDAO(jdbcTemplate, dataSource);
         DietDAO dietDAO = new DietDAO(jdbcTemplate, dataSource);
