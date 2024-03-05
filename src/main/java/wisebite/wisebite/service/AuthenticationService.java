@@ -12,6 +12,7 @@ import java.util.Optional;
 @Service
 public class AuthenticationService {
     private final UserDAO userDAO;
+    private final String PEPPER = "6391d7b2b6b66fad6c9a0a09e42269eb";
     @Autowired
     public AuthenticationService (UserDAO userDAO) {this.userDAO = userDAO;}
     public Optional<User> findByUsername (String username) {
@@ -20,13 +21,13 @@ public class AuthenticationService {
 
     // Creates a hash from the password
     public void createHash(UserInfo userInfo) {
-        userInfo.setHash(BCrypt.hashpw(userInfo.getPassword(), BCrypt.gensalt()));
+        userInfo.setHash(BCrypt.hashpw(userInfo.getPassword() + PEPPER, BCrypt.gensalt()));
     }
     public boolean checkPassword(User user, String input) {
         Optional<User> retrievedUser = findByUsername(user.getUsername());
         if (retrievedUser.isPresent()) {
             String hash = retrievedUser.get().getPassword();
-            return BCrypt.checkpw(input, hash);
+            return BCrypt.checkpw(input + PEPPER, hash);
         } else {
             return false;
         }
