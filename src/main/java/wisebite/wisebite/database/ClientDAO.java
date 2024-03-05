@@ -65,6 +65,14 @@ public class ClientDAO {
         return count > 0;
     }
 
+    public Double getWeight(String username) {
+        String sql = "SELECT weight FROM Client WHERE username = ?";
+        return jdbcTemplate.queryForObject(sql, Double.class, username);
+    }
+    public Double getHeight(String username) {
+        String sql = "SELECT height FROM Client WHERE username = ?";
+        return jdbcTemplate.queryForObject(sql, Double.class, username);
+    }
     private class ClientRowMapper implements RowMapper<Client> {
         @Override
         public Client mapRow(ResultSet resultSet, int rowNumber)
@@ -79,15 +87,4 @@ public class ClientDAO {
                     resultSet.getDate("start_date"));
         }
     }
-
-    public List<Client> getAllClients() {
-        String sql = "SELECT * FROM User JOIN Client ON user.username = client.username";
-        return jdbcTemplate.query(sql, new ClientRowMapper());
-    }
-
-    public List<Client> findClientByDietitian(String dietitianUsername) {
-        String sql = "SELECT u.username, u.firstname, u.infix, u.lastname FROM User u JOIN Client c ON u.username = c.username WHERE c.dietitian = ?";
-        return jdbcTemplate.query(sql, new ClientRowMapper(), dietitianUsername);
-    }
-
 }

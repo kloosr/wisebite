@@ -13,25 +13,37 @@ import java.util.List;
 @Service
 public class UserManagementService {
     private DietitianRepository dietitianRepository;
-   private ClientRepository clientRepository;
+    private ClientRepository clientRepository;
     private CoachRepository coachRepository;
+    Client client;
+
     @Autowired
-    public UserManagementService(DietitianRepository dietitianRepository) {
+    public UserManagementService(DietitianRepository dietitianRepository, ClientRepository clientRepository) {
         this.dietitianRepository = dietitianRepository;
+        this.clientRepository = clientRepository;
         this.coachRepository = coachRepository;
     }
 
     public List<Client> getClientsForDietitian(String dietitianUsername) {
         return dietitianRepository.findAllClientsByDietitian(dietitianUsername);
     }
-    public List<Coach> getAllCoaches(){
+
+    public List<Coach> getAllCoaches() {
         return coachRepository.getAllCoaches();
     }
+
     public Client findClientByUsername(String username) {
         return dietitianRepository.getSingleClient(username);
     }
 
-    public boolean isClientOnDietitianList(String username){
+    public boolean isClientOnDietitianList(String username) {
         return clientRepository.isClientOnDietitianList(username);
+    }
+
+    public double calculateClientBMI(Client client) {
+        double weight = clientRepository.getWeight(client.getUsername());
+        double height = clientRepository.getHeight(client.getUsername())/ 100;
+        double bmiOfClient = weight / (height * height);
+        return bmiOfClient;
     }
 }
