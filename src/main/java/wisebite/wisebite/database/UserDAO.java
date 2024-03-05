@@ -49,7 +49,6 @@ public class UserDAO {
         ps.setString(5, user.getLastName());
         return ps;
     }
-
     private static class UserRowMapper implements RowMapper<User> {
         @Override
         public User mapRow(ResultSet resultSet, int rowNumber) throws SQLException {

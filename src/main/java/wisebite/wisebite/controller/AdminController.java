@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import wisebite.wisebite.dto.*;
+import wisebite.wisebite.model.*;
 import wisebite.wisebite.service.AdminService;
 import javax.validation.Valid;
 
@@ -21,27 +21,27 @@ public class AdminController {
     }
 
     @PostMapping("/new/client")
-    private ResponseEntity<String> registerClient(@Valid @RequestBody ClientDTO clientDTO, UriComponentsBuilder ucb) {
-        String username = adminService.registerUser(clientDTO);
+    private ResponseEntity<String> registerClient(@Valid @RequestBody ClientInfo clientInfo, UriComponentsBuilder ucb) {
+        String username = adminService.registerUser(clientInfo);
         return ResponseEntity.created(ucb.path("/user/{username}").buildAndExpand(username).toUri()).body("User added.");
     }
     @PostMapping("/new/dietitian")
-    private ResponseEntity<String> registerDietitian(@Valid @RequestBody DietitianDTO dietitianDTO, UriComponentsBuilder ucb) {
-        String username = adminService.registerUser(dietitianDTO);
+    private ResponseEntity<String> registerDietitian(@Valid @RequestBody DietitianInfo dietitianInfo, UriComponentsBuilder ucb) {
+        String username = adminService.registerUser(dietitianInfo);
         return ResponseEntity.created(ucb.path("/user/{username}").buildAndExpand(username).toUri()).body("User added.");
     }
     @PostMapping("/new/coach")
-    private ResponseEntity<String> registerCoach(@Valid @RequestBody CoachDTO coachDTO, UriComponentsBuilder ucb) {
-        String username = adminService.registerUser(coachDTO);
+    private ResponseEntity<String> registerCoach(@Valid @RequestBody CoachInfo coachInfo, UriComponentsBuilder ucb) {
+        String username = adminService.registerUser(coachInfo);
         return ResponseEntity.created(ucb.path("/user/{username}").buildAndExpand(username).toUri()).body("User added.");
     }
     @PostMapping("/new/admin")
-    public ResponseEntity<String> registerUser(@Valid @RequestBody AdminDTO adminDTO, UriComponentsBuilder ucb) {
-        String username = adminService.registerUser(adminDTO);
+    public ResponseEntity<String> registerUser(@Valid @RequestBody AdminInfo adminInfo, UriComponentsBuilder ucb) {
+        String username = adminService.registerUser(adminInfo);
         return ResponseEntity.created(ucb.path("/user/{username}").buildAndExpand(username).toUri()).body("User added.");
     }
     @PostMapping("/delete")
-    public ResponseEntity<String> deleteUser(@RequestBody UserDTO userDTO) {
-        return adminService.deleteUser(userDTO);
+    public ResponseEntity<String> deleteUser(@RequestBody UserInfo userInfo) {
+        return adminService.deleteUser(userInfo);
     }
 }
