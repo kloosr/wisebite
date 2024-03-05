@@ -24,7 +24,7 @@ public class AdminService {
     // Creates a Hash from the password information
     // Uses this hash to convert the information into a User
     public String registerUser(UserInfo userInfo) {
-        authenticationService.createHash(userInfo);
+        userInfo.setHash(authenticationService.createHash(userInfo.getPassword()));
         User user = userInfo.convertToUser();
         adminRepository.createUser(user);
         return user.getUsername();

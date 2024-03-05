@@ -11,20 +11,23 @@ import java.util.Optional;
 
 @Service
 public class AuthenticationService {
-    private final UserDAO userDAO;
     private final String PEPPER = "6391d7b2b6b66fad6c9a0a09e42269eb";
-    @Autowired
-    public AuthenticationService (UserDAO userDAO) {this.userDAO = userDAO;}
-    public Optional<User> findByUsername (String username) {
-        return userDAO.findByUsername(username);
+    public AuthenticationService () {}
+
+    /**
+     * Creates a hash from a plain text password
+     * @param password The plain textfield that needs hashing
+     * @return Hashed password
+     */
+    public String createHash(String password) {
+        return BCrypt.hashpw(String.format(password + PEPPER), BCrypt.gensalt());
     }
 
-    // Creates a hash from the password
-    public String createHash(UserInfo userInfo) {
-        String hash = BCrypt.hashpw(String.format(userInfo.getPassword() + PEPPER), BCrypt.gensalt());
-        userInfo.setHash(hash);
-        return hash;
-    }
+    /**
+     * This method checks the input String against the correct hash String
+     * @param input The user's input that is checked against the correct password
+     * @param hash The hashed password
+     */
     public boolean checkPassword(String input, String hash) {
             return BCrypt.checkpw(String.format(input + PEPPER), hash);
         }
