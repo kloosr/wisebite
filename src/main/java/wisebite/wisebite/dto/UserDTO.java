@@ -10,11 +10,11 @@ public class UserDTO {
     @NotEmpty
     @Size(min = 5, message = "Username should have at least 5 characters.")
     @ValidUsername
-    private final String username;
+    private String username;
 
     @NotEmpty
     @Size(min = 8, message = "Password should have at least 8 characters.")
-    private final String password;
+    private String password;
 
     @NotEmpty
     private final String firstName;
@@ -26,8 +26,8 @@ public class UserDTO {
     private UserTypeEnum userType;
 
     public UserDTO(String username, String password, String firstName, String infix, String lastName) {
-        this.username = username;
-        this.password = password;
+        setUsername(username);
+        setPassword(password);
         this.firstName = firstName;
         this.infix = infix;
         this.lastName = lastName;
@@ -40,9 +40,15 @@ public class UserDTO {
     public String getUsername() {
         return username;
     }
+    public void setUsername(String username) {
+        this.username = username.trim();
+    }
 
     public String getPassword() {
         return password;
+    }
+    public void setPassword(String password) {
+        this.password = password.trim();
     }
 
     public String getFirstName() {
