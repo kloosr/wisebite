@@ -3,6 +3,7 @@ package wisebite.wisebite.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import wisebite.wisebite.dto.PlanDTO;
 import wisebite.wisebite.model.Plan;
 import wisebite.wisebite.service.PlanningService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,12 +34,13 @@ public class CoachController {
         return ResponseEntity.ok(clients);
     }
     @GetMapping("/plan/{username}")
-    private ResponseEntity<Plan> getPlanByClient(@PathVariable String username) {
+    private ResponseEntity<PlanDTO> getPlanByClient(@PathVariable String username) {
         Plan plan = planningService.getPlanByClient(username);
         if (plan == null) {
             return ResponseEntity.notFound().build();
         } else {
-            return ResponseEntity.ok(plan);
+            PlanDTO planDTO = PlanDTO.convertToDTO( plan );
+            return ResponseEntity.ok(planDTO);
         }
     }
 }

@@ -17,9 +17,6 @@ import java.util.List;
 public class DailyTaskDAO {
     private final String DATE = "date";
     private final String DAILY_GOAL = "daily_goal";
-    private final String CLIENT = "client";
-    private final String WORKOUT_ID = "workout_id";
-    private final String DIET_ID = "diet_id";
 
     JdbcTemplate jdbcTemplate;
     DataSource dataSource;
@@ -35,44 +32,11 @@ public class DailyTaskDAO {
         return jdbcTemplate.query(sql, new DailyTaskRowMapper(), clientUsername);
     }
 
-    public List<DailyTask> findByClientWithoutClientInfo(String clientUsername){
-        String sql = "SELECT date, daily_goal, workout_id, diet_id FROM DailyTask WHERE client = ?";
-        return jdbcTemplate.query(sql, new DailyTaskRowMapperNoInfo(), clientUsername);
-    }
-
     private class DailyTaskRowMapper implements RowMapper<DailyTask> {
-        // TODO ask michel if this is the way
-        ClientDAO clientDAO = new ClientDAO(jdbcTemplate);
-        ExerciseDAO exerciseDAO = new ExerciseDAO(jdbcTemplate);
-        WorkoutDAO workoutDAO = new WorkoutDAO(jdbcTemplate, dataSource);
-        DietDAO dietDAO = new DietDAO(jdbcTemplate, dataSource);
-        RecipeDAO recipeDAO = new RecipeDAO(jdbcTemplate, dataSource);
-        WorkoutRepository workoutRepository = new WorkoutRepository(workoutDAO, exerciseDAO);
-        DietRepository dietRepository = new DietRepository(dietDAO, recipeDAO);
         @Override
         public DailyTask mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new DailyTask(rs.getDate(DATE),
-                    rs.getInt(DAILY_GOAL),
-                    clientDAO.findByUsername(rs.getString(CLIENT)),
-                    workoutRepository.createWorkout(rs.getInt(WORKOUT_ID)),
-                    dietRepository.createDietById(rs.getInt(DIET_ID)));
-        }
-    }
-
-    private class DailyTaskRowMapperNoInfo implements RowMapper<DailyTask> {
-        // TODO ask michel if this is the way
-        ExerciseDAO exerciseDAO = new ExerciseDAO(jdbcTemplate);
-        WorkoutDAO workoutDAO = new WorkoutDAO(jdbcTemplate, dataSource);
-        DietDAO dietDAO = new DietDAO(jdbcTemplate, dataSource);
-        RecipeDAO recipeDAO = new RecipeDAO(jdbcTemplate, dataSource);
-        WorkoutRepository workoutRepository = new WorkoutRepository(workoutDAO, exerciseDAO);
-        DietRepository dietRepository = new DietRepository(dietDAO, recipeDAO);
-        @Override
-        public DailyTask mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new DailyTask(rs.getDate(DATE),
-                    rs.getInt(DAILY_GOAL),
-                    workoutRepository.createWorkout(rs.getInt(WORKOUT_ID)),
-                    dietRepository.createDietById(rs.getInt(DIET_ID)));
+                    rs.getInt(DAILY_GOAL), null, null, null);
         }
     }
 }
