@@ -19,18 +19,24 @@ public class DietDAO {
     private final String ID = "id";
     private final String TYPE = "type";
     private final String CALORIES = "calorie_amount";
+
+    // JdbcTemplate and DataSource for Spring injection
     private final JdbcTemplate jdbcTemplate;
     private final DataSource dataSource;
+
+    // Constructor
     @Autowired
     public DietDAO(JdbcTemplate jdbcTemplate, DataSource dataSource) {
         this.jdbcTemplate = jdbcTemplate;
         this.dataSource = dataSource;
     }
+
     // get all method that returns a list of all diets in the database
     public List<Diet> getAll () {
         String sql = "SELECT * FROM diet";
         return jdbcTemplate.query(sql, new DietRowMapper());
     }
+
     // gets a single diet from the database based on id
     public Diet getById (int id) {
         String sql = "SELECT * FROM diet WHERE id = ?";
@@ -41,6 +47,8 @@ public class DietDAO {
             return tempDietList.get(0);
         }
     }
+
+    // RowMapper that reads data and creates a Diet object
     private class DietRowMapper implements RowMapper<Diet> {
 
         @Override
