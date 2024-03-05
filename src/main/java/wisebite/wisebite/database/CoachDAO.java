@@ -19,10 +19,12 @@ public class CoachDAO {
     private final String INFIX = "infix";
     private final String LASTNAME = "lastname";
     JdbcTemplate jdbcTemplate;
+
     @Autowired
     public CoachDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
     public Coach findByUsername(String username) {
         String sql = "Select * from Coach where username = ?;";
         List<Coach> resultList =
@@ -33,7 +35,8 @@ public class CoachDAO {
             return resultList.getFirst();
         }
     }
-    public List<Coach> getAllCoaches(){
+
+    public List<Coach> getAllCoaches() {
         String sql = "SELECT * FROM User JOIN Coach ON user.username = coach.username";
         return jdbcTemplate.query(sql, new CoachRowMapper());
     }
@@ -43,11 +46,13 @@ public class CoachDAO {
         jdbcTemplate.update(sql, coach.getUsername());
     }
 
+
     public Optional<Coach> findCoachByUsername(String username) {
         String sql = "SELECT * FROM Coach WHERE coachUsername = ?";
         List<Coach> resultList = jdbcTemplate.query(sql, new Object[]{username}, new CoachDAO.CoachRowMapper());
         return resultList.isEmpty() ? Optional.empty() : Optional.of(resultList.get(0));
     }
+
     private class CoachRowMapper implements RowMapper<Coach> {
         @Override
         public Coach mapRow(ResultSet resultSet, int rowNumber)
@@ -60,3 +65,4 @@ public class CoachDAO {
         }
     }
 }
+
