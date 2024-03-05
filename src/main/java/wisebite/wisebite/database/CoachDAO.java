@@ -12,6 +12,11 @@ import java.util.List;
 
 @Repository
 public class CoachDAO {
+    private final String USERNAME = "username";
+    private final String PASSWORD = "password";
+    private final String FIRSTNAME = "firstname";
+    private final String INFIX = "infix";
+    private final String LASTNAME = "lastname";
     JdbcTemplate jdbcTemplate;
     @Autowired
     public CoachDAO(JdbcTemplate jdbcTemplate) {
@@ -26,6 +31,10 @@ public class CoachDAO {
         } else {
             return resultList.getFirst();
         }
+    }
+    public List<Coach> getAllCoaches(){
+        String sql = "SELECT * FROM User JOIN Coach ON user.username = coach.username";
+        return jdbcTemplate.query(sql, new CoachRowMapper());
     }
 
     public void storeCoach(Coach coach) {

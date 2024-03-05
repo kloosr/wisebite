@@ -12,12 +12,13 @@ import java.util.List;
 
 @Repository
 public class ClientDAO {
-
     JdbcTemplate jdbcTemplate;
+
     @Autowired
     public ClientDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
     public Client findByUsername(String username) {
         String sql = "SELECT * FROM User LEFT JOIN Client ON User.username = Client.username WHERE User.username = ?;";
         List<Client> resultList =
@@ -30,8 +31,9 @@ public class ClientDAO {
     }
 
     public void storeClient(Client client) {
-        jdbcTemplate.update(connection -> buildInsertUserStatement(client, connection ));
+        jdbcTemplate.update(connection -> buildInsertUserStatement(client, connection));
     }
+
     private PreparedStatement buildInsertUserStatement(
             Client client, Connection connection) throws SQLException {
         PreparedStatement ps = connection.prepareStatement(
@@ -43,12 +45,27 @@ public class ClientDAO {
         return ps;
     }
 
+    public List<Client> findClientsByDietitian(String dietitianUsername) {
+        String sql = "SELECT u.username, u.password, u.firstname, u.infix, u.lastname, c.weight, c.height, c.start_date FROM User u JOIN Client c ON u.username = c.username WHERE c.dietitian = ?";
+        return jdbcTemplate.query(sql, new ClientRowMapper(), dietitianUsername);
+    }
+
+
+    public boolean isClientOnDietitianList(String username) {
+        String sql = "SELECT COUNT(*) " +
+                "FROM Client c " +
+                "INNER JOIN User u ON c.username = u.username " +
+                "JOIN Dietitian d ON c.dietitian = d.username " +
+                "WHERE c.username = ? AND d.username = ?";
+        int count = jdbcTemplate.queryForObject(sql, Integer.class, username);
+        return count > 0;
+    }
+
     private class ClientRowMapper implements RowMapper<Client> {
         @Override
         public Client mapRow(ResultSet resultSet, int rowNumber)
                 throws SQLException {
             return new Client(resultSet.getString("username"),
-                    resultSet.getString("password"),
                     resultSet.getString("firstname"),
                     resultSet.getString("infix"),
                     resultSet.getString("lastname"),
@@ -57,4 +74,10 @@ public class ClientDAO {
                     resultSet.getDate("start_date"));
         }
     }
+
+    public List<Client> getAllClients() {
+        String sql = "SELECT * FROM User JOIN Client ON user.username = client.username";
+        return jdbcTemplate.query(sql, new ClientRowMapper());
+    }
+
 }

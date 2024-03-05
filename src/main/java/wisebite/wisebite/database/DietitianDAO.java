@@ -13,10 +13,12 @@ import java.util.List;
 @Repository
 public class DietitianDAO {
     JdbcTemplate jdbcTemplate;
+
     @Autowired
     public DietitianDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
     public Dietitian findByUsername(String username) {
         String sql = "Select * from Dietitian where username = ?;";
         List<Dietitian> resultList =
@@ -33,6 +35,11 @@ public class DietitianDAO {
         jdbcTemplate.update(sql, dietitian.getUsername());
     }
 
+    public void assignCoachToClient(String clientUsername, String coachUsername) {
+        String sql = "UPDATE Client SET coach = ? WHERE username = ?";
+        jdbcTemplate.update(sql, coachUsername, clientUsername);
+    }
+
     private class DietitianRowMapper implements RowMapper<Dietitian> {
         @Override
         public Dietitian mapRow(ResultSet resultSet, int rowNumber)
@@ -43,5 +50,27 @@ public class DietitianDAO {
                     resultSet.getString("infix"),
                     resultSet.getString("lastname"));
         }
+
+        public void updateDietitian() {
+            //TODO
+        }
+
+        public void deleteDietitian() {
+            //TODO
+        }
+
+
+        public void getAllDietitians() {
+            //TODO
+        }
+
+        public void createDiet() {
+            //TODO
+        }
+
+        public void createReceipe() {
+            //TODO
+        }
+
     }
 }

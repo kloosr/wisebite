@@ -19,8 +19,8 @@ public class WorkoutRepository {
     }
     public Workout createWorkout(int id){
         Workout workout = new Workout();
-        if (workoutDAO.getWorkoutById(id).isPresent()) {
-            workout = workoutDAO.getWorkoutById(id).get();
+        if (workoutDAO.getWorkoutById(id) != null) {
+            workout = workoutDAO.getWorkoutById(id);
             List<Exercise> exerciseList = exerciseDAO.getAllByWorkout(id);
             workout.setExerciseList(exerciseList);
         } else {
