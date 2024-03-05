@@ -10,11 +10,12 @@ import java.util.List;
 
 @Repository
 public class ClientRepository {
-    private ClientDAO clientDAO;
-
-    public ClientRepository(ClientDAO clientDAO) {
-        this.clientDAO = clientDAO;
-    }
+        private ClientDAO clientDAO;
+        private DietitianDAO dietitianDAO;
+        public ClientRepository(ClientDAO clientDAO, DietitianDAO dietitianDAO) {
+            this.clientDAO = clientDAO;
+            this.dietitianDAO = dietitianDAO;
+        }
 
     public List<Client> getAllClients(String username) {
         return clientDAO.findClientByCoach(username);

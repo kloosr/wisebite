@@ -13,19 +13,12 @@ import java.util.Optional;
 
 @Repository
 public class CoachDAO {
+    private final String USERNAME = "username";
+    private final String PASSWORD = "password";
+    private final String FIRSTNAME = "firstname";
+    private final String INFIX = "infix";
+    private final String LASTNAME = "lastname";
     JdbcTemplate jdbcTemplate;
-
-
-    public List<Coach> getAllCoaches(){
-        String sql = "SELECT * FROM User JOIN Coach ON user.username = coach.username";
-        return jdbcTemplate.query(sql, new CoachRowMapper());
-    }
-
-    public void storeCoach(Coach coach) {
-        String sql = "Insert into coach(username) values (?);";
-        jdbcTemplate.update(sql, coach.getUsername());
-    }
-
     @Autowired
     public CoachDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -40,18 +33,30 @@ public class CoachDAO {
             return resultList.getFirst();
         }
     }
+    public List<Coach> getAllCoaches(){
+        String sql = "SELECT * FROM User JOIN Coach ON user.username = coach.username";
+        return jdbcTemplate.query(sql, new CoachRowMapper());
+    }
+
+    public void storeCoach(Coach coach) {
+        String sql = "Insert into coach(username) values (?);";
+        jdbcTemplate.update(sql, coach.getUsername());
+    }
+
     public Optional<Coach> findCoachByUsername(String username) {
         String sql = "SELECT * FROM Coach WHERE coachUsername = ?";
         List<Coach> resultList = jdbcTemplate.query(sql, new Object[]{username}, new CoachDAO.CoachRowMapper());
         return resultList.isEmpty() ? Optional.empty() : Optional.of(resultList.get(0));
     }
-    private static class CoachRowMapper implements RowMapper<Coach> {
+    private class CoachRowMapper implements RowMapper<Coach> {
         @Override
         public Coach mapRow(ResultSet resultSet, int rowNumber)
                 throws SQLException {
-            return null;
+            return new Coach(resultSet.getString("username"),
+                    resultSet.getString("password"),
+                    resultSet.getString("firstname"),
+                    resultSet.getString("infix"),
+                    resultSet.getString("lastname"));
         }
     }
 }
-
-

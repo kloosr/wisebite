@@ -5,6 +5,8 @@ import wisebite.wisebite.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class AdminRepository {
     private final UserDAO userDAO;
@@ -22,6 +24,9 @@ public class AdminRepository {
     }
     public boolean usernameExists(String username) {
         return userDAO.findByUsername(username).isPresent();
+    }
+    public Optional<User> getUserByUsername(String username) {
+        return userDAO.findByUsername(username);
     }
     public void createUser(User user) {
         UserTypeEnum userType = user.getUserType();
@@ -43,7 +48,7 @@ public class AdminRepository {
                 break;
         }
     }
-    public void deleteUser(User user) {
-        userDAO.deleteUser(user);
+    public void deleteUser(String username) {
+        userDAO.deleteUser(username);
     }
 }

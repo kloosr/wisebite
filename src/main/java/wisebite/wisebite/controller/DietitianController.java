@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wisebite.wisebite.model.Client;
+import wisebite.wisebite.model.Coach;
 import wisebite.wisebite.model.Dietitian;
 import wisebite.wisebite.model.User;
 import wisebite.wisebite.service.UserManagementService;
@@ -26,13 +27,9 @@ import java.util.List;
     }
 
     @GetMapping("/overview/{username}")
-    public ResponseEntity<List<Client>> getDietitianOverview(String dietitianUsername) {
-        List<Client> clients = userManagementService.getClientsForDietitian(dietitianUsername);
-        if (clients != null) {
+    public ResponseEntity<List<Client>> getDietitianOverview(@PathVariable String username) {
+        List<Client> clients = userManagementService.getClientsForDietitian(username);
             return new ResponseEntity<>(clients, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
     @GetMapping("/client/{username}")
     public ResponseEntity<Client> getClientByUsername(@PathVariable String username) {
@@ -42,6 +39,10 @@ import java.util.List;
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    @GetMapping("/coaches")
+    public List<Coach> getAllCoaches() {
+        return userManagementService.getAllCoaches();
     }
 }
 

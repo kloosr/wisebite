@@ -14,9 +14,9 @@ public class LoginController {
     @Autowired
     public LoginController(AuthenticationService authenticationService) {this.authenticationService = authenticationService;}
 
-    @GetMapping()
-    public Optional<User> findByUserName (@RequestBody String username, String password) {
-        return authenticationService.findByUsername(username);
-    }
+//    @GetMapping()
+//    public Optional<User> findByUserName (@RequestBody String username, String password) {
+//        return authenticationService.findByUsername(username);
+//    }
 
 }
