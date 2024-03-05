@@ -23,6 +23,9 @@ public class DailyTask {
         this.workout = workout;
         this.client = client;
     }
+    public DailyTask(Date date, int dailyGoal, Workout workout, Diet diet) {
+        this(date, dailyGoal, null, workout, diet);
+    }
 
     public DailyTask() {
     }

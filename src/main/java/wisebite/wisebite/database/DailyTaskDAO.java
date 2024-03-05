@@ -5,6 +5,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import wisebite.wisebite.model.DailyTask;
+import wisebite.wisebite.repository.DietRepository;
+import wisebite.wisebite.repository.WorkoutRepository;
 import wisebite.wisebite.repository.WorkoutRepository;
 
 import javax.sql.DataSource;
@@ -33,18 +35,44 @@ public class DailyTaskDAO {
         return jdbcTemplate.query(sql, new DailyTaskRowMapper(), clientUsername);
     }
 
+    public List<DailyTask> findByClientWithoutClientInfo(String clientUsername){
+        String sql = "SELECT date, daily_goal, workout_id, diet_id FROM DailyTask WHERE client = ?";
+        return jdbcTemplate.query(sql, new DailyTaskRowMapperNoInfo(), clientUsername);
+    }
+
     private class DailyTaskRowMapper implements RowMapper<DailyTask> {
         // TODO ask michel if this is the way
         ClientDAO clientDAO = new ClientDAO(jdbcTemplate);
+        ExerciseDAO exerciseDAO = new ExerciseDAO(jdbcTemplate);
         WorkoutDAO workoutDAO = new WorkoutDAO(jdbcTemplate, dataSource);
         DietDAO dietDAO = new DietDAO(jdbcTemplate, dataSource);
+        RecipeDAO recipeDAO = new RecipeDAO(jdbcTemplate, dataSource);
+        WorkoutRepository workoutRepository = new WorkoutRepository(workoutDAO, exerciseDAO);
+        DietRepository dietRepository = new DietRepository(dietDAO, recipeDAO);
         @Override
         public DailyTask mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new DailyTask(rs.getDate(DATE),
                     rs.getInt(DAILY_GOAL),
                     clientDAO.findByUsername(rs.getString(CLIENT)),
-                    workoutDAO.getWorkoutById(rs.getInt(WORKOUT_ID)),
-                    dietDAO.getById(rs.getInt(DIET_ID)));
+                    workoutRepository.createWorkout(rs.getInt(WORKOUT_ID)),
+                    dietRepository.createDietById(rs.getInt(DIET_ID)));
+        }
+    }
+
+    private class DailyTaskRowMapperNoInfo implements RowMapper<DailyTask> {
+        // TODO ask michel if this is the way
+        ExerciseDAO exerciseDAO = new ExerciseDAO(jdbcTemplate);
+        WorkoutDAO workoutDAO = new WorkoutDAO(jdbcTemplate, dataSource);
+        DietDAO dietDAO = new DietDAO(jdbcTemplate, dataSource);
+        RecipeDAO recipeDAO = new RecipeDAO(jdbcTemplate, dataSource);
+        WorkoutRepository workoutRepository = new WorkoutRepository(workoutDAO, exerciseDAO);
+        DietRepository dietRepository = new DietRepository(dietDAO, recipeDAO);
+        @Override
+        public DailyTask mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new DailyTask(rs.getDate(DATE),
+                    rs.getInt(DAILY_GOAL),
+                    workoutRepository.createWorkout(rs.getInt(WORKOUT_ID)),
+                    dietRepository.createDietById(rs.getInt(DIET_ID)));
         }
     }
 }
