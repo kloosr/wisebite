@@ -32,7 +32,14 @@ class UsernameValidator implements
     @Override
     public boolean isValid(String username,
                            ConstraintValidatorContext context) {
-        return (!adminService.usernameExists(username));
+        if (username.contains(" ")) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("Username may not contain spaces.")
+                    .addConstraintViolation();
+            return false;
+        } else {
+            return (!adminService.usernameExists(username));
+        }
     }
 
 }
