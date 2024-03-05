@@ -8,6 +8,8 @@ import wisebite.wisebite.repository.ClientRepository;
 import wisebite.wisebite.repository.CoachRepository;
 import wisebite.wisebite.repository.DietitianRepository;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -42,8 +44,25 @@ public class UserManagementService {
 
     public double calculateClientBMI(Client client) {
         double weight = clientRepository.getWeight(client.getUsername());
-        double height = clientRepository.getHeight(client.getUsername())/ 100;
+        double height = clientRepository.getHeight(client.getUsername()) / 100;
         double bmiOfClient = weight / (height * height);
         return bmiOfClient;
+    }
+    public List<Client> sortClientsByBMI(List<Client> clients) {
+        Collections.sort(clients, Comparator.comparingDouble(this::calculateClientBMI));
+        return clients;
+    }
+
+    public String checkBmiCategory() {
+        double bmiOfClient = calculateClientBMI(client);
+        if (bmiOfClient < 18.5) {
+            return "Underweight";
+        } else if (bmiOfClient >= 18.5 && bmiOfClient < 25) {
+            return "Normal weight";
+        } else if (bmiOfClient >= 25 && bmiOfClient < 30) {
+            return "Overweight";
+        } else {
+            return "Obese";
+        }
     }
 }

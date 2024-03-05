@@ -24,4 +24,3 @@ public class ClientRepository {
         return clientDAO.getHeight(username);
     }
 }
-

@@ -10,6 +10,7 @@ public class Client extends User{
     private double weight;
     @Setter
     private int height;
+    @Setter
     private Date startDate;
     public Client (String username, String password, String firstName, String infix, String lastName, double weight, int height, Date startDate){
         super(username, password, firstName, infix, lastName);
@@ -31,28 +32,4 @@ public class Client extends User{
         return startDate;
     }
 
-    public double calculateBMI() {
-        return weight / ((double) height * height);
-    }
-
-    public void planAppointment(){
-        //TODO
-    }
-
-    public void sendMessage() {
-        //TODO
-    }
-
-    public void completeTask(/*Task*/){
-        //TODO
-    }
-
-    public void setWeight(){
-        //TODO
-    }
-
-    public void addReceipe (){
-        //TODO
-        //optioneel
-    }
 }

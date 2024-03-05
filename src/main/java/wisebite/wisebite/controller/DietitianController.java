@@ -56,6 +56,11 @@ import java.util.List;
     public List<Coach> getAllCoaches() {
         return userManagementService.getAllCoaches();
     }
+    @GetMapping("/sorted-by-bmi")
+    public ResponseEntity<List<Client>> getClientsSortedByBmiAndDietitian(String dietitianUsername) {
+        List<Client> clients = userManagementService.getClientsForDietitian(dietitianUsername);
+        return (ResponseEntity<List<Client>>) userManagementService.sortClientsByBMI(clients);
+    }
 }
 
 

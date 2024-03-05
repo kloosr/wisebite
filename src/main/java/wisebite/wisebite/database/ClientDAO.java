@@ -87,4 +87,5 @@ public class ClientDAO {
                     resultSet.getDate("start_date"));
         }
     }
+
 }
