@@ -49,6 +49,10 @@ public class ClientDAO {
         return jdbcTemplate.query(sql, new ClientRowMapper(), dietitianUsername);
     }
 
+    public Client findClientByUsername(String username) {
+        String sql = "SELECT u.username, u.password, u.firstname, u.infix, u.lastname, c.weight, c.height, c.start_date FROM User u JOIN Client c ON u.username = c.username WHERE u.username = ?";
+        return jdbcTemplate.queryForObject(sql, new ClientRowMapper(), username);
+    }
 
     public boolean isClientOnDietitianList(String username) {
         String sql = "SELECT COUNT(*) " +
@@ -65,6 +69,7 @@ public class ClientDAO {
         public Client mapRow(ResultSet resultSet, int rowNumber)
                 throws SQLException {
             return new Client(resultSet.getString("username"),
+                    resultSet.getString("password"),
                     resultSet.getString("firstname"),
                     resultSet.getString("infix"),
                     resultSet.getString("lastname"),
@@ -87,8 +92,4 @@ public class ClientDAO {
         return jdbcTemplate.query(sql, new ClientRowMapper(), coachUsername);
     }
 
-    public Client findClientByUsername(String username) {
-        String sql = "SELECT u.username, u.firstname, u.infix, u.lastname FROM User u JOIN Client c ON u.username = c.username WHERE u.username = ?";
-        return jdbcTemplate.queryForObject(sql, new ClientRowMapper(), username);
-    }
 }
