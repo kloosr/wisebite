@@ -33,8 +33,8 @@ public class DailyTaskRepository {
         this.dietDAO = dietDAO;
     }
 
-    public List<DailyTask> findByClient (String username) {
-        List<DailyTask> taskList = dailyTaskDAO.findByClient(username);
+    public List<DailyTask> getDailyTaskForClient (String username) {
+        List<DailyTask> taskList = dailyTaskDAO.getDailyTaskForClient(username);
         for (DailyTask task : taskList) {
             task.setClient(clientDAO.findClientByUsername(username));
             task.setWorkout(workoutRepository.createWorkoutByDateUsername(task.getDate(), username));
@@ -42,7 +42,5 @@ public class DailyTaskRepository {
         }
         return taskList;
     }
-
-
 }
 

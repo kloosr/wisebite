@@ -24,9 +24,8 @@ public class ClientController {
         this.userManagementService = userManagementService;
     }
     @GetMapping("/client/{username}/dailytasklist")
-    // TODO make method return DailyTaskDTO instead of DailyTASK
-    public ResponseEntity<List<DailyTask>> findByClient(@PathVariable String username){
-        List<DailyTask> dailyTask = planningService.findByClient(username);
+    public ResponseEntity<List<DailyTask>> getDailyTaskForClient(@PathVariable String username){//rename getDailyTask
+        List<DailyTask> dailyTask = planningService.getDailyTaskForClient(username);
         if (!dailyTask.isEmpty()){
             return new ResponseEntity<>(dailyTask, HttpStatus.OK);
         } else {
