@@ -6,6 +6,7 @@ import wisebite.wisebite.database.RecipeDAO;
 import wisebite.wisebite.model.Diet;
 import wisebite.wisebite.model.Recipe;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +21,18 @@ public class DietRepository {
     // creates a Diet by getting the diet information from the database and filling a list with recipes
     public Diet createDietById(int id) {
         if (dietDAO.getById(id) != null) {
+            List<Recipe> recipeList = recipeDAO.getAllByDiet(id);
+            Diet diet = dietDAO.getById(id);
+            diet.setRecipes(recipeList);
+            return diet;
+        } else {
+            return null;
+        }
+    }
+
+    public Diet createDietByDateUsername(Date date, String username) {
+        int id = dietDAO.getIdByDateAndUsername(date, username);
+        if (id != 0) {
             List<Recipe> recipeList = recipeDAO.getAllByDiet(id);
             Diet diet = dietDAO.getById(id);
             diet.setRecipes(recipeList);

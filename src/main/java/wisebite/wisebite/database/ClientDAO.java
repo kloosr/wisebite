@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public class ClientDAO {
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     public ClientDAO(JdbcTemplate jdbcTemplate) {
@@ -26,11 +26,9 @@ public class ClientDAO {
         return (Client) resultList;
     }
 
-
     public void storeClient(Client client) {
         jdbcTemplate.update(connection -> buildInsertUserStatement(client, connection));
     }
-
     private PreparedStatement buildInsertUserStatement(
             Client client, Connection connection) throws SQLException {
         PreparedStatement ps = connection.prepareStatement(
@@ -84,4 +82,6 @@ public class ClientDAO {
                     resultSet.getDate("start_date"));
         }
     }
+
+
 }

@@ -9,15 +9,15 @@ public class ClientDTO {
     private double weight;
     private int height;
     private Date startDate;
-    public ClientDTO (){}
+
+    public ClientDTO() {
+    }
 
     public ClientDTO(String firstName, String infix, String lastName, double weight, int height, Date startDate) {
         this.firstName = firstName;
         this.infix = infix;
         this.lastName = lastName;
-        this.weight = weight;
         this.height = height;
         this.startDate = startDate;
     }
 }
-

@@ -2,6 +2,7 @@ package wisebite.wisebite.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import wisebite.wisebite.dto.DailyTaskDTO;
 import wisebite.wisebite.model.DailyTask;
 import wisebite.wisebite.model.Diet;
 import wisebite.wisebite.model.Plan;
@@ -34,8 +35,8 @@ public class PlanningService {
         return dietRepository.createDietById(id);
     }
 
-    public List<DailyTask> findByClient(String clientUsername){
-        return dailyTaskRepository.findByClient(clientUsername);
+    public List<DailyTask> getDailyTaskForClient(String clientUsername){
+        return dailyTaskRepository.getDailyTaskForClient(clientUsername);
     }
     public Plan getPlanByClient (String username) {
         return planRepository.getPlanByClient(username);

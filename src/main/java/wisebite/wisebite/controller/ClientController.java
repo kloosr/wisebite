@@ -25,9 +25,9 @@ public class ClientController {
     }
 
     @GetMapping("/client/{username}/dailytasklist")
-    public ResponseEntity<List<DailyTask>> findByClient(@PathVariable String username) {
-        List<DailyTask> dailyTask = planningService.findByClient(username);
-        if (!dailyTask.isEmpty()) {
+    public ResponseEntity<List<DailyTask>> getDailyTaskForClient(@PathVariable String username){//rename getDailyTask
+        List<DailyTask> dailyTask = planningService.getDailyTaskForClient(username);
+        if (!dailyTask.isEmpty()){
             return new ResponseEntity<>(dailyTask, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

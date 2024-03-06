@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import javax.xml.crypto.Data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +46,16 @@ public class DietDAO {
             return null;
         } else {
             return tempDietList.get(0);
+        }
+    }
+
+    public int getIdByDateAndUsername (Date date, String username) {
+        String sql = "SELECT d.id, d.type, d.calorie_amount FROM diet d LEFT JOIN dailytask dt ON d.id = dt.diet_id WHERE date = ? AND client = ?";
+        List<Diet> tempDietList = jdbcTemplate.query(sql, new DietRowMapper(), date, username);
+        if (tempDietList.isEmpty()) {
+            return 0;
+        } else {
+            return tempDietList.get(0).getId();
         }
     }
 
