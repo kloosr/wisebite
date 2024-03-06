@@ -6,11 +6,8 @@ import wisebite.wisebite.database.ClientDAO;
 import wisebite.wisebite.database.DailyTaskDAO;
 import wisebite.wisebite.database.DietDAO;
 import wisebite.wisebite.database.WorkoutDAO;
-import wisebite.wisebite.dto.DailyTaskDTO;
 import wisebite.wisebite.model.DailyTask;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Repository

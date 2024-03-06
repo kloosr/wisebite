@@ -3,7 +3,6 @@ package wisebite.wisebite.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import wisebite.wisebite.database.ClientDAO;
 import wisebite.wisebite.dto.DailyTaskDTO;
 import wisebite.wisebite.dto.PlanDTO;
 import wisebite.wisebite.model.DailyTask;
