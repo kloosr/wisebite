@@ -35,8 +35,8 @@ public class PlanningService {
         return dietRepository.createDietById(id);
     }
 
-    public List<DailyTask> findByClient(String clientUsername){
-        return dailyTaskRepository.findByClient(clientUsername);
+    public List<DailyTask> getDailyTaskForClient(String clientUsername){
+        return dailyTaskRepository.getDailyTaskForClient(clientUsername);
     }
     public Plan getPlanByClient (String username) {
         return planRepository.getPlanByClient(username);
