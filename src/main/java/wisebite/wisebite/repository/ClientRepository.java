@@ -26,4 +26,10 @@ public class ClientRepository {
         return clientDAO.isClientOnDietitianList(username);
     }
 
+    public boolean isClientOnCoachList (String client, String coach) {
+            return clientDAO.isClientOnCoachList(client, coach);
+    }
+    public boolean clientExists (String client) {
+            return clientDAO.clientExists(client);
+    }
 }

@@ -64,19 +64,10 @@ public class ClientDAO {
         return count > 0;
     }
 
-    private class ClientRowMapper implements RowMapper<Client> {
-        @Override
-        public Client mapRow(ResultSet resultSet, int rowNumber)
-                throws SQLException {
-            return new Client(resultSet.getString("username"),
-                    resultSet.getString("password"),
-                    resultSet.getString("firstname"),
-                    resultSet.getString("infix"),
-                    resultSet.getString("lastname"),
-                    resultSet.getDouble("weight"),
-                    resultSet.getInt("height"),
-                    resultSet.getDate("start_date"));
-        }
+    public boolean isClientOnCoachList (String client, String coach) {
+        String sql = "SELECT * FROM client c LEFT JOIN user u ON c.username = u.username WHERE c.username = ? AND coach = ?";
+        List<Client> clientList = jdbcTemplate.query(sql, new ClientRowMapper(), client, coach);
+        return !clientList.isEmpty();
     }
     public List<Client> getAllClients(){
         String sql = "SELECT * FROM User JOIN Client ON user.username = client.username";
@@ -90,6 +81,27 @@ public class ClientDAO {
     public List<Client> findClientByCoach(String coachUsername) {
         String sql = "SELECT u.username, u.firstname, u.infix, u.lastname FROM User u JOIN Coach c ON u.username = c.username WHERE c.coach = ?";
         return jdbcTemplate.query(sql, new ClientRowMapper(), coachUsername);
+    }
+
+    public boolean clientExists (String client) {
+        String sql = "SELECT * FROM client WHERE username = ?";
+        List<Client> clientList = jdbcTemplate.query(sql, new ClientRowMapper(), client);
+        return !clientList.isEmpty();
+    }
+
+    private class ClientRowMapper implements RowMapper<Client> {
+        @Override
+        public Client mapRow(ResultSet resultSet, int rowNumber)
+                throws SQLException {
+            return new Client(resultSet.getString("username"),
+                    resultSet.getString("password"),
+                    resultSet.getString("firstname"),
+                    resultSet.getString("infix"),
+                    resultSet.getString("lastname"),
+                    resultSet.getDouble("weight"),
+                    resultSet.getInt("height"),
+                    resultSet.getDate("start_date"));
+        }
     }
 
 }

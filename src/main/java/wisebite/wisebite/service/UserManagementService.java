@@ -1,5 +1,8 @@
 package wisebite.wisebite.service;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wisebite.wisebite.model.Client;
@@ -15,6 +18,7 @@ public class UserManagementService {
     private DietitianRepository dietitianRepository;
     private ClientRepository clientRepository;
     private CoachRepository coachRepository;
+    private AuthenticationService authenticationService;
     @Autowired
     public UserManagementService(DietitianRepository dietitianRepository, ClientRepository clientRepository, CoachRepository coachRepository) {
         this.clientRepository = clientRepository;
@@ -38,5 +42,12 @@ public class UserManagementService {
 
     public boolean isClientOnDietitianList(String username){
         return clientRepository.isClientOnDietitianList(username);
+    }
+
+    public boolean clientIsOnCoachList (String client, String coach) {
+        return clientRepository.isClientOnCoachList(client, coach);
+    }
+    public boolean clientExists (String client) {
+        return clientRepository.clientExists(client);
     }
 }
