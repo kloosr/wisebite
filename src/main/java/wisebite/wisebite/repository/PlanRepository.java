@@ -11,16 +11,18 @@ import java.util.List;
 
 @Repository
 public class PlanRepository {
-    private final DailyTaskDAO dailyTaskDAO;
     private final PlanDAO planDAO;
+    private final DailyTaskRepository dailyTaskRepository;
+    private final DailyTaskDAO dailyTaskDAO;
     @Autowired
-    public PlanRepository(DailyTaskDAO dailyTaskDAO, PlanDAO planDAO) {
-        this.dailyTaskDAO = dailyTaskDAO;
+    public PlanRepository(DailyTaskRepository dailyTaskRepository, PlanDAO planDAO, DailyTaskDAO dailyTaskDAO) {
+        this.dailyTaskRepository = dailyTaskRepository;
         this.planDAO = planDAO;
+        this.dailyTaskDAO = dailyTaskDAO;
     }
     public Plan getPlanByClient (String username) {
         Plan plan = planDAO.getByClient(username);
-        List<DailyTask> taskList = dailyTaskDAO.findByClient(username);
+        List<DailyTask> taskList = dailyTaskRepository.findByClient(username);
         plan.setTaskList(taskList);
         return plan;
     }

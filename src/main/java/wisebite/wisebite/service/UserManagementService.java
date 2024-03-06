@@ -8,6 +8,8 @@ import wisebite.wisebite.repository.ClientRepository;
 import wisebite.wisebite.repository.CoachRepository;
 import wisebite.wisebite.repository.DietitianRepository;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -15,23 +17,63 @@ public class UserManagementService {
     private DietitianRepository dietitianRepository;
     private ClientRepository clientRepository;
     private CoachRepository coachRepository;
+    Client client;
+
+    private AuthenticationService authenticationService;
     @Autowired
-    public UserManagementService(DietitianRepository dietitianRepository, CoachRepository coachRepository) {
+    public UserManagementService(DietitianRepository dietitianRepository, ClientRepository clientRepository) {
         this.dietitianRepository = dietitianRepository;
+        this.clientRepository = clientRepository;
         this.coachRepository = coachRepository;
     }
 
-    public List<Client> getClientsForDietitian(String dietitianUsername) {
+    public List<Client> getAllClientsOfDietitian(String dietitianUsername) {
         return dietitianRepository.findAllClientsByDietitian(dietitianUsername);
     }
-    public List<Coach> getAllCoaches(){
+
+    public List<Coach> getAllCoaches() {
         return coachRepository.getAllCoaches();
     }
-    public Client findClientByUsername(String username) {
+    public List<Client> findAllByCoach(String coachUsername){
+        return clientRepository.getAllClients(coachUsername);
+    }
+
+    public Client getSingleClient(String username) {
         return dietitianRepository.getSingleClient(username);
     }
 
-    public boolean isClientOnDietitianList(String username){
+    public boolean isClientOnDietitianList(String username) {
         return clientRepository.isClientOnDietitianList(username);
+    }
+
+    public boolean clientIsOnCoachList (String client, String coach) {
+        return clientRepository.isClientOnCoachList(client, coach);
+    }
+    public boolean clientExists (String client) {
+        return clientRepository.clientExists(client);
+    }
+
+    public double calculateClientBMI(Client client) {
+        double weight = clientRepository.getWeight(client.getUsername());
+        double height = clientRepository.getHeight(client.getUsername()) / 100;
+        double bmiOfClient = weight / (height * height);
+        return bmiOfClient;
+    }
+    public List<Client> sortClientsByBMI(List<Client> clients) {
+        Collections.sort(clients, Comparator.comparingDouble(this::calculateClientBMI));
+        return clients;
+    }
+
+    public String checkBmiCategory() {
+        double bmiOfClient = calculateClientBMI(client);
+        if (bmiOfClient < 18.5) {
+            return "Underweight";
+        } else if (bmiOfClient >= 18.5 && bmiOfClient < 25) {
+            return "Normal weight";
+        } else if (bmiOfClient >= 25 && bmiOfClient < 30) {
+            return "Overweight";
+        } else {
+            return "Obese";
+        }
     }
 }
