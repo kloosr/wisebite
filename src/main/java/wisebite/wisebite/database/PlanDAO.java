@@ -42,7 +42,7 @@ public class PlanDAO {
         public Plan mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new Plan(rs.getInt(WEIGHT_LOSS_GOAL),
                     rs.getInt(GOAL), rs.getInt(DURATION),
-                    clientDAO.findByUsername(rs.getString(CLIENT)));
+                    clientDAO.getSingleClient(rs.getString(CLIENT)));
         }
     }
 }

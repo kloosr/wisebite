@@ -5,7 +5,6 @@ import wisebite.wisebite.database.ClientDAO;
 import wisebite.wisebite.database.CoachDAO;
 import wisebite.wisebite.database.DietitianDAO;
 import wisebite.wisebite.model.Client;
-import wisebite.wisebite.model.Coach;
 
 import java.util.List;
 
@@ -22,11 +21,11 @@ public class DietitianRepository {
     }
 
     public List<Client> findAllClientsByDietitian(String dietitianUsername) {
-        return clientDAO.findClientsByDietitian(dietitianUsername);
+        return clientDAO.getAllClientsOfDietitian(dietitianUsername);
     }
 
     public Client getSingleClient(String username) {
-        return clientDAO.findByUsername(username);
+        return clientDAO.getSingleClient(username);
     }
 
 }
