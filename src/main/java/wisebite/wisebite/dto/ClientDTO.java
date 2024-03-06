@@ -1,38 +1,27 @@
 package wisebite.wisebite.dto;
 
-import wisebite.wisebite.model.UserTypeEnum;
-import wisebite.wisebite.service.validation.ValidHeight;
-import wisebite.wisebite.service.validation.ValidWeight;
+import org.springframework.stereotype.Component;
 import wisebite.wisebite.model.Client;
-import java.sql.Date;
-import java.time.LocalDate;
+import wisebite.wisebite.model.User;
 
-public class ClientDTO extends UserDTO {
-    @ValidHeight
-    private final Integer height;
+import java.util.Date;
 
-    @ValidWeight
-    private final Double weight;
+public class ClientDTO {
+    private String firstName;
+    private String infix;
+    private String lastName;
+    private double weight;
+    private int height;
+    private Date startDate;
+    public ClientDTO (){}
 
-    public ClientDTO(String username, String password, String firstName, String infix, String lastName, Integer height, Double weight) {
-        super(username, password, firstName, infix, lastName);
-        this.height = height;
+    public ClientDTO(String firstName, String infix, String lastName, double weight, int height, Date startDate) {
+        this.firstName = firstName;
+        this.infix = infix;
+        this.lastName = lastName;
         this.weight = weight;
-        this.setUserType(UserTypeEnum.CLIENT);
+        this.height = height;
+        this.startDate = startDate;
     }
-   /* @Override
-    public Client convertDTO() {
-        Date currentDate = Date.valueOf(LocalDate.now());
-        return new Client(
-        );
-    } */
-
-    public int getHeight() {
-        return height;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
 }
+

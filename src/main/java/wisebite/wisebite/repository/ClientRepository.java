@@ -1,5 +1,6 @@
 package wisebite.wisebite.repository;
 
+import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import wisebite.wisebite.database.*;
@@ -19,6 +20,7 @@ public class ClientRepository {
     public List<Client> getAllClients(String username) {
         return clientDAO.findClientByCoach(username);
     }
+
 
 
     public boolean isClientOnDietitianList(String username) {
