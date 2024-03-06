@@ -1,5 +1,8 @@
 package wisebite.wisebite.controller;
 
+
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +20,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/coach")
 public class CoachController {
- private final UserManagementService userManagementService;
- private final PlanningService planningService;
+    private final UserManagementService userManagementService;
+    private final PlanningService planningService;
 
     @Autowired
     public CoachController(PlanningService planningService, UserManagementService userManagementService) {
@@ -28,10 +31,18 @@ public class CoachController {
 
     // Endpoint om een overzicht van alle cliënten voor de coach op te halen
     @GetMapping("/overview")
-    public ResponseEntity<List<Client>> getClientsOverview(@RequestParam String coachUsername) {
+    public ResponseEntity<?> getClientsOverview(@RequestParam String coachUsername) {
+
+        //  public ResponseEntity<?> getClientsOverview(@RequestParam String coachUsername) {
         List<Client> clients = userManagementService.findAllByCoach(coachUsername);
-        return ResponseEntity.ok(clients);
+        if (coachUsername == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(clients);
+            // if token != authorized return 401
+        }
     }
+
     @GetMapping("/plan/{username}")
     private ResponseEntity<Plan> getPlanByClient(@PathVariable String username) {
         Plan plan = planningService.getPlanByClient(username);
@@ -41,4 +52,7 @@ public class CoachController {
             return ResponseEntity.ok(plan);
         }
     }
+
+
 }
+

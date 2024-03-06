@@ -15,6 +15,7 @@ public class UserManagementService {
     private DietitianRepository dietitianRepository;
     private ClientRepository clientRepository;
     private CoachRepository coachRepository;
+
     @Autowired
     public UserManagementService(DietitianRepository dietitianRepository, ClientRepository clientRepository, CoachRepository coachRepository) {
         this.clientRepository = clientRepository;
@@ -25,18 +26,20 @@ public class UserManagementService {
     public List<Client> getClientsForDietitian(String dietitianUsername) {
         return dietitianRepository.findAllClientsByDietitian(dietitianUsername);
     }
-    public List<Client> findAllByCoach(String coachUsername){
-       return clientRepository.getAllClients(coachUsername);
+
+    public List<Client> findAllByCoach(String coachUsername) {
+        return clientRepository.getAllClients(coachUsername);
     }
 
-    public List<Coach> getAllCoaches(){
+    public List<Coach> getAllCoaches() {
         return coachRepository.getAllCoaches();
     }
+
     public Client findClientByUsername(String username) {
         return dietitianRepository.getSingleClient(username);
     }
 
-    public boolean isClientOnDietitianList(String username){
+    public boolean isClientOnDietitianList(String username) {
         return clientRepository.isClientOnDietitianList(username);
     }
 }
