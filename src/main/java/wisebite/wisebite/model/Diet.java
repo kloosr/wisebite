@@ -53,4 +53,8 @@ public class Diet {
     public void setCalorieAmount(int calorieAmount) {
         this.calorieAmount = calorieAmount;
     }
+
+    public int getId() {
+        return id;
+    }
 }

@@ -26,7 +26,7 @@ public class DietitianRepository {
     }
 
     public Client getSingleClient(String username) {
-        return clientDAO.findClientByUsername(username);
+        return clientDAO.findByUsername(username);
     }
 
 }

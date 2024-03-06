@@ -1,44 +1,69 @@
 package wisebite.wisebite.dto;
 
-import java.util.Date;
-//This class is used to transfer data between processes.
-//DailyTaskDTO is a simple POJO (Plain Old Java Object) used for data transfer.
-public class DailyTaskDTO {
-    private int id;
-    private Date date;
-    private boolean dailyGoal;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import wisebite.wisebite.model.DailyTask;
+import wisebite.wisebite.model.Diet;
+import wisebite.wisebite.model.Workout;
 
-    public DailyTaskDTO(int id, Date date, boolean dailyGoal) {
-        this.id = id;
+import java.util.Date;
+public class DailyTaskDTO {
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private Date date;
+    private int dailyGoal;
+    private Workout workout;
+    private Diet diet;
+
+
+    public DailyTaskDTO(Date date, int dailyGoal, Workout workout, Diet diet) {
         this.date = date;
         this.dailyGoal = dailyGoal;
+        this.workout = workout;
+        this.diet = diet;
     }
 
-    public DailyTaskDTO() {
-
+    public DailyTaskDTO(DailyTask dailyTask) {
+        this(dailyTask.getDate(),
+                dailyTask.getDailyGoal(),
+                dailyTask.getWorkout(),
+                dailyTask.getDiet());
     }
 
-    public int getId() {
-        return id;
+    public DailyTaskDTO convertToDTO(DailyTask dailyTask) {
+        return new DailyTaskDTO(dailyTask.getDate(),
+                dailyTask.getDailyGoal(),
+                dailyTask.getWorkout(),
+                dailyTask.getDiet());
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public Date getDate() {
         return date;
+    }
+
+    public int getDailyGoal() {
+        return dailyGoal;
+    }
+
+    public Workout getWorkout() {
+        return workout;
+    }
+
+    public Diet getDiet() {
+        return diet;
     }
 
     public void setDate(Date date) {
         this.date = date;
     }
 
-    public boolean isDailyGoal() {
-        return dailyGoal;
-    }
-
-    public void setDailyGoal(boolean dailyGoal) {
+    public void setDailyGoal(int dailyGoal) {
         this.dailyGoal = dailyGoal;
     }
+
+    public void setWorkout(Workout workout) {
+        this.workout = workout;
+    }
+
+    public void setDiet(Diet diet) {
+        this.diet = diet;
+    }
+
 }

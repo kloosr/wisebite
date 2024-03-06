@@ -16,7 +16,8 @@ public class UserManagementService {
     private ClientRepository clientRepository;
     private CoachRepository coachRepository;
     @Autowired
-    public UserManagementService(DietitianRepository dietitianRepository, CoachRepository coachRepository) {
+    public UserManagementService(DietitianRepository dietitianRepository, ClientRepository clientRepository, CoachRepository coachRepository) {
+        this.clientRepository = clientRepository;
         this.dietitianRepository = dietitianRepository;
         this.coachRepository = coachRepository;
     }
@@ -24,6 +25,10 @@ public class UserManagementService {
     public List<Client> getClientsForDietitian(String dietitianUsername) {
         return dietitianRepository.findAllClientsByDietitian(dietitianUsername);
     }
+    public List<Client> findAllByCoach(String coachUsername){
+       return clientRepository.getAllClients(coachUsername);
+    }
+
     public List<Coach> getAllCoaches(){
         return coachRepository.getAllCoaches();
     }
