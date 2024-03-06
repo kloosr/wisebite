@@ -3,10 +3,8 @@ package wisebite.wisebite.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import wisebite.wisebite.database.DailyTaskDAO;
-import wisebite.wisebite.dto.DailyTaskDTO;
 import wisebite.wisebite.model.DailyTask;
 
-import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -18,8 +16,8 @@ public class DailyTaskRepository {
         this.dailyTaskDAO = dailyTaskDAO;
     }
 
-    public List<DailyTask> findByClient(String clientUsername) {
-        return dailyTaskDAO.findByClient(clientUsername);
+    public List<DailyTask> getDailyTaskForClient(String clientUsername) {
+        return dailyTaskDAO.getDailyTaskForClient(clientUsername);
     }
 }
 

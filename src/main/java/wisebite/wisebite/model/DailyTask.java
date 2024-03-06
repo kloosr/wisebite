@@ -3,9 +3,6 @@ package wisebite.wisebite.model;
 import java.util.Date;
 
 public class DailyTask {
-    // 'final' removed. Assuming that id is meant to be a database-generated value (e.g., auto-incrementing),
-    // it should not be final, because it will be set by JPA (Java Persistence API) when the entity is persisted,
-    // not by your application code when the object is created.
 
     private Date date;
     Diet diet;
