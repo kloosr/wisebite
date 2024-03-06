@@ -1,21 +1,27 @@
 package wisebite.wisebite.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class DailyTask {
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date date;
     Diet diet;
     Workout workout;
     private int dailyGoal;
     private Client client;
 
-    public DailyTask(Date date, int dailyGoal, Client client, Workout workout, Diet diet) {
+    public DailyTask(Date date, int dailyGoal, Diet diet, Workout workout, Client client ) {
         this.date = date;
         this.dailyGoal = dailyGoal;
         this.diet = diet;
         this.workout = workout;
         this.client = client;
+    }
+    public DailyTask(Date date, int dailyGoal, Workout workout, Diet diet) {
+        this(date, dailyGoal, diet, workout, null);
     }
 
     public DailyTask() {
