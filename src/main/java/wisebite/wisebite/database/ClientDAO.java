@@ -54,12 +54,22 @@ public class ClientDAO {
         int count = jdbcTemplate.queryForObject(sql, Integer.class, username);
         return count > 0;
     }
-
     public List<Client> findClientByCoach(String coachUsername) {
         String sql = "SELECT u.username, u.firstname, u.infix, u.lastname FROM User u JOIN Coach c ON u.username = c.username WHERE c.coach = ?";
         return jdbcTemplate.query(sql, new ClientRowMapper(), coachUsername);
+
+    }
+    public boolean isClientOnCoachList (String client, String coach) {
+        String sql = "SELECT * FROM client c LEFT JOIN user u ON c.username = u.username WHERE c.username = ? AND coach = ?";
+        List<Client> clientList = jdbcTemplate.query(sql, new ClientRowMapper(), client, coach);
+        return !clientList.isEmpty();
     }
 
+    public boolean clientExists (String client) {
+        String sql = "SELECT * FROM client WHERE username = ?";
+        List<Client> clientList = jdbcTemplate.query(sql, new ClientRowMapper(), client);
+        return !clientList.isEmpty();
+    }
     public Double getWeight(String username) {
         String sql = "SELECT weight FROM Client WHERE username = ?";
         return jdbcTemplate.queryForObject(sql, Double.class, username);

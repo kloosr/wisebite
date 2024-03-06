@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import wisebite.wisebite.database.*;
 import wisebite.wisebite.model.Client;
 
+
 import java.util.List;
 
 @Repository
@@ -31,5 +32,12 @@ public class ClientRepository {
     }
     public Double getHeight(String username) {
         return clientDAO.getHeight(username);
+    }
+
+    public boolean isClientOnCoachList (String client, String coach) {
+            return clientDAO.isClientOnCoachList(client, coach);
+    }
+    public boolean clientExists (String client) {
+            return clientDAO.clientExists(client);
     }
 }

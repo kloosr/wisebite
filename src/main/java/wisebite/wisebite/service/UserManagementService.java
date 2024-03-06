@@ -19,6 +19,7 @@ public class UserManagementService {
     private CoachRepository coachRepository;
     Client client;
 
+    private AuthenticationService authenticationService;
     @Autowired
     public UserManagementService(DietitianRepository dietitianRepository, ClientRepository clientRepository) {
         this.dietitianRepository = dietitianRepository;
@@ -43,6 +44,13 @@ public class UserManagementService {
 
     public boolean isClientOnDietitianList(String username) {
         return clientRepository.isClientOnDietitianList(username);
+    }
+
+    public boolean clientIsOnCoachList (String client, String coach) {
+        return clientRepository.isClientOnCoachList(client, coach);
+    }
+    public boolean clientExists (String client) {
+        return clientRepository.clientExists(client);
     }
 
     public double calculateClientBMI(Client client) {
