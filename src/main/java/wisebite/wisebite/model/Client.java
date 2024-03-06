@@ -37,6 +37,7 @@ public class Client extends User{
         return startDate;
     }
 
+
     public double calculateBMI(double weight, int height){
         //TODO
         return 0;
