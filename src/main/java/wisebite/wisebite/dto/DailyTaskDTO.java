@@ -34,6 +34,13 @@ public class DailyTaskDTO {
                 dailyTask.getWorkout(),
                 dailyTask.getDiet());
     }
+
+    public static DailyTask convertFromDTO(DailyTaskDTO dailyTaskDTO) {
+        return new DailyTask(dailyTaskDTO.getDate(),
+                dailyTaskDTO.getDailyGoal(),
+                dailyTaskDTO.getWorkout(),
+                dailyTaskDTO.getDiet());
+    }
     public Date getDate() {
         return date;
     }

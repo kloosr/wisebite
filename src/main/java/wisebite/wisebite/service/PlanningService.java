@@ -41,4 +41,9 @@ public class PlanningService {
     public Plan getPlanByClient (String username) {
         return planRepository.getPlanByClient(username);
     }
+
+    public void storeDailyTask(DailyTask dailyTask){
+        dailyTaskRepository.storeDailyTask(dailyTask);
+    }
+
 }

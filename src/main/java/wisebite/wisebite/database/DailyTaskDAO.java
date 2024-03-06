@@ -4,14 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import wisebite.wisebite.model.Client;
 import wisebite.wisebite.model.DailyTask;
 import wisebite.wisebite.repository.DietRepository;
 import wisebite.wisebite.repository.WorkoutRepository;
 import wisebite.wisebite.repository.WorkoutRepository;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.List;
 @Repository
 public class DailyTaskDAO {
@@ -27,11 +28,15 @@ public class DailyTaskDAO {
         this.dataSource = dataSource;
     }
 
-
-
     public List<DailyTask> getDailyTaskForClient(String clientUsername){
         String sql = "SELECT * FROM DailyTask WHERE client = ?";
         return jdbcTemplate.query(sql, new DailyTaskRowMapper(), clientUsername);
+    }
+
+    public void storeDailyTask(DailyTask dailyTask) {
+        String sql = "INSERT INTO DailyTask (date, daily_goal, client, workout_id, diet_id) VALUES (?, ?, ?, ?, ?);";
+        jdbcTemplate.update(sql, dailyTask.getDate(), dailyTask.getDailyGoal(),
+                dailyTask.getClient(), dailyTask.getWorkout(), dailyTask.getDiet());
     }
 
     private class DailyTaskRowMapper implements RowMapper<DailyTask> {

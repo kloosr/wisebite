@@ -42,5 +42,9 @@ public class DailyTaskRepository {
         }
         return taskList;
     }
+
+    public void storeDailyTask(DailyTask dailyTask){
+        dailyTaskDAO.storeDailyTask(dailyTask);
+    }
 }
 
