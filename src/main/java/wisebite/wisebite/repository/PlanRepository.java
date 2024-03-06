@@ -22,7 +22,7 @@ public class PlanRepository {
     }
     public Plan getPlanByClient (String username) {
         Plan plan = planDAO.getByClient(username);
-        List<DailyTask> taskList = dailyTaskRepository.findByClient(username);
+        List<DailyTask> taskList = dailyTaskRepository.getDailyTaskForClient(username);
         plan.setTaskList(taskList);
         return plan;
     }
