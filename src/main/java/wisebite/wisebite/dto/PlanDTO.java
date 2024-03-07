@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlanDTO {
-    private Client client;
+    private ClientDTO clientDTO;
     private int weightLossGoal;
     private int duration;
     private int goalCompleted;
     private List<DailyTaskDTO> dtoTaskList;
 
-    public PlanDTO(Client client, int weightLossGoal, int duration, int goalCompleted, List<DailyTaskDTO> dtoTaskList) {
-        this.client = client;
+    public PlanDTO(ClientDTO clientDTO, int weightLossGoal, int duration, int goalCompleted, List<DailyTaskDTO> dtoTaskList) {
+        this.clientDTO = clientDTO;
         this.weightLossGoal = weightLossGoal;
         this.duration = duration;
         this.goalCompleted = goalCompleted;
@@ -24,16 +24,17 @@ public class PlanDTO {
 
     public static PlanDTO convertToDTO (Plan plan) {
         List<DailyTaskDTO> dtoList = new ArrayList<>();
+        ClientDTO clientDTO = new ClientDTO(plan.getClient());
         for (DailyTask task : plan.getTaskList()) {
             dtoList.add(new DailyTaskDTO(task));
         }
-        return new PlanDTO(plan.getClient(), plan.getWeightLossGoal(),
+        return new PlanDTO(clientDTO, plan.getWeightLossGoal(),
                 plan.getDuration(), plan.getGoalCompleted(),
                 dtoList);
     }
 
-    public Client getClient() {
-        return client;
+    public ClientDTO getClientDTO() {
+        return clientDTO;
     }
 
     public int getWeightLossGoal() {

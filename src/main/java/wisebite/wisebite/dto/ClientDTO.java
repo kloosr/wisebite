@@ -1,6 +1,7 @@
 package wisebite.wisebite.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import wisebite.wisebite.model.Client;
 
 import java.util.Date;
 
@@ -20,6 +21,14 @@ public class ClientDTO {
         this.weight = weight;
         this.height = height;
         this.startDate = startDate;
+    }
+    public ClientDTO (Client client) {
+        this.firstName = client.getFirstName();
+        this.infix = client.getInfix();
+        this.lastName = client.getLastName();
+        this.weight = client.getWeight();
+        this.height = client.getHeight();
+        this.startDate = client.getStartDate();
     }
     public ClientDTO() {}
     public String getFirstName() {return firstName;}

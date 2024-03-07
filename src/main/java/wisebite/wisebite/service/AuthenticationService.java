@@ -9,6 +9,7 @@ import wisebite.wisebite.database.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wisebite.wisebite.model.User;
+import wisebite.wisebite.model.UserTypeEnum;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -58,7 +59,8 @@ public class AuthenticationService {
 
     public boolean hasAcces (String jwtToken) {
         DecodedJWT decodedJWT = jwtVerifier.verify(jwtToken);
-        if (decodedJWT.getClaim("role").asString().equals("coach")) {
+        String userType = UserTypeEnum.COACH.toString();
+        if (decodedJWT.getClaim("role").asString().equals(userType)) {
             return true;
         } else {
             return false;
