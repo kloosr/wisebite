@@ -35,11 +35,13 @@ public class DietitianDAO {
         String sql = "Insert into dietitian values (?);";
         jdbcTemplate.update(sql, dietitian.getUsername());
     }
-    public boolean dietitianExists (String dietitan) {
+
+    public boolean dietitianExists(String dietitan) {
         String sql = "SELECT * FROM deititian d JOIN user u ON d.username = u.username WHERE d.username = ?";
         List<Dietitian> dietitianList = jdbcTemplate.query(sql, new DietitianRowMapper(), dietitan);
         return !dietitianList.isEmpty();
     }
+
     public void assignCoachToClient(String clientUsername, String coachUsername) {
         String sql = "UPDATE Client SET coach = ? WHERE username = ?";
         jdbcTemplate.update(sql, coachUsername, clientUsername);
@@ -56,4 +58,5 @@ public class DietitianDAO {
                     resultSet.getString("lastname"));
         }
 
+    }
 }

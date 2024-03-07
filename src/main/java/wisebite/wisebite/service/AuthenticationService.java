@@ -74,4 +74,5 @@ public class AuthenticationService {
         DecodedJWT decodedJWT = jwtVerifier.verify(jwtToken);
         return decodedJWT.getClaim("role").asString();
     }
+
 }

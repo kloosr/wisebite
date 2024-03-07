@@ -33,7 +33,7 @@ public class DietitianController {
     }
     @GetMapping("/token")
     public ResponseEntity<String> getToken(@RequestHeader String dietitian) {
-        return ResponseEntity.ok(authenticationService.login(dietitian));
+        return ResponseEntity.ok(authenticationService.getToken(dietitian));
     }
 
     @GetMapping("overview/{username}")
@@ -67,18 +67,6 @@ public class DietitianController {
         }
     }
 
-    @GetMapping("dietitian/overview/client")
-    public ResponseEntity<Client> getClientInformation(@RequestParam("username") String username) {
-        Client client = userManagementService.getSingleClient(username);
-        if (client == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        if (!userManagementService.isClientOnDietitianList(username)) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-        return new ResponseEntity<>(client, HttpStatus.OK);
-    }
-
     @GetMapping("dietitian/overview/coaches")
     public List<Coach> getAllCoaches() {
         return userManagementService.getAllCoaches();
@@ -94,14 +82,5 @@ public class DietitianController {
     }
 }
 
-    @PostMapping("/dietitian/overview/{username}")
-    public ResponseEntity<?> assignCoachToClient(@PathVariable @RequestBody String username, @RequestBody String coach, UriComponentsBuilder ucb) {
-        if (coach == null || coach.isEmpty() || username == null || username.isEmpty()) {
-            return ResponseEntity.badRequest().body("Coach username and client username are required.");
-        } else {
-            return ResponseEntity.ok("Coach assigned to client successfully.");
-        }
-    }
-}
 
 
