@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wisebite.wisebite.dto.PlanDTO;
 import wisebite.wisebite.model.Plan;
+import wisebite.wisebite.model.UserTypeEnum;
 import wisebite.wisebite.service.AuthenticationService;
 import wisebite.wisebite.service.PlanningService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ public class CoachController {
     private final UserManagementService userManagementService;
     private final PlanningService planningService;
     private final AuthenticationService authenticationService;
+    private final UserTypeEnum userTypeEnum = UserTypeEnum.COACH;
 
 
     @Autowired
@@ -31,11 +33,6 @@ public class CoachController {
         this.planningService = planningService;
         this.userManagementService = userManagementService;
         this.authenticationService = authenticationService;
-    }
-
-    @GetMapping("/token")
-    public ResponseEntity<String> getToken(@RequestHeader String coach) {
-        return ResponseEntity.ok(authenticationService.getToken(coach));
     }
 
     // Endpoint om een overzicht van alle cliënten voor de coach op te halen
@@ -63,7 +60,7 @@ public class CoachController {
     }
 
     private boolean hasAccess(String jwtToken) {
-        return authenticationService.hasAcces(jwtToken);
+        return authenticationService.hasAccess(jwtToken, userTypeEnum);
     }
 }
 
