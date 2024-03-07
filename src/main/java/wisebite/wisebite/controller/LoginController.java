@@ -21,13 +21,13 @@ public class LoginController {
     @PostMapping
     public ResponseEntity<?> loginAttempt(@RequestBody UserInfo userInfo) {
         return authenticationService.login(userInfo.getUsername(), userInfo.getPassword());
-    }
+    }/*
     @GetMapping
     public ResponseEntity<?> login (@RequestHeader String username, @RequestHeader String password) {
         if (authenticationService.checkPassword(password, username)) {
-            return ResponseEntity.ok(authenticationService.getToken(username));
+            return ResponseEntity.ok(authenticationService.login(username, password));
         } else {
             return ResponseEntity.notFound().build();
         }
-    }
+    }*/
 }

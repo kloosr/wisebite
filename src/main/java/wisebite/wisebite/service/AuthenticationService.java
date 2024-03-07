@@ -60,7 +60,7 @@ public class AuthenticationService {
             }
         } return response;
     }
-    private String createToken(String username, UserTypeEnum userType) {
+    public String createToken(String username, UserTypeEnum userType) {
         return JWT.create()
                 .withIssuer("wisebite")
                 .withSubject("UserInfo")

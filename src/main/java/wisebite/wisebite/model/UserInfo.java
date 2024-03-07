@@ -68,8 +68,4 @@ public class UserInfo {
     public void setHash(String hash) {
         this.hash = hash;
     }
-
-    public String getHash() {
-        return hash;
-    }
 }

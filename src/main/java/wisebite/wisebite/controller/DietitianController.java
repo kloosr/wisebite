@@ -15,6 +15,7 @@ import wisebite.wisebite.dto.MapperClient;
 import wisebite.wisebite.model.Client;
 import wisebite.wisebite.model.Coach;
 import wisebite.wisebite.model.Plan;
+import wisebite.wisebite.model.UserTypeEnum;
 import wisebite.wisebite.service.AuthenticationService;
 import wisebite.wisebite.service.UserManagementService;
 
@@ -39,7 +40,7 @@ public class DietitianController {
     }
     @GetMapping("/token")
     public ResponseEntity<String> getToken(@RequestHeader String dietitian) {
-        return ResponseEntity.ok(authenticationService.getToken(dietitian));
+        return ResponseEntity.ok(authenticationService.createToken(dietitian, UserTypeEnum.DIETITIAN));
     }
 
     @GetMapping("overview/{username}")
