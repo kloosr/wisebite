@@ -1,6 +1,7 @@
 package wisebite.wisebite.database;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -20,11 +21,13 @@ public class ClientDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public Client getSingleClient(String username) {
-        String sql = "SELECT firstname, infix, lastname, weight, height, start_date FROM User LEFT JOIN Client ON User.username = Client.username WHERE User.username = ?;";
-        List<Client> resultList = (List<Client>) jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Client.class), username);
-        return (Client) resultList;
-    }
+   public Client getSingleClient(String username) {
+       String sql = "SELECT * FROM User LEFT JOIN Client ON User.username = Client.username WHERE User.username = ?;";
+       Client singleClient = jdbcTemplate.queryForObject(sql, new ClientRowMapper(), username);
+       return singleClient;
+   }
+
+
 
     public void storeClient(Client client) {
         jdbcTemplate.update(connection -> buildInsertUserStatement(client, connection));

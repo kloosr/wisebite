@@ -21,6 +21,8 @@ public class User {
         this.userType = UserTypeEnum.valueOf(userType);
     }
 
+    public User() {}
+
     public void planAppointment(){
         //TODO
     }

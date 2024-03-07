@@ -13,8 +13,8 @@ import wisebite.wisebite.service.UserManagementService;
 import java.util.List;
 
 @RestController
-    @RequestMapping("/dietitian")
-    public class DietitianController {
+@RequestMapping("/dietitian")
+public class DietitianController {
     private final UserManagementService userManagementService;
     private MapperClient mapper;
 
@@ -35,11 +35,12 @@ import java.util.List;
         }
     }
     @GetMapping("/overview/client/{username}")
-    public ResponseEntity<ClientDTO> getSingleClient(@PathVariable String username) {
+    public ResponseEntity<?> getSingleClient(@PathVariable String username) {
         Client client = userManagementService.getSingleClient(username);
+
         if (client != null) {
             ClientDTO clientDTO = mapper.toDto(client);
-            return new ResponseEntity<>(clientDTO, HttpStatus.OK);
+         return new ResponseEntity<>(clientDTO, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
