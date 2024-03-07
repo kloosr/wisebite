@@ -7,7 +7,7 @@ public class AdminInfo extends UserInfo {
     }
     @Override
     public Admin convertToUser() {
-        return new Admin(this.getUsername(), this.getPassword(), this.getFirstName(),
+        return new Admin(this.getUsername(), this.getHash(), this.getFirstName(),
                 this.getInfix(), this.getLastName());
     }
 }

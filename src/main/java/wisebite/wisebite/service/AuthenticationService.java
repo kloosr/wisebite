@@ -39,16 +39,17 @@ public class AuthenticationService {
      * @param input The user's input that is checked against the correct password
      * @param hash The hashed password
      */
-    public boolean checkPassword(String input, String hash) {
-        return BCrypt.checkpw(String.format(input + PEPPER), hash);
+    public boolean checkPassword(String input, String username) {
+        return BCrypt.checkpw(String.format(input + PEPPER), userDAO.getPasswordHash(username));
     }
 
-    public String login(String coach) {
+    public String getToken(String username) {
+        User user = userDAO.findByUsername(username).get();
         String jwtToken = JWT.create()
                 .withIssuer("wisebite")
-                .withSubject("wisebitedetails")
-                .withClaim("role", "coach")
-                .withClaim("name", coach)
+                .withSubject("UserInfo")
+                .withClaim("role", user.getUserType().toString())
+                .withClaim("name", user.getUsername())
                 .withIssuedAt(Instant.now())
                 .withExpiresAt(Instant.now().plusSeconds(600))
                 .sign(algorithm);

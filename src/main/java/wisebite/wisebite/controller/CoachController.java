@@ -35,7 +35,7 @@ public class CoachController {
 
     @GetMapping("/token")
     public ResponseEntity<String> getToken(@RequestHeader String coach) {
-        return ResponseEntity.ok(authenticationService.login(coach));
+        return ResponseEntity.ok(authenticationService.getToken(coach));
     }
 
     // Endpoint om een overzicht van alle cliënten voor de coach op te halen
