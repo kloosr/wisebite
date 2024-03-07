@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import wisebite.wisebite.model.Client;
 import wisebite.wisebite.model.Dietitian;
 
 import java.sql.ResultSet;
@@ -35,6 +36,12 @@ public class DietitianDAO {
         jdbcTemplate.update(sql, dietitian.getUsername());
     }
 
+    public boolean dietitianExists(String dietitan) {
+        String sql = "SELECT * FROM deititian d JOIN user u ON d.username = u.username WHERE d.username = ?";
+        List<Dietitian> dietitianList = jdbcTemplate.query(sql, new DietitianRowMapper(), dietitan);
+        return !dietitianList.isEmpty();
+    }
+
     public void assignCoachToClient(String clientUsername, String coachUsername) {
         String sql = "UPDATE Client SET coach = ? WHERE username = ?";
         jdbcTemplate.update(sql, coachUsername, clientUsername);
@@ -49,27 +56,6 @@ public class DietitianDAO {
                     resultSet.getString("firstname"),
                     resultSet.getString("infix"),
                     resultSet.getString("lastname"));
-        }
-
-        public void updateDietitian() {
-            //TODO
-        }
-
-        public void deleteDietitian() {
-            //TODO
-        }
-
-
-        public void getAllDietitians() {
-            //TODO
-        }
-
-        public void createDiet() {
-            //TODO
-        }
-
-        public void createReceipe() {
-            //TODO
         }
 
     }

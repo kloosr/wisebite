@@ -6,7 +6,12 @@ public class MapperClient {
 
     public ClientDTO toDto(Client client) {
         String firstName = client.getFirstName();
-        String infix = client.getInfix();
+        String infix;
+        if (client.getInfix() == null){
+            infix = " ";
+        } else {
+            infix = client.getInfix();
+        }
         String lastName = client.getLastName();
         double weight = client.getWeight();
         int height = client.getHeight();
