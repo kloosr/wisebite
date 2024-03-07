@@ -9,6 +9,7 @@ import wisebite.wisebite.database.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wisebite.wisebite.model.User;
+import wisebite.wisebite.model.UserTypeEnum;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -17,6 +18,7 @@ import java.util.Optional;
 public class AuthenticationService {
     private final String PEPPER = "6391d7b2b6b66fad6c9a0a09e42269eb";
     private final UserDAO userDAO;
+    private final int ONEDAY = 86400;
     Algorithm algorithm = Algorithm.HMAC256("wisebite");
     JWTVerifier jwtVerifier = JWT.require(algorithm).withIssuer("wisebite").build();
     @Autowired
@@ -49,16 +51,17 @@ public class AuthenticationService {
                 .withIssuer("wisebite")
                 .withSubject("UserInfo")
                 .withClaim("role", user.getUserType().toString())
-                .withClaim("name", user.getUsername())
+                .withClaim("username", user.getUsername())
                 .withIssuedAt(Instant.now())
-                .withExpiresAt(Instant.now().plusSeconds(600))
+                .withExpiresAt(Instant.now().plusSeconds(ONEDAY))
                 .sign(algorithm);
         return jwtToken;
     }
 
-    public boolean hasAcces (String jwtToken) {
+    public boolean hasAccess (String jwtToken, UserTypeEnum userTypeEnum) {
         DecodedJWT decodedJWT = jwtVerifier.verify(jwtToken);
-        if (decodedJWT.getClaim("role").asString().equals("coach")) {
+        String userType = userTypeEnum.toString();
+        if (decodedJWT.getClaim("role").asString().equals(userType)) {
             return true;
         } else {
             return false;
@@ -67,7 +70,7 @@ public class AuthenticationService {
 
     public String getUsername (String jwtToken) {
         DecodedJWT decodedJWT = jwtVerifier.verify(jwtToken);
-        return decodedJWT.getClaim("name").asString();
+        return decodedJWT.getClaim("username").asString();
     }
 
     public String getRole (String jwtToken) {
