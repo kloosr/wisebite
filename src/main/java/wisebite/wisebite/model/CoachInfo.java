@@ -7,7 +7,7 @@ public class CoachInfo extends UserInfo {
     }
     @Override
     public Coach convertToUser() {
-        return new Coach(this.getUsername(), this.getPassword(), this.getFirstName(),
+        return new Coach(this.getUsername(), this.getHash(), this.getFirstName(),
                 this.getInfix(), this.getLastName());
     }
 }

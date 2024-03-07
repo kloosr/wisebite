@@ -54,6 +54,10 @@ public class UserInfo {
         return lastName;
     }
 
+    public String getHash() {
+        return hash;
+    }
+
     public UserTypeEnum getUserType() {
         return userType;
     }
