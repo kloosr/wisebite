@@ -36,7 +36,7 @@ public class DailyTaskRepository {
     public List<DailyTask> getDailyTaskForClient (String username) {
         List<DailyTask> taskList = dailyTaskDAO.getDailyTaskForClient(username);
         for (DailyTask task : taskList) {
-            task.setClient(clientDAO.getSingleClient(username));
+           // task.setClient(clientDAO.getSingleClient(username));
             task.setWorkout(workoutRepository.createWorkoutByDateUsername(task.getDate(), username));
             task.setDiet(dietRepository.createDietByDateUsername(task.getDate(), username));
         }
