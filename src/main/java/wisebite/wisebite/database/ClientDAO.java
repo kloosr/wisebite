@@ -66,7 +66,7 @@ public class ClientDAO {
     }
 
     public boolean clientExists (String client) {
-        String sql = "SELECT * FROM client WHERE username = ?";
+        String sql = "SELECT * FROM client c JOIN user u ON c.username = u.username WHERE c.username = ?";
         List<Client> clientList = jdbcTemplate.query(sql, new ClientRowMapper(), client);
         return !clientList.isEmpty();
     }
