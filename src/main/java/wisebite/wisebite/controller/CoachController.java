@@ -60,7 +60,7 @@ public class CoachController {
     }
 
     private boolean hasAccess(String jwtToken) {
-        return authenticationService.hasAcces(jwtToken);
+        return authenticationService.hasAccess(jwtToken, UserTypeEnum.COACH);
     }
 }
 

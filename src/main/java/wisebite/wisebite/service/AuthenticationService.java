@@ -69,13 +69,9 @@ public class AuthenticationService {
                 .sign(algorithm);
     }
 
-    public boolean hasAcces (String jwtToken) {
+    public boolean hasAccess (String jwtToken, UserTypeEnum userType) {
         DecodedJWT decodedJWT = jwtVerifier.verify(jwtToken);
-        if (decodedJWT.getClaim("role").asString().equals("coach")) {
-            return true;
-        } else {
-            return false;
-        }
+        return decodedJWT.getClaim("role").asString().equals(userType.toString());
     }
 
     public String getUsername (String jwtToken) {
