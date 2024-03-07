@@ -44,7 +44,7 @@ import java.util.List;
         return userManagementService.getAllCoaches();
     }
 
-    @PostMapping("/dietitian/overview/{username}")
+     @PostMapping("/dietitian/overview/{username}")
     public ResponseEntity<?> assignCoachToClient(@PathVariable @RequestBody String username, @RequestBody String coach, UriComponentsBuilder ucb) {
         if (coach == null || coach.isEmpty() || username == null || username.isEmpty()) {
             return ResponseEntity.badRequest().body("Coach username and client username are required.");
