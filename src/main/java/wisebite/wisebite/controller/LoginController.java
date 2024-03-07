@@ -1,5 +1,6 @@
 package wisebite.wisebite.controller;
 
+import org.springframework.http.ResponseEntity;
 import wisebite.wisebite.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,5 +14,10 @@ public class LoginController {
     private final AuthenticationService authenticationService;
     @Autowired
     public LoginController(AuthenticationService authenticationService) {this.authenticationService = authenticationService;}
+
+    @PostMapping
+    public ResponseEntity<?> loginAttempt(@RequestBody String username, String password) {
+        return authenticationService.login(username, password);
+    }
 
 }

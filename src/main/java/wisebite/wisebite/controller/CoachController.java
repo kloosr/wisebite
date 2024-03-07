@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wisebite.wisebite.dto.PlanDTO;
+import wisebite.wisebite.model.Coach;
 import wisebite.wisebite.model.Plan;
+import wisebite.wisebite.model.UserTypeEnum;
 import wisebite.wisebite.service.AuthenticationService;
 import wisebite.wisebite.service.PlanningService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,11 +33,6 @@ public class CoachController {
         this.planningService = planningService;
         this.userManagementService = userManagementService;
         this.authenticationService = authenticationService;
-    }
-
-    @GetMapping("/token")
-    public ResponseEntity<String> getToken(@RequestHeader String coach) {
-        return ResponseEntity.ok(authenticationService.login(coach));
     }
 
     // Endpoint om een overzicht van alle cliënten voor de coach op te halen

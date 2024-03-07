@@ -2,13 +2,14 @@ package wisebite.wisebite.service;
 
 import org.junit.jupiter.api.Test;
 import wisebite.wisebite.database.UserDAO;
+import wisebite.wisebite.repository.AdminRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 public class AuthenticationServiceUnitTest {
-    UserDAO userDAO =  mock(UserDAO.class );
-    private final AuthenticationService authenticationService = new AuthenticationService(userDAO);
+    AdminRepository adminRepository =  mock(AdminRepository.class );
+    private final AuthenticationService authenticationService = new AuthenticationService(adminRepository);
 
     @Test
     public void hashAndTestString() {
