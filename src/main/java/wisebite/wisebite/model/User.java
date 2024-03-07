@@ -1,14 +1,12 @@
 package wisebite.wisebite.model;
 
-import java.time.LocalDate;
-import java.util.Date;
-
 public class User {
     public String username;
     private String password;
     private String firstName;
     private String infix;
     private String lastName;
+
     private UserTypeEnum userType;
 
     public User(String username, String password, String firstName, String infix, String lastName){
@@ -17,6 +15,10 @@ public class User {
         this.firstName = firstName;
         this.infix = infix;
         this.lastName = lastName;
+    }
+    public User(String username, String password, String firstname, String infix, String lastName, String userType) {
+        this(username, password, firstname, infix, lastName);
+        this.userType = UserTypeEnum.valueOf(userType);
     }
 
     public User() {}

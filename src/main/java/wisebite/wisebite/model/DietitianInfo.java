@@ -7,7 +7,7 @@ public class DietitianInfo extends UserInfo {
     }
     @Override
     public Dietitian convertToUser() {
-        return new Dietitian(this.getUsername(), this.getPassword(), this.getFirstName(),
+        return new Dietitian(this.getUsername(), this.getHash(), this.getFirstName(),
                 this.getInfix(), this.getLastName());
     }
 }
