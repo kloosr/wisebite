@@ -40,8 +40,7 @@ public class DietitianController {
 
         if (client != null) {
             ClientDTO clientDTO = mapper.toDto(client);
-            return ResponseEntity.ok( clientDTO);
-//            return new ResponseEntity<>(clientDTO, HttpStatus.OK);
+         return new ResponseEntity<>(clientDTO, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
