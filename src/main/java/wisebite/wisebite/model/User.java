@@ -15,6 +15,14 @@ public class User {
         this.infix = infix;
         this.lastName = lastName;
     }
+    public User(String username, String password, String firstName, String infix, String lastName, String userType){
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.infix = infix;
+        this.lastName = lastName;
+        this.userType = UserTypeEnum.valueOf(userType);
+    }
 
     public void planAppointment(){
         //TODO

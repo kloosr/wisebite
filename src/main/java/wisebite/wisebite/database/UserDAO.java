@@ -41,12 +41,13 @@ public class UserDAO {
     private PreparedStatement buildInsertUserStatement(
             User user, Connection connection) throws SQLException {
         PreparedStatement ps = connection.prepareStatement(
-                "Insert into user(username, password, firstname, infix, lastname) values (?,?,?,?,?)");
+                "Insert into user(username, password, firstname, infix, lastname, usertype) values (?,?,?,?,?,?)");
         ps.setString(1, user.getUsername());
         ps.setString(2, user.getPassword());
         ps.setString(3, user.getFirstName());
         ps.setString(4, user.getInfix());
         ps.setString(5, user.getLastName());
+        ps.setString(6,user.getUserType().toString());
         return ps;
     }
     private static class UserRowMapper implements RowMapper<User> {
@@ -56,7 +57,8 @@ public class UserDAO {
                     resultSet.getString("password"),
                     resultSet.getString("firstname"),
                     resultSet.getString("infix"),
-                    resultSet.getString("lastname"));
+                    resultSet.getString("lastname"),
+                    resultSet.getString("usertype"));
         }
     }
 
