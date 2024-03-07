@@ -3,7 +3,6 @@ package wisebite.wisebite.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 public class Client extends User{
     private double weight;
