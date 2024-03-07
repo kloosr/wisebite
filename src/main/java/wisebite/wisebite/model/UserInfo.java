@@ -33,7 +33,7 @@ public class UserInfo {
     }
 
     public User convertToUser() {
-        return new User(this.username, this.hash, this.firstName, this.infix, this.lastName);
+        return new User(this.username, this.getHash(), this.firstName, this.infix, this.lastName);
     }
 
     public String getUsername() {
@@ -67,5 +67,9 @@ public class UserInfo {
 
     public void setHash(String hash) {
         this.hash = hash;
+    }
+
+    public String getHash() {
+        return hash;
     }
 }

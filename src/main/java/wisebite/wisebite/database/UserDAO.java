@@ -38,6 +38,16 @@ public class UserDAO {
         String sql = "DELETE FROM User WHERE username = ?;";
         jdbcTemplate.update(sql, username);
     }
+
+    public String getPasswordHash(String username) {
+        String sql = "SELECT * FROM user WHERE username = ?";
+        List<User> userList = jdbcTemplate.query(sql, new UserRowMapper(), username);
+        if (!userList.isEmpty()) {
+            return userList.get(0).getPassword();
+        } else {
+            return null;
+        }
+    }
     private PreparedStatement buildInsertUserStatement(
             User user, Connection connection) throws SQLException {
         PreparedStatement ps = connection.prepareStatement(
@@ -47,7 +57,7 @@ public class UserDAO {
         ps.setString(3, user.getFirstName());
         ps.setString(4, user.getInfix());
         ps.setString(5, user.getLastName());
-        ps.setString(6,user.getUserType().toString());
+        ps.setString(6, user.getUserType().toString());
         return ps;
     }
     private static class UserRowMapper implements RowMapper<User> {

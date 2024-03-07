@@ -8,7 +8,7 @@ public class Client extends User{
     private double weight;
     private int height;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private final Date startDate;
+    private Date startDate;
     public Client (String username, String password, String firstName, String infix, String lastName, double weight, int height, Date startDate){
         super(username, password, firstName, infix, lastName);
         this.weight = weight;
@@ -23,7 +23,7 @@ public class Client extends User{
         this.startDate = startDate;
         this.setUserType(UserTypeEnum.CLIENT);
     }
-
+    public Client(){super();};
     public double getWeight() {
         return weight;
     }

@@ -22,10 +22,8 @@ public class ClientRepository {
         return clientDAO.findClientByCoach(username);
     }
 
-
-
-    public boolean isClientOnDietitianList(String username) {
-        return clientDAO.isClientOnDietitianList(username);
+    public boolean isClientOnDietitianList(String clientUsername, String dietitianUsername) {
+        return clientDAO.isClientOnDietitianList(clientUsername, dietitianUsername);
     }
     public Double getWeight(String username) {
         return clientDAO.getWeight(username);

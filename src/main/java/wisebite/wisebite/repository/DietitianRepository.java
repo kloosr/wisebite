@@ -23,9 +23,11 @@ public class DietitianRepository {
     public List<Client> findAllClientsByDietitian(String dietitianUsername) {
         return clientDAO.getAllClientsOfDietitian(dietitianUsername);
     }
-
     public Client getSingleClient(String username) {
         return clientDAO.getSingleClient(username);
+    }
+    public boolean dietitanExists (String dietitan) {
+        return dietitianDAO.dietitianExists(dietitan);
     }
 
 }

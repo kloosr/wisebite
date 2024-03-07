@@ -26,6 +26,7 @@ public class CoachController {
     private final UserManagementService userManagementService;
     private final PlanningService planningService;
     private final AuthenticationService authenticationService;
+    private final UserTypeEnum userTypeEnum = UserTypeEnum.COACH;
 
 
     @Autowired
@@ -44,7 +45,7 @@ public class CoachController {
 
     @GetMapping("/overview/{username}")
     private ResponseEntity<?> getPlanByClient(@PathVariable String username, @RequestHeader String jwtToken) {
-        if (userManagementService.clientExists(username)) {
+        if (!userManagementService.clientExists(username)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(HttpStatus.NOT_FOUND + " The page you are looking for can not be found");
         } else if (!userManagementService.clientIsOnCoachList(username, authenticationService.getUsername(jwtToken)) || !hasAccess(jwtToken)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(HttpStatus.FORBIDDEN + " You don't have access to see this patient");
@@ -60,7 +61,7 @@ public class CoachController {
     }
 
     private boolean hasAccess(String jwtToken) {
-        return authenticationService.hasAccess(jwtToken, UserTypeEnum.COACH);
+        return authenticationService.hasAccess(jwtToken, userTypeEnum);
     }
 }
 

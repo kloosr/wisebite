@@ -6,6 +6,7 @@ public class User {
     private String firstName;
     private String infix;
     private String lastName;
+
     private UserTypeEnum userType;
 
     public User(String username, String password, String firstName, String infix, String lastName){
@@ -15,14 +16,12 @@ public class User {
         this.infix = infix;
         this.lastName = lastName;
     }
-    public User(String username, String password, String firstName, String infix, String lastName, String userType){
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-        this.infix = infix;
-        this.lastName = lastName;
+    public User(String username, String password, String firstname, String infix, String lastName, String userType) {
+        this(username, password, firstname, infix, lastName);
         this.userType = UserTypeEnum.valueOf(userType);
     }
+
+    public User() {}
 
     public void planAppointment(){
         //TODO

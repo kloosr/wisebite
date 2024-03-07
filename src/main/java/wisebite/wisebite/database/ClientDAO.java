@@ -1,6 +1,7 @@
 package wisebite.wisebite.database;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -20,11 +21,13 @@ public class ClientDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public Client getSingleClient(String username) {
-        String sql = "SELECT firstname, infix, lastname, weight, height, start_date FROM User LEFT JOIN Client ON User.username = Client.username WHERE User.username = ?;";
-        List<Client> resultList = (List<Client>) jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Client.class), username);
-        return (Client) resultList;
-    }
+   public Client getSingleClient(String username) {
+       String sql = "SELECT * FROM User LEFT JOIN Client ON User.username = Client.username WHERE User.username = ?;";
+       Client singleClient = jdbcTemplate.queryForObject(sql, new ClientRowMapper(), username);
+       return singleClient;
+   }
+
+
 
     public void storeClient(Client client) {
         jdbcTemplate.update(connection -> buildInsertUserStatement(client, connection));
@@ -41,18 +44,15 @@ public class ClientDAO {
     }
 
     public List<Client> getAllClientsOfDietitian(String dietitianUsername) {
-        String sql = "SELECT u.username, u.password, u.firstname, u.infix, u.lastname, c.weight, c.height, c.start_date FROM User u JOIN Client c ON u.username = c.username WHERE c.dietitian = ?";
-        return jdbcTemplate.query(sql, new ClientRowMapper(), dietitianUsername);
+        String sql = "SELECT * FROM User u JOIN Client c ON u.username = c.username WHERE c.dietitian = ?";
+        List<Client> allClients = jdbcTemplate.query(sql, new ClientRowMapper(), dietitianUsername);
+        return allClients;
     }
 
-    public boolean isClientOnDietitianList(String username) {
-        String sql = "SELECT COUNT(*) " +
-                "FROM Client c " +
-                "INNER JOIN User u ON c.username = u.username " +
-                "JOIN Dietitian d ON c.dietitian = d.username " +
-                "WHERE c.username = ? AND d.username = ?";
-        int count = jdbcTemplate.queryForObject(sql, Integer.class, username);
-        return count > 0;
+    public boolean isClientOnDietitianList(String client, String dietitian) {
+        String sql = "SELECT * FROM Client c LEFT JOIN User u ON c.username JOIN Dietitian d ON c.dietitian = d.username WHERE c.username = ? AND d.username = ?";
+        List<Client> clientList = jdbcTemplate.query(sql, new ClientRowMapper(), client, dietitian);
+        return !clientList.isEmpty();
     }
     public List<Client> findClientByCoach(String coachUsername) {
         String sql = "SELECT u.username, u.firstname, u.infix, u.lastname FROM User u JOIN Coach c ON u.username = c.username WHERE c.coach = ?";
@@ -66,7 +66,7 @@ public class ClientDAO {
     }
 
     public boolean clientExists (String client) {
-        String sql = "SELECT * FROM client WHERE username = ?";
+        String sql = "SELECT * FROM client c JOIN user u ON c.username = u.username WHERE c.username = ?";
         List<Client> clientList = jdbcTemplate.query(sql, new ClientRowMapper(), client);
         return !clientList.isEmpty();
     }

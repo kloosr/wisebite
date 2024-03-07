@@ -13,7 +13,7 @@ public class Plan {
         this.weightLossGoal = weightLossGoal;
         this.goalCompleted = goalCompleted;
         this.duration = duration;
-        this.client = client;
+        this.setClient(client);
         this.setTaskList(taskList);
     }
 
@@ -54,5 +54,9 @@ public class Plan {
 
     public void setTaskList(List<DailyTask> taskList) {
         this.taskList = taskList;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

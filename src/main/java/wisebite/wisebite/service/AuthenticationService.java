@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import wisebite.wisebite.model.User;
 import wisebite.wisebite.model.UserTypeEnum;
 import wisebite.wisebite.repository.AdminRepository;
+import wisebite.wisebite.model.UserTypeEnum;
 
 import java.time.Instant;
 import java.time.temporal.Temporal;
@@ -24,6 +25,7 @@ public class AuthenticationService {
     private final String PEPPER = "6391d7b2b6b66fad6c9a0a09e42269eb";
     private final AdminRepository adminRepository;
     private final String LOGIN_FAIL = "Incorrect username and/or password.";
+    private final int ONEDAY = 86400;
     Algorithm algorithm = Algorithm.HMAC256("wisebite");
     JWTVerifier jwtVerifier = JWT.require(algorithm).withIssuer("wisebite").build();
     @Autowired
@@ -61,11 +63,11 @@ public class AuthenticationService {
     private String createToken(String username, UserTypeEnum userType) {
         return JWT.create()
                 .withIssuer("wisebite")
-                .withSubject("wisebitedetails")
+                .withSubject("UserInfo")
                 .withClaim("role", userType.toString())
                 .withClaim("username", username)
                 .withIssuedAt(Instant.now())
-                .withExpiresAt(Instant.now().plusSeconds(600))
+                .withExpiresAt(Instant.now().plusSeconds(ONEDAY))
                 .sign(algorithm);
     }
 
