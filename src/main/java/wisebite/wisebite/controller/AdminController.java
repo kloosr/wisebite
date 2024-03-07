@@ -1,11 +1,16 @@
 package wisebite.wisebite.controller;
 
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import wisebite.wisebite.model.*;
 import wisebite.wisebite.service.AdminService;
+import wisebite.wisebite.service.AuthenticationService;
+
 import javax.validation.Valid;
 
 
@@ -14,10 +19,12 @@ import javax.validation.Valid;
 public class AdminController {
 
     private final AdminService adminService;
+    private final AuthenticationService authenticationService;
 
     @Autowired
-    public AdminController(AdminService adminService) {
+    public AdminController(AdminService adminService, AuthenticationService authenticationService) {
         this.adminService = adminService;
+        this.authenticationService = authenticationService;
     }
 
     /**
@@ -27,9 +34,14 @@ public class AdminController {
      * @return
      */
     @PostMapping("/new/client")
-    private ResponseEntity<String> registerClient(@Valid @RequestBody ClientInfo clientInfo, UriComponentsBuilder ucb) {
-        String username = adminService.registerUser(clientInfo);
-        return ResponseEntity.created(ucb.path("/user/{username}").buildAndExpand(username).toUri()).body("User added.");
+    private ResponseEntity<String> registerClient(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwtToken
+            , @Valid @RequestBody ClientInfo clientInfo, UriComponentsBuilder ucb) {
+        if (hasAdminAccess(jwtToken)) {
+            String username = adminService.registerUser(clientInfo);
+            return createPositiveResponse(username, ucb);
+        } else {
+            return createNegativeResponse();
+        }
     }
     /**
      * Endpoint that allows the registration of new dietitians
@@ -38,9 +50,14 @@ public class AdminController {
      * @return
      */
     @PostMapping("/new/dietitian")
-    private ResponseEntity<String> registerDietitian(@Valid @RequestBody DietitianInfo dietitianInfo, UriComponentsBuilder ucb) {
-        String username = adminService.registerUser(dietitianInfo);
-        return ResponseEntity.created(ucb.path("/user/{username}").buildAndExpand(username).toUri()).body("User added.");
+    private ResponseEntity<String> registerDietitian(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwtToken
+            , @Valid @RequestBody DietitianInfo dietitianInfo, UriComponentsBuilder ucb) {
+        if (hasAdminAccess(jwtToken)) {
+            String username = adminService.registerUser(dietitianInfo);
+            return createPositiveResponse(username, ucb);
+        } else {
+            return createNegativeResponse();
+        }
     }
     /**
      * Endpoint that allows the registration of new coachces
@@ -49,9 +66,14 @@ public class AdminController {
      * @return
      */
     @PostMapping("/new/coach")
-    private ResponseEntity<String> registerCoach(@Valid @RequestBody CoachInfo coachInfo, UriComponentsBuilder ucb) {
-        String username = adminService.registerUser(coachInfo);
-        return ResponseEntity.created(ucb.path("/user/{username}").buildAndExpand(username).toUri()).body("User added.");
+    private ResponseEntity<String> registerCoach(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwtToken
+            , @Valid @RequestBody CoachInfo coachInfo, UriComponentsBuilder ucb) {
+        if (hasAdminAccess(jwtToken)) {
+            String username = adminService.registerUser(coachInfo);
+            return createPositiveResponse(username, ucb);
+        } else {
+            return createNegativeResponse();
+        }
     }
     /**
      * Endpoint that allows the registration of new admins
@@ -60,9 +82,14 @@ public class AdminController {
      * @return
      */
     @PostMapping("/new/admin")
-    public ResponseEntity<String> registerUser(@Valid @RequestBody AdminInfo adminInfo, UriComponentsBuilder ucb) {
-        String username = adminService.registerUser(adminInfo);
-        return ResponseEntity.created(ucb.path("/user/{username}").buildAndExpand(username).toUri()).body("User added.");
+    public ResponseEntity<String> registerUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwtToken
+            , @Valid @RequestBody AdminInfo adminInfo, UriComponentsBuilder ucb) {
+        if (hasAdminAccess(jwtToken)) {
+            String username = adminService.registerUser(adminInfo);
+            return createPositiveResponse(username, ucb);
+        } else {
+            return createNegativeResponse();
+        }
     }
 
     /**
@@ -71,7 +98,21 @@ public class AdminController {
      * @return
      */
     @PostMapping("/delete")
-    public ResponseEntity<String> deleteUser(@RequestBody UserInfo userInfo) {
-        return adminService.deleteUser(userInfo);
+    public ResponseEntity<String> deleteUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwtToken
+            , @RequestBody UserInfo userInfo) {
+        if (hasAdminAccess(jwtToken)) {
+            return adminService.deleteUser(userInfo);
+        } else {
+            return createNegativeResponse();
+        }
+    }
+    private boolean hasAdminAccess(String jwtToken) {
+        return authenticationService.hasAccess(jwtToken, UserTypeEnum.ADMIN);
+    }
+    private ResponseEntity<String> createPositiveResponse(String username, UriComponentsBuilder ucb) {
+        return ResponseEntity.created(ucb.path("/user/{username}").buildAndExpand(username).toUri()).body("User added.");
+    }
+    private ResponseEntity<String> createNegativeResponse() {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You do not have permission to do this.");
     }
 }
