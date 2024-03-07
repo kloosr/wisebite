@@ -42,8 +42,8 @@ public class UserManagementService {
         return dietitianRepository.getSingleClient(username);
     }
 
-    public boolean isClientOnDietitianList(String username) {
-        return clientRepository.isClientOnDietitianList(username);
+    public boolean isClientOnDietitianList(String clientUsername, String dietitianUsername) {
+        return clientRepository.isClientOnDietitianList(clientUsername, dietitianUsername);
     }
 
     public boolean clientIsOnCoachList (String client, String coach) {
@@ -52,6 +52,7 @@ public class UserManagementService {
     public boolean clientExists (String client) {
         return clientRepository.clientExists(client);
     }
+    private boolean dietitianExists (String dietitian) { return dietitianRepository.dietitanExists(dietitian);}
 
     public double calculateClientBMI(Client client) {
         double weight = clientRepository.getWeight(client.getUsername());

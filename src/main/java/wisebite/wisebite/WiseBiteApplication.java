@@ -11,5 +11,4 @@ public class WiseBiteApplication {
     public static void main(String[] args) {
         SpringApplication.run(WiseBiteApplication.class, args);
     }
-
 }

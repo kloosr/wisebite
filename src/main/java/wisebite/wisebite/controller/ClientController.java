@@ -35,8 +35,8 @@ public class ClientController {
         }
     }
     @GetMapping("/clients/{username}/dietitian-list")
-    public boolean isClientOnDietitianList(@PathVariable String username) {
-        return userManagementService.isClientOnDietitianList(username);
+    public boolean isClientOnDietitianList(@PathVariable String clientUsername, @PathVariable String dietitianUsername) {
+        return userManagementService.isClientOnDietitianList(clientUsername, dietitianUsername);
     }
     @GetMapping("/{username}/bmi")
     public double getClientBMI(@PathVariable String username) {
