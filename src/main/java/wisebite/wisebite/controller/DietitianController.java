@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 import wisebite.wisebite.dto.ClientDTO;
 import wisebite.wisebite.dto.MapperClient;
 import wisebite.wisebite.model.Client;
@@ -34,6 +35,7 @@ public class DietitianController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @GetMapping("/overview/client/{username}")
     public ResponseEntity<?> getSingleClient(@PathVariable String username) {
         Client client = userManagementService.getSingleClient(username);
@@ -57,16 +59,26 @@ public class DietitianController {
         }
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
+
     @GetMapping("dietitian/overview/coaches")
     public List<Coach> getAllCoaches() {
         return userManagementService.getAllCoaches();
     }
+
     @GetMapping("/sorted-by-bmi")
     public ResponseEntity<List<Client>> getClientsSortedByBmiAndDietitian(String dietitianUsername) {
         List<Client> clients = userManagementService.getAllClientsOfDietitian(dietitianUsername);
         return (ResponseEntity<List<Client>>) userManagementService.sortClientsByBMI(clients);
     }
-}
 
+    @PostMapping("/dietitian/overview/{username}")
+    public ResponseEntity<?> assignCoachToClient(@PathVariable @RequestBody String username, @RequestBody String coach, UriComponentsBuilder ucb) {
+        if (coach == null || coach.isEmpty() || username == null || username.isEmpty()) {
+            return ResponseEntity.badRequest().body("Coach username and client username are required.");
+        } else {
+            return ResponseEntity.ok("Coach assigned to client successfully.");
+        }
+    }
+}
 
 
