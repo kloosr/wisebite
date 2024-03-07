@@ -63,7 +63,7 @@ public class AuthenticationService {
                 .withIssuer("wisebite")
                 .withSubject("wisebitedetails")
                 .withClaim("role", userType.toString())
-                .withClaim("name", username)
+                .withClaim("username", username)
                 .withIssuedAt(Instant.now())
                 .withExpiresAt(Instant.now().plusSeconds(600))
                 .sign(algorithm);
@@ -76,7 +76,7 @@ public class AuthenticationService {
 
     public String getUsername (String jwtToken) {
         DecodedJWT decodedJWT = jwtVerifier.verify(jwtToken);
-        return decodedJWT.getClaim("name").asString();
+        return decodedJWT.getClaim("username").asString();
     }
 
     public String getRole (String jwtToken) {

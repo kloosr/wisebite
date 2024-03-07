@@ -36,7 +36,8 @@ public class AdminController {
     @PostMapping("/new/client")
     private ResponseEntity<String> registerClient(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwtToken
             , @Valid @RequestBody ClientInfo clientInfo, UriComponentsBuilder ucb) {
-        if (hasAdminAccess(jwtToken)) {
+        String token = createUsableToken(jwtToken);
+        if (hasAdminAccess(token)) {
             String username = adminService.registerUser(clientInfo);
             return createPositiveResponse(username, ucb);
         } else {
@@ -52,7 +53,8 @@ public class AdminController {
     @PostMapping("/new/dietitian")
     private ResponseEntity<String> registerDietitian(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwtToken
             , @Valid @RequestBody DietitianInfo dietitianInfo, UriComponentsBuilder ucb) {
-        if (hasAdminAccess(jwtToken)) {
+        String token = createUsableToken(jwtToken);
+        if (hasAdminAccess(token)) {
             String username = adminService.registerUser(dietitianInfo);
             return createPositiveResponse(username, ucb);
         } else {
@@ -68,7 +70,8 @@ public class AdminController {
     @PostMapping("/new/coach")
     private ResponseEntity<String> registerCoach(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwtToken
             , @Valid @RequestBody CoachInfo coachInfo, UriComponentsBuilder ucb) {
-        if (hasAdminAccess(jwtToken)) {
+        String token = createUsableToken(jwtToken);
+        if (hasAdminAccess(token)) {
             String username = adminService.registerUser(coachInfo);
             return createPositiveResponse(username, ucb);
         } else {
@@ -84,7 +87,8 @@ public class AdminController {
     @PostMapping("/new/admin")
     public ResponseEntity<String> registerUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwtToken
             , @Valid @RequestBody AdminInfo adminInfo, UriComponentsBuilder ucb) {
-        if (hasAdminAccess(jwtToken)) {
+        String token = createUsableToken(jwtToken);
+        if (hasAdminAccess(token)) {
             String username = adminService.registerUser(adminInfo);
             return createPositiveResponse(username, ucb);
         } else {
@@ -100,7 +104,8 @@ public class AdminController {
     @PostMapping("/delete")
     public ResponseEntity<String> deleteUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwtToken
             , @RequestBody UserInfo userInfo) {
-        if (hasAdminAccess(jwtToken)) {
+        String token = createUsableToken(jwtToken);
+        if (hasAdminAccess(token)) {
             return adminService.deleteUser(userInfo);
         } else {
             return createNegativeResponse();
@@ -114,5 +119,8 @@ public class AdminController {
     }
     private ResponseEntity<String> createNegativeResponse() {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You do not have permission to do this.");
+    }
+    private String createUsableToken(String jwtToken) {
+        return jwtToken.substring(7);
     }
 }
