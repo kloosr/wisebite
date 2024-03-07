@@ -24,6 +24,7 @@ public class Client extends User{
         this.startDate = startDate;
         this.setUserType(UserTypeEnum.CLIENT);
     }
+    public Client(){super();};
 
     public double getWeight() {
         return weight;
